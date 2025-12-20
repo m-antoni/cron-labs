@@ -1,6 +1,6 @@
 /* @import "tailwindcss"; */
 
-/* Random Styles */
+/** Random Styles */
 .fs-11 {
   font-size: 11px;
   font-weight: 600;
@@ -11,19 +11,14 @@
   font-weight: 500;
 }
 
-/* .modal-top {
-  margin-top: -10rem !important;
-} */
-
 .c-textarea {
   border: 1px solid #2b3553 !important;
   resize: vertical !important;
   border-radius: 5px !important;
 }
+/** End Random Styles */
 
-/* End Random Styles */
-
-/* Main Icon React Spinner*/
+/** Main Icon React Spinner*/
 .spin-clockwise {
   animation: spin 2s linear infinite;
 }
@@ -36,9 +31,9 @@
     transform: rotate(360deg);
   }
 }
-/* End Main Icon React Spinner*/
+/** End Main Icon React Spinner*/
 
-/* custom dropdown */
+/** Custom dropdown */
 .right-dropdown .dropdown-menu:before {
   left: auto; /* reset left */
   right: 1rem; /* adjust distance from right edge */
@@ -54,4 +49,4 @@
   right: 1rem; /* adjust distance from right edge */
 }
 
-/* end custom dropdown */
+/** end custom dropdown */

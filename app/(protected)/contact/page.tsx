@@ -15,8 +15,8 @@ export default function Contact() {
               <div className="block block-four" />
               <a href="javascript:void(0)">
                 <Image
-                  width={100}
-                  height={100}
+                  width={600}
+                  height={600}
                   src="/assets/img/michael.jpg"
                   className="avatar"
                   alt="profile"
@@ -83,11 +83,14 @@ export default function Contact() {
                   </div>
                   <div className="form-group">
                     <label>Subject:</label>
-                    <input type="text" className="form-control" />
+                    <input type="text" className="form-control" placeholder="Subject" />
                   </div>
                   <div className="form-group">
                     <label>Body:</label>
-                    <textarea className="form-control c-textarea" />
+                    <textarea
+                      className="form-control c-textarea"
+                      placeholder="Your message content"
+                    />
                   </div>
                 </div>
               </div>
