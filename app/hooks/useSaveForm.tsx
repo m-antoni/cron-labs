@@ -5,76 +5,63 @@ import {
   findKeysWithEmptyValues,
   validateWebsite,
 } from '@/app/lib/helpers';
-
-type EnvItem = {
-  envKey: string;
-  envValue: string;
-};
-
-type SaveFormProps = {
-  appInfo: {
-    app_name: string;
-    url: string;
-    technology: string;
-    github: string;
-    description: string;
-  };
-  env: EnvItem[];
-};
+import { useRouter } from 'next/navigation';
+import { AppFormProps, AppTypes, EnvItem } from '../types/appTypes';
+import { createAppAction, updateAppAction } from '../actions/app';
 
 export function useSaveForm() {
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState(['']);
+  const [errors, setErrors] = useState<string[]>(['']);
+  const router = useRouter();
 
-  const saveForm = (appInfo: SaveFormProps['appInfo'], env: SaveFormProps['env']) => {
-    // error messages
+  const saveForm = async (payload: AppFormProps['appInfo'] & { env: EnvItem[] }, id?: string) => {
     const errorMessages: string[] = [];
 
-    // ** App Information form validations
-    if (!appInfo.app_name) errorMessages.push('App Name is required, and at least 2 characters.');
-    if (appInfo.app_name.length == 1) errorMessages.push('App Name must at least 2 characters.');
-    if (appInfo.app_name.length > 50)
-      errorMessages.push('App Name must not more than 50 characters');
-    if (appInfo.technology.length == 1)
-      errorMessages.push('Techonology must at least 2 characters.');
-    if (appInfo.github && !validateWebsite(appInfo.github)) {
-      errorMessages.push('Github is not a valid web address.');
-    }
-    if (appInfo.url && !validateWebsite(appInfo.url)) {
-      errorMessages.push('App Url is not a valid web address.');
-    }
-    if (appInfo.description.length == 1)
-      errorMessages.push('Description must at least 2 characters.');
-    if (appInfo.description.length > 150)
-      errorMessages.push('Description must not more than 150 characters.');
+    if (!payload.appName || payload.appName.length < 2)
+      errorMessages.push('App Name is required and must be at least 2 characters.');
+    if (payload.appName.length > 50) errorMessages.push('App Name must not exceed 50 characters.');
+    if (payload.technology && payload.technology.length < 2)
+      errorMessages.push('Technology must be at least 2 characters.');
+    if (payload.github && !validateWebsite(payload.github))
+      errorMessages.push('Github is not a valid URL.');
+    if (payload.url && !validateWebsite(payload.url))
+      errorMessages.push('App URL is not a valid URL.');
+    if (payload.description && payload.description.length < 2)
+      errorMessages.push('Description must be at least 2 characters.');
+    if (payload.description.length > 150)
+      errorMessages.push('Description must not exceed 150 characters.');
 
-    // ** Environment Variables validations
-    // check the duplicate key names
-    const duplicateKeys: string = findDuplicateKeys(env, 'envKey');
-    if (duplicateKeys)
-      errorMessages.push(`Duplicate Environment Variable key(s) found: "${duplicateKeys}"`);
+    // env validations
+    const duplicateKeys = findDuplicateKeys(payload.env, 'envKey');
+    if (duplicateKeys) errorMessages.push(`Duplicate environment keys: "${duplicateKeys}"`);
+    const emptyValues = findKeysWithEmptyValues(payload.env, 'envKey', 'envValue');
+    if (emptyValues) errorMessages.push(`Environment variables with empty value: "${emptyValues}"`);
 
-    // check env values that are empty
-    const checkEmptyValues: string = findKeysWithEmptyValues(env, 'envKey', 'envValue');
-    if (checkEmptyValues)
-      errorMessages.push(`Environment variable(s) with empty value found: "${checkEmptyValues}"`);
-
-    // ** Set errors
     setErrors(errorMessages);
-
-    if (errors.length > 0) return;
-
-    // ****** SENDING TO API ****** //
-    const payload = {
-      appInfo,
-      env: cleanArray(env),
-    };
+    // ** send errors
+    if (errorMessages.length > 0) return;
 
     setLoading(true);
-    setTimeout(() => {
-      console.log(payload);
-      setLoading(false);
-    }, 1000);
+
+    // ** restructured the final payload
+    const finalPayload = { ...payload, env: cleanArray(payload.env) };
+
+    let result;
+    if (id) {
+      // UPDATE existing app
+      result = await updateAppAction(id, finalPayload);
+    } else {
+      // CREATE new app
+      result = await createAppAction(finalPayload);
+    }
+
+    setLoading(false);
+
+    if (result.success) {
+      router.push('/dashboard');
+    } else {
+      alert('Error: ' + result.error);
+    }
   };
 
   return {

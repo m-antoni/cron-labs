@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 export function useAppInfoForm() {
   const [appInfo, setAppInfo] = useState({
-    app_name: '',
+    id: '', // use to update action
+    appName: '',
     url: '',
     technology: '',
     github: '',
@@ -18,5 +19,6 @@ export function useAppInfoForm() {
   return {
     appInfo,
     onChangeAppInfo,
+    setAppInfo,
   };
 }

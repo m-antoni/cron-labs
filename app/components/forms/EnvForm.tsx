@@ -4,23 +4,17 @@ import {
   FaCopy,
   FaDownload,
   FaEye,
+  FaEyeSlash,
   FaFileLines,
-  FaGear,
   FaMinus,
-  FaPen,
-  FaPenToSquare,
   FaWandMagicSparkles,
 } from 'react-icons/fa6';
 import { FaPlusCircle } from 'react-icons/fa';
 import { Button, Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
-import { useRef } from 'react';
-import AlertMessage from '../ui/AlertMessage';
-
-type EnvItem = {
-  envKey: string;
-  envValue: string;
-};
+import { useRef, useState } from 'react';
+import { EnvItem } from '@/app/types/appTypes';
+import { usePathname } from 'next/navigation';
 
 type EnvFormProps = {
   env: EnvItem[];
@@ -39,7 +33,13 @@ export default function EnvForm({
   disabledInput,
   importEnv,
 }: EnvFormProps) {
+  const [visible, setVisible] = useState(false);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const pathname = usePathname();
+
+  const page = pathname.split('/')[2];
+
   return (
     <>
       <div className="d-flex justify-content-between">
@@ -49,15 +49,27 @@ export default function EnvForm({
         </div>
         <div>
           <div className="d-flex justify-content-end">
-            <Link href="#" className="btn btn-secondary mr-2 px-3">
-              <FaPenToSquare size={16} className="text-warning" />
+            <Link
+              href="#"
+              className="btn btn-secondary mr-2 px-3"
+              onClick={() => setVisible(!visible)}
+            >
+              {visible ? (
+                <FaEyeSlash size={16} className="text-warning" />
+              ) : (
+                <FaEye size={16} className="text-warning" />
+              )}
             </Link>
-            <Link href="#" className="btn btn-secondary mr-2 px-3">
-              <FaCopy size={16} className="text-warning" />
-            </Link>
-            <Link href="#" className="btn btn-secondary mr-2 px-3">
-              <FaDownload size={16} className="text-warning" />
-            </Link>
+            {page != 'add-new' && (
+              <>
+                <Link href="#" className="btn btn-secondary mr-2 px-3">
+                  <FaCopy size={16} className="text-warning" />
+                </Link>
+                <Link href="#" className="btn btn-secondary mr-2 px-3">
+                  <FaDownload size={16} className="text-warning" />
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -92,7 +104,7 @@ export default function EnvForm({
                     </td>
                     <td>
                       <input
-                        type="text"
+                        type={visible ? 'text' : 'password'}
                         name="envValue"
                         className="form-control"
                         autoComplete="off"
@@ -111,32 +123,6 @@ export default function EnvForm({
                           <FaMinus size={16} />
                         </Button>
                       </div>
-                      {/* <div className="d-flex justify-content-end">
-                          <Dropdown className="right-dropdown">
-                            <Dropdown.Toggle
-                              variant="secondary"
-                              id="env"
-                              className="d-flex justify-content-between align-items-center px-3"
-                              bsPrefix="custom-dropdown-toggle"
-                            >
-                              <span>
-                                <FaGear />
-                              </span>
-                              <span className="custom-caret">▼</span>
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                              <Dropdown.Item href="#">
-                                <FaEye size={16} className="mr-2" /> View
-                              </Dropdown.Item>
-                              <Dropdown.Item href="#">
-                                <FaCopy size={16} className="mr-2" /> Copy
-                              </Dropdown.Item>
-                              <Dropdown.Item href="#">
-                                <FaPen size={16} className="mr-2" /> Edit
-                              </Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
-                        </div> */}
                     </td>
                   </tr>
                 );

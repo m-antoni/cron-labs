@@ -1,6 +1,6 @@
 type AppFormProps = {
   appInfo: {
-    app_name: string;
+    appName: string;
     url: string;
     technology: string;
     github: string;
@@ -24,8 +24,8 @@ export default function AppForm({ appInfo, onChangeAppInfo }: AppFormProps) {
               required={true}
               className="form-control"
               placeholder="ACME Website"
-              name="app_name"
-              value={appInfo.app_name}
+              name="appName"
+              value={appInfo.appName}
               onChange={(e) => onChangeAppInfo(e)}
             />
           </div>

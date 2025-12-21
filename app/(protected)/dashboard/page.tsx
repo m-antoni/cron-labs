@@ -1,7 +1,25 @@
+'use client';
+
+import { getAppsAction } from '@/app/actions/app';
 import ButtonGroup from '@/app/components/ui/ButtonGroup';
+import { formatDate } from '@/app/lib/formatDate';
+import { removeDebugInfo } from '@/app/lib/helpers';
+import { AppTypes } from '@/app/types/appTypes';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function Dashboard() {
+  const [apps, setApps] = useState<AppTypes>([]);
+
+  useEffect(() => {
+    (async () => {
+      const getApps = await getAppsAction();
+      const clean = removeDebugInfo(getApps);
+      setApps(clean);
+      // console.log(removeDebugInfo(getApps));
+    })();
+  }, []);
+
   return (
     <>
       <div className="row">
@@ -27,82 +45,37 @@ export default function Dashboard() {
             <div className="card-header"></div>
             <div className="card-body">
               <div className="table-responsive-md">
-                <table className="table tablesorter " id="">
+                <table className="table tablesorter">
+                  {' '}
                   <thead className=" text-primary">
                     <tr>
                       <th>App Name</th>
                       <th>Description</th>
-                      <th>API Status</th>
+                      <th>URL</th>
                       <th className="text-center">Created At</th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>eshop</td>
-                      <td>MERRN Stack E-commerce web app</td>
-                      <td>
-                        <span className="badge bg-success text-dark">
-                          <span className="fs-11">RUNNING</span>
-                        </span>
-                      </td>
-                      <td className="text-center">02-21-2025</td>
-                      <td>
-                        <ButtonGroup id={1} />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Learning System</td>
-                      <td>Angular and MongoDB</td>
-                      <td>
-                        <span className="badge bg-danger text-dark">
-                          <span className="fs-11">ERROR</span>
-                        </span>
-                      </td>
-                      <td className="text-center">02-21-2025</td>
-                      <td>
-                        <ButtonGroup id={2} />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>BibleVerse App</td>
-                      <td>TypeScript Next JS </td>
-                      <td>
-                        <span className="badge bg-secondary text-dark">
-                          <span className="fs-11">INACTIVE</span>
-                        </span>
-                      </td>
-                      <td className="text-center">02-21-2025</td>
-                      <td>
-                        <ButtonGroup id={2} />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Inventory</td>
-                      <td>MEAN Stack Web App</td>
-                      <td>
-                        <span className="badge bg-success text-dark">
-                          <span className="fs-11">RUNNING</span>
-                        </span>
-                      </td>
-                      <td className="text-center">02-21-2025</td>
-                      <td>
-                        <ButtonGroup id={3} />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Weather App</td>
-                      <td>Open weather api using React</td>
-                      <td>
-                        <span className="badge bg-success text-dark">
-                          <span className="fs-11">RUNNING</span>
-                        </span>
-                      </td>
-                      <td className="text-center">02-21-2025</td>
-                      <td>
-                        <ButtonGroup id={3} />
-                      </td>
-                    </tr>
+                    {apps.length > 0 &&
+                      apps.map((item, index) => (
+                        <tr key={index}>
+                          <td>{item.appName}</td>
+                          <td>{item.description}</td>
+                          <td>
+                            {/* <span className="badge bg-success text-dark">
+                                <span className="fs-11">RUNNING</span>
+                              </span> */}
+                            {item.url}
+                          </td>
+                          <td className="text-center">
+                            {formatDate(item.createdAt, 'YYYY-MM-DD')}
+                          </td>
+                          <td>
+                            <ButtonGroup id={item.id} />
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>

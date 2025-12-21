@@ -18,9 +18,14 @@ export default function AddNew() {
   const envForm = useEnvForm();
   const { saveForm, loading, errors } = useSaveForm();
 
+  // submit data
   const handleSave = () => {
-    saveForm(appInfoForm.appInfo, envForm.env);
-    console.log('RUN handleSave');
+    const payload = {
+      ...appInfoForm.appInfo,
+      env: envForm.env,
+    };
+
+    saveForm(payload);
   };
 
   return (
@@ -38,7 +43,7 @@ export default function AddNew() {
                 <Button
                   variant="warning"
                   className="px-3 mr-2"
-                  onClick={handleSave}
+                  onClick={() => handleSave()}
                   disabled={loading}
                 >
                   {loading ? <Spinner text="Saving..." /> : `Save`}

@@ -18,6 +18,7 @@ export function validateWebsite(url: string): boolean {
   return pattern.test(url);
 }
 
+// find duplicate keys
 export function findDuplicateKeys(arr: any, keyName: string): string {
   const duplicates = Object.keys(
     arr.reduce((acc: any, obj: any) => {
@@ -29,6 +30,7 @@ export function findDuplicateKeys(arr: any, keyName: string): string {
   return duplicates.join(',');
 }
 
+// check if the object has empty value
 export function findKeysWithEmptyValues(arr: any, keyName: string, valueName: string): string {
   // Filter objects where keyName has value but valueName is empty
   const filtered = arr
@@ -39,10 +41,24 @@ export function findKeysWithEmptyValues(arr: any, keyName: string, valueName: st
   return [...new Set(filtered)].join(',');
 }
 
+// return only the objects with values in an array
 export function cleanArray(arr: any) {
   return arr.filter((obj: any) => obj.envKey !== '' || obj.envValue !== '');
 }
 
 export function isSingleEmpty(arr: any, a: string, b: string): boolean {
   return arr.length === 1 && !arr[0][a]?.trim() && !arr[0][b]?.trim();
+}
+
+// use for prisma response to remove the _debugInfo
+export function removeDebugInfo(data: any) {
+  if (!Array.isArray(data)) return data;
+
+  const clean = data.slice(); // clone numeric items only
+
+  if ('_debugInfo' in clean) {
+    delete clean._debugInfo;
+  }
+
+  return clean;
 }

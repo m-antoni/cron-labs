@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { generate32CharToken, isSingleEmpty } from '@/app/lib/helpers';
-
-type EnvItem = {
-  envKey: string;
-  envValue: string;
-};
+import { EnvItem } from '@/app/types/appTypes';
 
 export function useEnvForm() {
   const [env, setEnv] = useState<EnvItem[]>([{ envKey: '', envValue: '' }]);
@@ -18,7 +14,12 @@ export function useEnvForm() {
 
     if (type === 'generateSecret') {
       const generateKey = generate32CharToken();
-      setEnv((prev) => [...prev, { envKey: 'NEW_SECRET_KEY', envValue: generateKey }]);
+
+      if (isSingleEmpty(env, 'envKey', 'envValue')) {
+        setEnv([{ envKey: 'NEW_SECRET_KEY', envValue: generateKey }]);
+      } else {
+        setEnv((prev) => [...prev, { envKey: 'NEW_SECRET_KEY', envValue: generateKey }]);
+      }
       return;
     }
   };
@@ -83,6 +84,7 @@ export function useEnvForm() {
 
   return {
     env,
+    setEnv,
     addNewRow,
     removeRow,
     importEnv,

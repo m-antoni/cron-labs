@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+  // URL IS REMOVED FROM HERE
+}
+
+model App {
+  id          String   @id @default(cuid())
+  appName     String
+  url         String
+  technology  String
+  github      String
+  description String
+  env         EnvVar[] 
+  createdAt   DateTime @default(now())
+}
+
+model EnvVar {
+  id       String @id @default(cuid())
+  envKey   String
+  envValue String
+  app      App    @relation(fields: [appId], references: [id], onDelete: Cascade)
+  appId    String
+}
