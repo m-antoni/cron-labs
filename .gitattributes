@@ -1,0 +1,14 @@
+# Ignore Bootstrap and CSS libraries from language stats
+assets/css/** linguist-vendored
+public/css/** linguist-vendored
+vendor/** linguist-vendored
+
+# Specifically target minified and library files if they are loose
+*.min.css linguist-vendored
+*.css.map linguist-vendored
+bootstrap* linguist-vendored
+
+# Force GitHub to prioritize your actual logic
+*.ts linguist-detectable=true
+*.tsx linguist-detectable=true
+*.js linguist-detectable=true
