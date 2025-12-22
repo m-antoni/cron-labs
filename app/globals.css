@@ -50,3 +50,9 @@
 }
 
 /** end custom dropdown */
+
+/** Remove the focus outline/shadow from all SweetAlert2 buttons */
+.swal2-popup .swal2-styled:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}

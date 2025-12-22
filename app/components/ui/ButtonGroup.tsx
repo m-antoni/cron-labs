@@ -1,35 +1,21 @@
 'use client';
 
 import Link from 'next/link';
-import {
-  FaCopy,
-  FaEye,
-  FaPlus,
-  FaDownload,
-  FaBolt,
-  FaEllipsis,
-  FaGear,
-  FaTrash,
-  FaTrashCan,
-} from 'react-icons/fa6';
+import { FaCopy, FaEye, FaDownload, FaBolt, FaGear, FaTrash } from 'react-icons/fa6';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useDeleteWithAlert } from '@/app/hooks/useDeleteWithAlert';
-import { useRouter } from 'next/navigation';
+import { useCopyToClipboard } from '@/app/hooks/useCopyToClipboard';
+import { EnvItem } from '@/app/types/appTypes';
 
 type ButtonGroupProps = {
   id: string;
   dispatch: { setReload: (v: boolean) => void; reload: boolean };
+  env: EnvItem[];
 };
 
-export default function ButtonGroup({ id, dispatch }: ButtonGroupProps) {
-  const { showAlert, isDeleting } = useDeleteWithAlert();
-
-  const router = useRouter();
-
-  const handleDelete = async () => {
-    await showAlert(id);
-    dispatch.setReload(!dispatch.reload);
-  };
+export default function ButtonGroup({ id, dispatch, env }: ButtonGroupProps) {
+  const { showAlert } = useDeleteWithAlert();
+  const { copyENV, copyStatus } = useCopyToClipboard(env);
 
   return (
     <div className="d-flex justify-content-end">
@@ -55,18 +41,22 @@ export default function ButtonGroup({ id, dispatch }: ButtonGroupProps) {
             <FaEye size={16} className="mr-2 ml-n1" /> View
           </Dropdown.Item>
 
-          <Dropdown.Item href="#" className="mt-n1 mb-n1 mr-n3 d-flex align-items-center">
+          {/* <Dropdown.Item href="#" className="mt-n1 mb-n1 mr-n3 d-flex align-items-center">
             <FaBolt size={16} className="mr-2 ml-n1" /> Cron
-          </Dropdown.Item>
+          </Dropdown.Item> */}
 
-          <Dropdown.Item href="#" className="mt-n1 mb-n1 mr-n3 d-flex align-items-center">
-            <FaCopy size={16} className="mr-2 ml-n1" /> Copy
+          <Dropdown.Item
+            href="#"
+            className="mt-n1 mb-n1 mr-n3 d-flex align-items-center"
+            onClick={() => copyENV()}
+          >
+            <FaCopy size={16} className="mr-2 ml-n1" /> Copy .env
           </Dropdown.Item>
 
           <Dropdown.Item
             href="#"
             className="mt-n1 mb-n1 mr-n3 d-flex align-items-center"
-            onClick={() => handleDelete()}
+            onClick={() => showAlert(id, dispatch)}
           >
             <FaTrash size={16} className="mr-2 ml-n1" /> Delete
           </Dropdown.Item>

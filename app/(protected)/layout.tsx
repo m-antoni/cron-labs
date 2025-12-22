@@ -10,7 +10,7 @@ export default async function ProtectedLayout({ children }: { children: React.Re
         <div className="main-panel">
           <Navbar />
           <div className="content">{children}</div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </div>
       {/* <div className="fixed-plugin">

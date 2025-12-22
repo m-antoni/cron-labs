@@ -15,6 +15,7 @@ export default function Dashboard() {
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
+    // selft invoke function
     (async () => {
       setLoading(true);
       const getApps = await getAppsAction();
@@ -25,6 +26,7 @@ export default function Dashboard() {
     })();
   }, [reload]);
 
+  // Pass as Props to ButtonGroup
   const dispatch = {
     reload,
     setReload,
@@ -87,7 +89,7 @@ export default function Dashboard() {
                               {formatDate(item.createdAt, 'YYYY-MM-DD')}
                             </td>
                             <td>
-                              <ButtonGroup id={item.id} dispatch={dispatch} />
+                              <ButtonGroup id={item.id} dispatch={dispatch} env={item.env} />
                             </td>
                           </tr>
                         ))}

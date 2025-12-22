@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  FaCheck,
   FaCopy,
   FaDownload,
   FaEye,
@@ -15,6 +16,9 @@ import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { EnvItem } from '@/app/types/appTypes';
 import { usePathname } from 'next/navigation';
+import { useCopyToClipboard } from '@/app/hooks/useCopyToClipboard';
+import { useExportToEnv } from '@/app/hooks/useExportToEnv';
+import { cleanArray } from '@/app/lib/helpers';
 
 type EnvFormProps = {
   env: EnvItem[];
@@ -37,8 +41,12 @@ export default function EnvForm({
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const pathname = usePathname();
+  const { copyENV, copyStatus } = useCopyToClipboard(env);
+  const { exportToEnv, exportStatus } = useExportToEnv(env);
 
   const page = pathname.split('/')[2];
+
+  const cleanArr = cleanArray(env);
 
   return (
     <>
@@ -62,12 +70,31 @@ export default function EnvForm({
             </Link>
             {page != 'add-new' && (
               <>
-                <Link href="#" className="btn btn-secondary mr-2 px-3">
-                  <FaCopy size={16} className="text-warning" />
+                <Link
+                  href="#"
+                  className="btn btn-secondary mr-2 px-3"
+                  onClick={() => env.length > 0 && copyENV()}
+                >
+                  {copyStatus ? (
+                    <FaCheck size={16} className="text-success" />
+                  ) : (
+                    <FaCopy size={16} className="text-warning" />
+                  )}
                 </Link>
-                <Link href="#" className="btn btn-secondary mr-2 px-3">
-                  <FaDownload size={16} className="text-warning" />
-                </Link>
+
+                {cleanArr.length > 0 && (
+                  <Link
+                    href="#"
+                    className="btn btn-secondary mr-2 px-3"
+                    onClick={() => exportToEnv()}
+                  >
+                    {exportStatus ? (
+                      <FaCheck size={16} className="text-success" />
+                    ) : (
+                      <FaDownload size={16} className="text-warning" />
+                    )}
+                  </Link>
+                )}
               </>
             )}
           </div>

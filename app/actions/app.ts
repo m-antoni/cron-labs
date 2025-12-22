@@ -2,8 +2,6 @@
 
 import { prisma } from '@/app/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { removeDebugInfo } from '../lib/helpers';
-import { AppFormProps, AppTypes } from '../types/appTypes';
 
 // ** --- CREATE ---
 // Saves a new app and its associated environment variables array
@@ -42,10 +40,13 @@ export async function createAppAction(data: {
 // Fetches all apps and "includes" their environment variables
 export async function getAppsAction() {
   try {
-    return await prisma.app.findMany({
+    const app = await prisma.app.findMany({
       include: { env: true },
+      skip: 0,
+      take: 20,
       orderBy: { createdAt: 'desc' },
     });
+    return app;
   } catch (error) {
     console.error('Create Error:', error);
     return { success: false, error: 'Failed to create app' };

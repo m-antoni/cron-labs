@@ -9,7 +9,12 @@ export function useDeleteWithAlert() {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const showAlert = async (id: string) => {
+  type dispatchTypes = {
+    setReload: (v: boolean) => void;
+    reload: boolean;
+  };
+
+  const showAlert = async (id: string, dispatch?: dispatchTypes) => {
     const result = await Swal.fire({
       title: 'Are you sure?',
       text: 'Do you really want to delete this?',
@@ -23,9 +28,9 @@ export function useDeleteWithAlert() {
     if (result.isConfirmed) {
       try {
         setIsDeleting(true);
-
         Swal.showLoading();
 
+        // ** Delete action API
         await deleteAppAction(id);
 
         await Swal.fire({
@@ -37,13 +42,15 @@ export function useDeleteWithAlert() {
         });
 
         router.push('/dashboard');
-        router.refresh();
       } catch (error) {
         console.error(error);
         Swal.fire('Error', 'Something went wrong.', 'error');
       } finally {
         setIsDeleting(false);
       }
+
+      // ** Reload the page, get API new list
+      dispatch?.reload && dispatch.setReload(!dispatch.reload);
     }
   };
 
