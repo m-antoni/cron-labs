@@ -17,13 +17,13 @@ export default function LoginPage() {
     try {
       switch (provider) {
         case 'google':
-          // await signInWithGoogle();
+          await signInWithGoogle();
           break;
         case 'github':
-          // await signInWithGithub();
+          await signInWithGithub();
           break;
         case 'facebook':
-          // await signInWithFacebook();
+          await signInWithFacebook();
           break;
         default:
           setLoading({ provider: '' });
