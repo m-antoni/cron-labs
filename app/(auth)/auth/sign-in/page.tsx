@@ -50,9 +50,7 @@ export default function LoginPage() {
             onClick={() => signInHandler('google')}
             className="btn oauth-btn d-flex align-items-center justify-content-center py-3 w-100 mb-2"
           >
-            {loading.provider === 'google' && (
-              <Spinner type="Scale" size={20} width={3} className="mr-2" />
-            )}
+            {loading.provider === 'google' && <Spinner type="Scale" size={15} width={1} />}
             <img
               src="https://authjs.dev/img/providers/google.svg"
               width="24"
@@ -66,9 +64,7 @@ export default function LoginPage() {
             onClick={() => signInHandler('github')}
             className="btn oauth-btn d-flex align-items-center justify-content-center py-3 w-100 mb-2"
           >
-            {loading.provider === 'github' && (
-              <Spinner type="Scale" size={20} width={3} className="mr-2" />
-            )}
+            {loading.provider === 'github' && <Spinner type="Scale" size={15} width={1} />}
             <img
               src="https://authjs.dev/img/providers/github.svg"
               width="24"
@@ -83,9 +79,7 @@ export default function LoginPage() {
             onClick={() => signInHandler('facebook')}
             className="btn oauth-btn d-flex align-items-center justify-content-center py-3 w-100 mb-2"
           >
-            {loading.provider === 'facebook' && (
-              <Spinner type="Scale" size={20} width={3} className="mr-2" />
-            )}
+            {loading.provider === 'facebook' && <Spinner type="Scale" size={15} width={1} />}
             <img
               src="https://authjs.dev/img/providers/facebook.svg"
               width="24"
