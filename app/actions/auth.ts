@@ -9,6 +9,9 @@ export const signInWithGoogle = async () => {
 export const signInWithGithub = async () => {
   await signIn('github', { redirectTo: '/dashboard' });
 };
+export const signInWithFacebook = async () => {
+  await signIn('facebook', { redirectTo: '/dashboard' });
+};
 
 export const signOutProvider = async () => {
   await signOut({ redirectTo: '/auth/sign-in' });

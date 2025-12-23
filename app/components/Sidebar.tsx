@@ -14,11 +14,12 @@ export default function Sidebar() {
       {/* Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red */}
       <div className="sidebar-wrapper bg-dark">
         <div className="logo">
-          <a href="javascript:void(0)" className="simple-text logo-mini text-primary">
+          {/* <a href="javascript:void(0)" className="simple-text logo-mini text-primary">
             <FaReact size={32} className="spin-clockwise" />
-          </a>
+          </a> */}
           <a href="javascript:void(0)" className="simple-text logo-normal text-success">
-            CRON Runner Plus
+            {/* CRON Runner Plus */}
+            <img src={'/assets/img/logo1.png'} />
           </a>
         </div>
         <ul className="nav">

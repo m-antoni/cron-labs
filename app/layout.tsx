@@ -4,7 +4,7 @@ import './globals.css';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'Cron Runner Plus',
+  title: 'Cron Labs',
   description: 'Created by Michael Antoni',
 };
 

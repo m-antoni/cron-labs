@@ -14,7 +14,7 @@ export async function createAppAction(data: {
   env: { envKey: string; envValue: string }[];
 }) {
   try {
-    // 1. Get the current user session
+    // Get the current user session
     const session = await auth();
     if (!session?.user?.id) return { success: false, error: 'Unauthorized' };
 
@@ -25,8 +25,7 @@ export async function createAppAction(data: {
         technology: data.technology,
         github: data.github,
         description: data.description,
-        // 2. Link the app to the logged-in user
-        userId: session.user.id,
+        userId: session.user.id, // Link the app to the logged-in user
         env: {
           create: data.env,
         },
@@ -45,12 +44,12 @@ export async function createAppAction(data: {
 // ** --- READ ---
 export async function getAppsAction() {
   try {
-    // 1. Get the current user session
+    // Get the current user session
     const session = await auth();
     if (!session?.user?.id) return [];
 
     const apps = await prisma.app.findMany({
-      // 2. Filter so the user ONLY sees their own apps
+      // Filter so the user ONLY sees their own apps
       where: { userId: session.user.id },
       include: { env: true },
       skip: 0,
@@ -73,8 +72,7 @@ export async function getSingleAppAction(id: string) {
     const app = await prisma.app.findUnique({
       where: {
         id,
-        // 2. Security: Ensure the user owns the app they are trying to view
-        userId: session.user.id,
+        userId: session.user.id, // Security: Ensure the user owns the app they are trying to view
       },
       include: { env: true },
     });
@@ -107,8 +105,7 @@ export async function updateAppAction(
     const result = await prisma.app.update({
       where: {
         id,
-        // 2. Security: Prevent updating apps that don't belong to you
-        userId: session.user.id,
+        userId: session.user.id, // Security: Prevent updating apps that don't belong to you
       },
       data: {
         appName: data.appName,
@@ -141,8 +138,7 @@ export async function deleteAppAction(id: string) {
     await prisma.app.delete({
       where: {
         id,
-        // 2. Security: Prevent deleting apps that don't belong to you
-        userId: session.user.id,
+        userId: session.user.id, // 2. Security: Prevent deleting apps that don't belong to you
       },
     });
 
