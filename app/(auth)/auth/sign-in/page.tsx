@@ -17,13 +17,13 @@ export default function LoginPage() {
     try {
       switch (provider) {
         case 'google':
-          await signInWithGoogle();
+          // await signInWithGoogle();
           break;
         case 'github':
-          await signInWithGithub();
+          // await signInWithGithub();
           break;
         case 'facebook':
-          await signInWithFacebook();
+          // await signInWithFacebook();
           break;
         default:
           setLoading({ provider: '' });
@@ -58,7 +58,7 @@ export default function LoginPage() {
           >
             {loading.provider === 'google' && <Spinner type="Scale" size={18} width={2} />}
             <img src="https://authjs.dev/img/providers/google.svg" width="19" alt="Google" />
-            <span className="fw-semibold btn-text">Continue with Google</span>
+            <span className="btn-text">Continue with Google</span>
           </button>
 
           <button
@@ -72,7 +72,7 @@ export default function LoginPage() {
               alt="GitHub"
               style={{ filter: 'invert(1)' }}
             />
-            <span className="fw-semibold btn-text">Continue with GitHub</span>
+            <span className="btn-text">Continue with GitHub</span>
           </button>
 
           <button
@@ -81,7 +81,7 @@ export default function LoginPage() {
           >
             {loading.provider === 'facebook' && <Spinner type="Scale" size={18} width={2} />}
             <img src="https://authjs.dev/img/providers/facebook.svg" width="19" alt="Facebook" />
-            <span className="fw-semibold btn-text">Continue with Facebook</span>
+            <span className="btn-text">Continue with Facebook</span>
           </button>
         </div>
 
