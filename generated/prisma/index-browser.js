@@ -169,8 +169,9 @@ exports.Prisma.AuthenticatorScalarFieldEnum = {
 
 exports.Prisma.AppScalarFieldEnum = {
   id: 'id',
-  appName: 'appName',
+  appTitle: 'appTitle',
   url: 'url',
+  description: 'description',
   isEnabled: 'isEnabled',
   scheduleType: 'scheduleType',
   intervalMinutes: 'intervalMinutes',
@@ -190,6 +191,17 @@ exports.Prisma.EnvVarScalarFieldEnum = {
   envKey: 'envKey',
   envValue: 'envValue',
   appId: 'appId'
+};
+
+exports.Prisma.ExecutionLogScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  success: 'success',
+  responseBody: 'responseBody',
+  errorMessage: 'errorMessage',
+  duration: 'duration',
+  appId: 'appId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -219,7 +231,8 @@ exports.Prisma.ModelName = {
   VerificationToken: 'VerificationToken',
   Authenticator: 'Authenticator',
   App: 'App',
-  EnvVar: 'EnvVar'
+  EnvVar: 'EnvVar',
+  ExecutionLog: 'ExecutionLog'
 };
 
 /**

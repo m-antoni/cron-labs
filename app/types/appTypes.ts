@@ -4,8 +4,9 @@ export type AppFormProps = {
   createdAt?: Date | string | undefined;
   updatedAt?: Date | string | undefined;
   // Job
-  appName: string;
+  appTitle: string;
   url: string;
+  description: string;
   isEnabled: boolean;
   scheduleType: ScheduleType;
   intervalMinutes: number;
@@ -35,8 +36,9 @@ export enum ScheduleType {
 
 // use in JobForm
 export type JobFormTypes = {
-  appName: string;
+  appTitle: string;
   url: string;
+  description: string;
   isEnabled: boolean;
   scheduleType: ScheduleType;
   intervalMinutes: number;

@@ -14,6 +14,7 @@ import { useNotification } from '@/app/hooks/useNotification';
 import { useUser } from '@/app/hooks/useAuth';
 import useJob from '@/app/hooks/useJob';
 import { ScheduleType } from '@/app/types/appTypes';
+import { FaBoltLightning, FaFloppyDisk } from 'react-icons/fa6';
 
 export default function AddNew() {
   // custom hooks
@@ -49,15 +50,17 @@ export default function AddNew() {
                 <div>
                   <Button
                     variant="warning"
-                    className="px-3 "
+                    className="px-3 mr-2"
                     onClick={() => handleSave()}
                     disabled={loading}
                   >
+                    <FaFloppyDisk size={16} className="mr-1" />
                     {loading ? <Spinner text="Saving..." size={19} /> : `Save`}
                   </Button>
-                  {/* <Link href="#" className="btn btn-secondary px-3">
-                  Clear
-                </Link> */}
+                  <Button className="btn btn-primary px-3">
+                    <FaBoltLightning size={16} className="mr-1" />
+                    Test
+                  </Button>
                 </div>
               </div>
             </div>

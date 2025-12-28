@@ -88,14 +88,14 @@ export default function JobForm({ job, onChangeValue, onChangeType, ScheduleType
         <div className="col-md-6">
           <div className="form-group">
             <label className="text-white">
-              App Name <span className="text-danger">*</span>
+              App Title <span className="text-danger">*</span>
             </label>
             <input
               type="text"
               className="form-control"
               placeholder="My App Name"
-              name="appName"
-              value={job.appName}
+              name="appTitle"
+              value={job.appTitle}
               onChange={onChangeValue}
             />
           </div>
@@ -117,6 +117,7 @@ export default function JobForm({ job, onChangeValue, onChangeType, ScheduleType
           </div>
         </div>
       </div>
+
       <div className="row">
         <div className="col-md-6">
           <div className="form-group">
@@ -129,6 +130,22 @@ export default function JobForm({ job, onChangeValue, onChangeType, ScheduleType
               placeholder="https://api.myapp.com"
               name="url"
               value={job.url}
+              onChange={onChangeValue}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-6">
+          <div className="form-group">
+            <label className="text-white">Description</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Your app description"
+              name="description"
+              value={job.description}
               onChange={onChangeValue}
             />
           </div>

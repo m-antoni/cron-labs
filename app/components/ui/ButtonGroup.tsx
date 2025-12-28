@@ -1,7 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { FaCopy, FaEye, FaDownload, FaBolt, FaGear, FaTrash } from 'react-icons/fa6';
+import {
+  FaCopy,
+  FaEye,
+  FaDownload,
+  FaBolt,
+  FaGear,
+  FaTrash,
+  FaBoltLightning,
+} from 'react-icons/fa6';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useDeleteWithAlert } from '@/app/hooks/useDeleteWithAlert';
 import { useCopyToClipboard } from '@/app/hooks/useCopyToClipboard';
@@ -41,16 +49,8 @@ export default function ButtonGroup({ id, dispatch, env }: ButtonGroupProps) {
             <FaEye size={16} className="mr-2 ml-n1" /> View
           </Dropdown.Item>
 
-          {/* <Dropdown.Item href="#" className="mt-n1 mb-n1 mr-n3 d-flex align-items-center">
-            <FaBolt size={16} className="mr-2 ml-n1" /> Cron
-          </Dropdown.Item> */}
-
-          <Dropdown.Item
-            href="#"
-            className="mt-n1 mb-n1 mr-n3 d-flex align-items-center"
-            onClick={() => copyENV()}
-          >
-            <FaCopy size={16} className="mr-2 ml-n1" /> Copy .env
+          <Dropdown.Item href="#" className="mt-n1 mb-n1 mr-n3 d-flex align-items-center">
+            <FaBoltLightning size={16} className="mr-2 ml-n1" /> Test
           </Dropdown.Item>
 
           <Dropdown.Item

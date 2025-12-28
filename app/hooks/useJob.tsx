@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { ScheduleType } from '@/app/types/appTypes';
+import { AppFormProps, ScheduleType } from '@/app/types/appTypes';
 
 export default function useJob() {
   const [job, setJob] = useState({
     id: '', // from DB
     createdAt: new Date(), // from DB
     updatedAt: new Date(), // from DB
-    appName: '',
+    appTitle: '',
     url: '',
+    description: '',
     isEnabled: true,
     scheduleType: ScheduleType.MINUTES,
     intervalMinutes: 2, // Matches minuteOptions { value: 2 }

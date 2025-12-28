@@ -1,5 +1,3 @@
-import { useNotification } from '@/app/hooks/useNotification';
-
 type NotificationFormProps = {
   notification: {
     notifyOnFailure: boolean;

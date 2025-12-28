@@ -6,7 +6,7 @@ import GitHub from 'next-auth/providers/github';
 import Facebook from 'next-auth/providers/facebook';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  debug: true, // uncomment for debugging
+  // debug: true, // uncomment for debugging
   adapter: PrismaAdapter(prisma),
   session: { strategy: 'jwt' },
   providers: [

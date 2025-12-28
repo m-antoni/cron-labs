@@ -64,7 +64,7 @@ export default function CronJobs() {
                   <table className="table tablesorter">
                     <thead className=" text-primary">
                       <tr>
-                        <th>App Name</th>
+                        <th>App Title</th>
                         <th>URL</th>
                         <th className="text-center">Enable </th>
                         <th className="text-center">Schedule Type</th>
@@ -76,7 +76,7 @@ export default function CronJobs() {
                       {apps.length > 0 &&
                         apps.map((item, index) => (
                           <tr key={index}>
-                            <td>{item.appName}</td>
+                            <td>{item.appTitle}</td>
                             <td>{truncateUrl(item.url, 25)}</td>
                             <td className="text-center">
                               {item.isEnabled ? (

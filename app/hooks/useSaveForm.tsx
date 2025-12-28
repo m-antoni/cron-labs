@@ -7,7 +7,7 @@ import {
   validateWebsite,
 } from '@/app/lib/helpers';
 import { useRouter } from 'next/navigation';
-import { AppFormProps } from '../types/appTypes';
+import { AppFormProps } from '@/app/types/appTypes';
 import { createAppAction, updateAppAction } from '../actions/app';
 
 export function useSaveForm() {
@@ -19,14 +19,20 @@ export function useSaveForm() {
     const errorMessages: string[] = [];
 
     // App Name validation
-    if (!payload.appName || payload.appName.length < 2)
+    if (!payload.appTitle || payload.appTitle.length < 2)
       errorMessages.push('App Name is required and must be at least 2 characters.');
-    if (payload.appName.length > 50) errorMessages.push('App Name must not exceed 50 characters.');
+    if (payload.appTitle.length > 50) errorMessages.push('App Name must not exceed 50 characters.');
 
     // App URL validation
     if (!payload.url) errorMessages.push('App URL is required.');
     if (payload.url && !validateWebsite(payload.url))
       errorMessages.push('App URL is not a valid URL.');
+
+    // App description
+    if (payload.description && payload.description.length < 2)
+      errorMessages.push('App Description must at least 2 characters');
+    if (payload.description && payload.description.length > 150)
+      errorMessages.push("App Description shouldn't be greater than 150 characters.");
 
     // Notification Email validation
     if (payload.notificationEmail && !validateEmail(payload.notificationEmail)) {

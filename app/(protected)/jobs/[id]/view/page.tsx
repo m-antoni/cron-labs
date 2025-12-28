@@ -18,6 +18,7 @@ import { useUser } from '@/app/hooks/useAuth';
 import JobForm from '@/app/components/forms/JobForm';
 import NotificationForm from '@/app/components/forms/NotificationForm';
 import { ScheduleType } from '@/app/types/appTypes';
+import { FaBoltLightning, FaFloppyDisk } from 'react-icons/fa6';
 
 export default function ViewDetails() {
   const [_loading, _setLoading] = useState(false);
@@ -41,8 +42,9 @@ export default function ViewDetails() {
         // job
         setJob({
           id: app.id,
-          appName: app.appName,
+          appTitle: app.appTitle,
           url: app.url,
+          description: app.description,
           isEnabled: app.isEnabled,
           scheduleType: app.scheduleType as unknown as ScheduleType,
           intervalMinutes: app.intervalMinutes ?? 2,
@@ -95,8 +97,10 @@ export default function ViewDetails() {
                   onClick={handleSave}
                   disabled={loading}
                 >
+                  <FaFloppyDisk size={16} className="mr-1" />
                   {loading ? <Spinner text="Saving..." size={19} /> : `Save`}
                 </Button>
+
                 <Link
                   href="#"
                   className="btn btn-secondary px-3"

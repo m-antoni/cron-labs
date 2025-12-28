@@ -85,10 +85,11 @@ model Authenticator {
 // ==========================================
 
 model App {
-  id        String  @id @default(cuid())
-  appName   String  @map("app_name")
-  url       String
-  isEnabled Boolean @default(true) @map("is_enabled")
+  id          String  @id @default(cuid())
+  appTitle    String  @map("app_title")
+  url         String
+  description String
+  isEnabled   Boolean @default(true) @map("is_enabled")
 
   // Form Schedule Fields
   scheduleType    ScheduleType @map("schedule_type")
@@ -103,9 +104,10 @@ model App {
   notificationEmail String  @map("notification_email")
 
   // Relations
-  userId       String   @map("user_id")
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  envVariables EnvVar[]
+  userId        String         @map("user_id")
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  envVariables  EnvVar[]
+  executionLogs ExecutionLog[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -130,4 +132,25 @@ enum ScheduleType {
   MINUTES
   DAILY
   MONTHLY
+}
+
+// ==========================================
+// 3. LOGGING & MONITORING
+// ==========================================
+
+model ExecutionLog {
+  id           String  @id @default(cuid())
+  status       Int // e.g., 200, 404, 500
+  success      Boolean
+  responseBody String? @db.Text
+  errorMessage String? @db.Text
+  duration     Int? // Time in ms it took for the URL to respond
+
+  // Relation to App
+  appId String @map("app_id")
+  app   App    @relation(fields: [appId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@map("execution_logs")
 }

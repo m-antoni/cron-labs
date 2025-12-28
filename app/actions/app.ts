@@ -15,8 +15,9 @@ export async function createAppAction(data: AppFormProps) {
 
     const result = await prisma.app.create({
       data: {
-        appName: data.appName,
+        appTitle: data.appTitle,
         url: data.url,
+        description: data.description,
         isEnabled: data.isEnabled,
         scheduleType: data.scheduleType,
         intervalMinutes: data.intervalMinutes,
@@ -105,8 +106,9 @@ export async function updateAppAction(data: AppFormProps) {
         userId: session.user.id, // Security: Prevent updating apps that don't belong to you
       },
       data: {
-        appName: data.appName,
+        appTitle: data.appTitle,
         url: data.url,
+        description: data.description,
         isEnabled: data.isEnabled,
         scheduleType: data.scheduleType,
         intervalMinutes: data.intervalMinutes,
@@ -152,4 +154,13 @@ export async function deleteAppAction(id: string) {
     console.error('Delete Error:', error);
     return { success: false, error: 'Failed to delete app' };
   }
+}
+
+// ** --- TOGGLE ENABLE CRON JOB ---
+export async function toggleAppAction(appId: string, currentState: boolean) {
+  await prisma.app.update({
+    where: { id: appId },
+    data: { isEnabled: !currentState },
+  });
+  revalidatePath('/dashboard');
 }
