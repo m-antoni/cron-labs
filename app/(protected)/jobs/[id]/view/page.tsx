@@ -18,7 +18,7 @@ import { useUser } from '@/app/hooks/useAuth';
 import JobForm from '@/app/components/forms/JobForm';
 import NotificationForm from '@/app/components/forms/NotificationForm';
 import { ScheduleType } from '@/app/types/appTypes';
-import { FaBoltLightning, FaFloppyDisk } from 'react-icons/fa6';
+import { FaBoltLightning, FaTrash } from 'react-icons/fa6';
 
 export default function ViewDetails() {
   const [_loading, _setLoading] = useState(false);
@@ -97,16 +97,10 @@ export default function ViewDetails() {
                   onClick={handleSave}
                   disabled={loading}
                 >
-                  <FaFloppyDisk size={16} className="mr-1" />
                   {loading ? <Spinner text="Saving..." size={19} /> : `Save`}
                 </Button>
-
-                <Link
-                  href="#"
-                  className="btn btn-secondary px-3"
-                  onClick={() => showAlert(id as string)}
-                >
-                  Delete
+                <Link href="#" className="btn btn-secondary px-3 mr-2 text-warning">
+                  <FaBoltLightning size={16} className="mr-1" />
                 </Link>
               </div>
             </div>
@@ -153,6 +147,18 @@ export default function ViewDetails() {
               <div className="card-body">
                 <EnvForm {...envForm} />
               </div>
+            </div>
+          </div>
+          <div className="col-md-12 pb-5">
+            <div className=" d-flex justify-content-end mt-n1">
+              <Link
+                href="#"
+                className="btn btn-secondary px-3 text-warning"
+                onClick={() => showAlert(id as string)}
+              >
+                <FaTrash size={16} className="mr-1 " />
+                Delete
+              </Link>
             </div>
           </div>
         </>

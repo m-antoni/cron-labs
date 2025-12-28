@@ -54,13 +54,11 @@ export default function AddNew() {
                     onClick={() => handleSave()}
                     disabled={loading}
                   >
-                    <FaFloppyDisk size={16} className="mr-1" />
                     {loading ? <Spinner text="Saving..." size={19} /> : `Save`}
                   </Button>
-                  <Button className="btn btn-primary px-3">
+                  <Link href="#" className="btn btn-secondary px-3 text-warning">
                     <FaBoltLightning size={16} className="mr-1" />
-                    Test
-                  </Button>
+                  </Link>
                 </div>
               </div>
             </div>
