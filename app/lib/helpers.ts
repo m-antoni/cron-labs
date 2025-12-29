@@ -73,3 +73,9 @@ export const truncateUrl = (url: string | undefined | null, maxLength: number = 
 
   return `${url.substring(0, maxLength)}...`;
 };
+
+// format the duration value into ms or sec.
+export const formatDuration = (ms: number) => {
+  if (ms < 1000) return `${ms}ms`;
+  return `${(ms / 1000).toFixed(2)}s`;
+};

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/app/lib/prisma';
 import nodemailer from 'nodemailer';
+import { formatDuration } from '@/app/lib/helpers';
 
 export async function GET(request: Request) {
   // -----------------------------
@@ -120,12 +121,12 @@ export async function GET(request: Request) {
     await transporter.sendMail({
       from: `"CronLabs System" <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_RECEIVER,
-      subject: `[Cron Labs] Database Cleanup Report`,
+      subject: `[CronLabs] Database Cleanup`,
       text: `Database cleanup completed.\n${emailPayload.body}`,
       html: `
              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 3px; overflow: hidden;">
-          <div style="background-color: #2b3553; color: white; padding: 15px; text-align: center;">
-            <h2 style="margin: 0; font-size: 18px;">New Contact Form Submission</h2>
+          <div style="background-color: #2b3553; color: white; padding: 10px; text-align: center;">
+            <h2 style="margin: 0; font-size: 18px;">CronLabs Database Cleanup</h2>
           </div>
           <div style="padding: 20px;">
             <p style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
@@ -164,13 +165,13 @@ export async function GET(request: Request) {
                 </tr>
                 <tr>
                     <td style="padding: 8px 0; width: 120px;"><strong>Cleanup Duration:</strong></td>
-                    <td style="padding: 8px 0;">${processDuration}ms</td>
+                    <td style="padding: 8px 0;">${formatDuration(processDuration)}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; width: 120px;"><strong>Description:</strong></td>
+                    <td style="padding: 8px 0;">${emailPayload.body}</td>
                 </tr>
             </table>
-            <h4 style="margin-top: 0; border-bottom: 1px solid #dee2e6; padding-bottom: 8px; color: #343a40;">
-             Description:
-            </h4>
-            <p style="white-space: pre-wrap; margin: 0; line-height: 1.6;">${emailPayload.body}</p>
           </div>
           <div style="background-color: #f1f1f1; color: #6c757d; padding: 10px; text-align: center; font-size: 12px;">
             Automated notification via NodeMailer.
@@ -189,7 +190,7 @@ export async function GET(request: Request) {
       metadata: {
         source: isManual ? 'Manual Action' : 'Automated Cron',
         userAgent: userAgent,
-        duration: `${processDuration}ms`,
+        duration: `${formatDuration(processDuration)}`,
       },
     });
   } catch (error) {
