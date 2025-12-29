@@ -204,6 +204,17 @@ exports.Prisma.ExecutionLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.LogCleanupSummaryScalarFieldEnum = {
+  id: 'id',
+  totalRowsDeleted: 'totalRowsDeleted',
+  successfulJobs: 'successfulJobs',
+  failedJobs: 'failedJobs',
+  durationMs: 'durationMs',
+  description: 'description',
+  isManual: 'isManual',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -232,7 +243,8 @@ exports.Prisma.ModelName = {
   Authenticator: 'Authenticator',
   App: 'App',
   EnvVar: 'EnvVar',
-  ExecutionLog: 'ExecutionLog'
+  ExecutionLog: 'ExecutionLog',
+  LogCleanupSummary: 'LogCleanupSummary'
 };
 
 /**

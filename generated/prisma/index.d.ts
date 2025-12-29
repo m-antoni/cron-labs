@@ -53,6 +53,11 @@ export type EnvVar = $Result.DefaultSelection<Prisma.$EnvVarPayload>
  * 
  */
 export type ExecutionLog = $Result.DefaultSelection<Prisma.$ExecutionLogPayload>
+/**
+ * Model LogCleanupSummary
+ * 
+ */
+export type LogCleanupSummary = $Result.DefaultSelection<Prisma.$LogCleanupSummaryPayload>
 
 /**
  * Enums
@@ -268,6 +273,16 @@ export class PrismaClient<
     * ```
     */
   get executionLog(): Prisma.ExecutionLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.logCleanupSummary`: Exposes CRUD operations for the **LogCleanupSummary** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LogCleanupSummaries
+    * const logCleanupSummaries = await prisma.logCleanupSummary.findMany()
+    * ```
+    */
+  get logCleanupSummary(): Prisma.LogCleanupSummaryDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -709,7 +724,8 @@ export namespace Prisma {
     Authenticator: 'Authenticator',
     App: 'App',
     EnvVar: 'EnvVar',
-    ExecutionLog: 'ExecutionLog'
+    ExecutionLog: 'ExecutionLog',
+    LogCleanupSummary: 'LogCleanupSummary'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -725,7 +741,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "app" | "envVar" | "executionLog"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "app" | "envVar" | "executionLog" | "logCleanupSummary"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1321,6 +1337,80 @@ export namespace Prisma {
           }
         }
       }
+      LogCleanupSummary: {
+        payload: Prisma.$LogCleanupSummaryPayload<ExtArgs>
+        fields: Prisma.LogCleanupSummaryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LogCleanupSummaryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogCleanupSummaryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LogCleanupSummaryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogCleanupSummaryPayload>
+          }
+          findFirst: {
+            args: Prisma.LogCleanupSummaryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogCleanupSummaryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LogCleanupSummaryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogCleanupSummaryPayload>
+          }
+          findMany: {
+            args: Prisma.LogCleanupSummaryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogCleanupSummaryPayload>[]
+          }
+          create: {
+            args: Prisma.LogCleanupSummaryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogCleanupSummaryPayload>
+          }
+          createMany: {
+            args: Prisma.LogCleanupSummaryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LogCleanupSummaryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogCleanupSummaryPayload>[]
+          }
+          delete: {
+            args: Prisma.LogCleanupSummaryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogCleanupSummaryPayload>
+          }
+          update: {
+            args: Prisma.LogCleanupSummaryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogCleanupSummaryPayload>
+          }
+          deleteMany: {
+            args: Prisma.LogCleanupSummaryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LogCleanupSummaryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LogCleanupSummaryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogCleanupSummaryPayload>[]
+          }
+          upsert: {
+            args: Prisma.LogCleanupSummaryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogCleanupSummaryPayload>
+          }
+          aggregate: {
+            args: Prisma.LogCleanupSummaryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLogCleanupSummary>
+          }
+          groupBy: {
+            args: Prisma.LogCleanupSummaryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LogCleanupSummaryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LogCleanupSummaryCountArgs<ExtArgs>
+            result: $Utils.Optional<LogCleanupSummaryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1437,6 +1527,7 @@ export namespace Prisma {
     app?: AppOmit
     envVar?: EnvVarOmit
     executionLog?: ExecutionLogOmit
+    logCleanupSummary?: LogCleanupSummaryOmit
   }
 
   /* Types for Logging */
@@ -10574,6 +10665,1086 @@ export namespace Prisma {
 
 
   /**
+   * Model LogCleanupSummary
+   */
+
+  export type AggregateLogCleanupSummary = {
+    _count: LogCleanupSummaryCountAggregateOutputType | null
+    _avg: LogCleanupSummaryAvgAggregateOutputType | null
+    _sum: LogCleanupSummarySumAggregateOutputType | null
+    _min: LogCleanupSummaryMinAggregateOutputType | null
+    _max: LogCleanupSummaryMaxAggregateOutputType | null
+  }
+
+  export type LogCleanupSummaryAvgAggregateOutputType = {
+    totalRowsDeleted: number | null
+    successfulJobs: number | null
+    failedJobs: number | null
+    durationMs: number | null
+  }
+
+  export type LogCleanupSummarySumAggregateOutputType = {
+    totalRowsDeleted: number | null
+    successfulJobs: number | null
+    failedJobs: number | null
+    durationMs: number | null
+  }
+
+  export type LogCleanupSummaryMinAggregateOutputType = {
+    id: string | null
+    totalRowsDeleted: number | null
+    successfulJobs: number | null
+    failedJobs: number | null
+    durationMs: number | null
+    description: string | null
+    isManual: boolean | null
+    createdAt: Date | null
+  }
+
+  export type LogCleanupSummaryMaxAggregateOutputType = {
+    id: string | null
+    totalRowsDeleted: number | null
+    successfulJobs: number | null
+    failedJobs: number | null
+    durationMs: number | null
+    description: string | null
+    isManual: boolean | null
+    createdAt: Date | null
+  }
+
+  export type LogCleanupSummaryCountAggregateOutputType = {
+    id: number
+    totalRowsDeleted: number
+    successfulJobs: number
+    failedJobs: number
+    durationMs: number
+    description: number
+    isManual: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type LogCleanupSummaryAvgAggregateInputType = {
+    totalRowsDeleted?: true
+    successfulJobs?: true
+    failedJobs?: true
+    durationMs?: true
+  }
+
+  export type LogCleanupSummarySumAggregateInputType = {
+    totalRowsDeleted?: true
+    successfulJobs?: true
+    failedJobs?: true
+    durationMs?: true
+  }
+
+  export type LogCleanupSummaryMinAggregateInputType = {
+    id?: true
+    totalRowsDeleted?: true
+    successfulJobs?: true
+    failedJobs?: true
+    durationMs?: true
+    description?: true
+    isManual?: true
+    createdAt?: true
+  }
+
+  export type LogCleanupSummaryMaxAggregateInputType = {
+    id?: true
+    totalRowsDeleted?: true
+    successfulJobs?: true
+    failedJobs?: true
+    durationMs?: true
+    description?: true
+    isManual?: true
+    createdAt?: true
+  }
+
+  export type LogCleanupSummaryCountAggregateInputType = {
+    id?: true
+    totalRowsDeleted?: true
+    successfulJobs?: true
+    failedJobs?: true
+    durationMs?: true
+    description?: true
+    isManual?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type LogCleanupSummaryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LogCleanupSummary to aggregate.
+     */
+    where?: LogCleanupSummaryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LogCleanupSummaries to fetch.
+     */
+    orderBy?: LogCleanupSummaryOrderByWithRelationInput | LogCleanupSummaryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LogCleanupSummaryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LogCleanupSummaries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LogCleanupSummaries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LogCleanupSummaries
+    **/
+    _count?: true | LogCleanupSummaryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LogCleanupSummaryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LogCleanupSummarySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LogCleanupSummaryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LogCleanupSummaryMaxAggregateInputType
+  }
+
+  export type GetLogCleanupSummaryAggregateType<T extends LogCleanupSummaryAggregateArgs> = {
+        [P in keyof T & keyof AggregateLogCleanupSummary]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLogCleanupSummary[P]>
+      : GetScalarType<T[P], AggregateLogCleanupSummary[P]>
+  }
+
+
+
+
+  export type LogCleanupSummaryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LogCleanupSummaryWhereInput
+    orderBy?: LogCleanupSummaryOrderByWithAggregationInput | LogCleanupSummaryOrderByWithAggregationInput[]
+    by: LogCleanupSummaryScalarFieldEnum[] | LogCleanupSummaryScalarFieldEnum
+    having?: LogCleanupSummaryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LogCleanupSummaryCountAggregateInputType | true
+    _avg?: LogCleanupSummaryAvgAggregateInputType
+    _sum?: LogCleanupSummarySumAggregateInputType
+    _min?: LogCleanupSummaryMinAggregateInputType
+    _max?: LogCleanupSummaryMaxAggregateInputType
+  }
+
+  export type LogCleanupSummaryGroupByOutputType = {
+    id: string
+    totalRowsDeleted: number
+    successfulJobs: number
+    failedJobs: number
+    durationMs: number
+    description: string | null
+    isManual: boolean
+    createdAt: Date
+    _count: LogCleanupSummaryCountAggregateOutputType | null
+    _avg: LogCleanupSummaryAvgAggregateOutputType | null
+    _sum: LogCleanupSummarySumAggregateOutputType | null
+    _min: LogCleanupSummaryMinAggregateOutputType | null
+    _max: LogCleanupSummaryMaxAggregateOutputType | null
+  }
+
+  type GetLogCleanupSummaryGroupByPayload<T extends LogCleanupSummaryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LogCleanupSummaryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LogCleanupSummaryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LogCleanupSummaryGroupByOutputType[P]>
+            : GetScalarType<T[P], LogCleanupSummaryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LogCleanupSummarySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    totalRowsDeleted?: boolean
+    successfulJobs?: boolean
+    failedJobs?: boolean
+    durationMs?: boolean
+    description?: boolean
+    isManual?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["logCleanupSummary"]>
+
+  export type LogCleanupSummarySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    totalRowsDeleted?: boolean
+    successfulJobs?: boolean
+    failedJobs?: boolean
+    durationMs?: boolean
+    description?: boolean
+    isManual?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["logCleanupSummary"]>
+
+  export type LogCleanupSummarySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    totalRowsDeleted?: boolean
+    successfulJobs?: boolean
+    failedJobs?: boolean
+    durationMs?: boolean
+    description?: boolean
+    isManual?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["logCleanupSummary"]>
+
+  export type LogCleanupSummarySelectScalar = {
+    id?: boolean
+    totalRowsDeleted?: boolean
+    successfulJobs?: boolean
+    failedJobs?: boolean
+    durationMs?: boolean
+    description?: boolean
+    isManual?: boolean
+    createdAt?: boolean
+  }
+
+  export type LogCleanupSummaryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "totalRowsDeleted" | "successfulJobs" | "failedJobs" | "durationMs" | "description" | "isManual" | "createdAt", ExtArgs["result"]["logCleanupSummary"]>
+
+  export type $LogCleanupSummaryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LogCleanupSummary"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      totalRowsDeleted: number
+      successfulJobs: number
+      failedJobs: number
+      durationMs: number
+      description: string | null
+      isManual: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["logCleanupSummary"]>
+    composites: {}
+  }
+
+  type LogCleanupSummaryGetPayload<S extends boolean | null | undefined | LogCleanupSummaryDefaultArgs> = $Result.GetResult<Prisma.$LogCleanupSummaryPayload, S>
+
+  type LogCleanupSummaryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LogCleanupSummaryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LogCleanupSummaryCountAggregateInputType | true
+    }
+
+  export interface LogCleanupSummaryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LogCleanupSummary'], meta: { name: 'LogCleanupSummary' } }
+    /**
+     * Find zero or one LogCleanupSummary that matches the filter.
+     * @param {LogCleanupSummaryFindUniqueArgs} args - Arguments to find a LogCleanupSummary
+     * @example
+     * // Get one LogCleanupSummary
+     * const logCleanupSummary = await prisma.logCleanupSummary.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LogCleanupSummaryFindUniqueArgs>(args: SelectSubset<T, LogCleanupSummaryFindUniqueArgs<ExtArgs>>): Prisma__LogCleanupSummaryClient<$Result.GetResult<Prisma.$LogCleanupSummaryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LogCleanupSummary that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LogCleanupSummaryFindUniqueOrThrowArgs} args - Arguments to find a LogCleanupSummary
+     * @example
+     * // Get one LogCleanupSummary
+     * const logCleanupSummary = await prisma.logCleanupSummary.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LogCleanupSummaryFindUniqueOrThrowArgs>(args: SelectSubset<T, LogCleanupSummaryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LogCleanupSummaryClient<$Result.GetResult<Prisma.$LogCleanupSummaryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LogCleanupSummary that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogCleanupSummaryFindFirstArgs} args - Arguments to find a LogCleanupSummary
+     * @example
+     * // Get one LogCleanupSummary
+     * const logCleanupSummary = await prisma.logCleanupSummary.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LogCleanupSummaryFindFirstArgs>(args?: SelectSubset<T, LogCleanupSummaryFindFirstArgs<ExtArgs>>): Prisma__LogCleanupSummaryClient<$Result.GetResult<Prisma.$LogCleanupSummaryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LogCleanupSummary that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogCleanupSummaryFindFirstOrThrowArgs} args - Arguments to find a LogCleanupSummary
+     * @example
+     * // Get one LogCleanupSummary
+     * const logCleanupSummary = await prisma.logCleanupSummary.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LogCleanupSummaryFindFirstOrThrowArgs>(args?: SelectSubset<T, LogCleanupSummaryFindFirstOrThrowArgs<ExtArgs>>): Prisma__LogCleanupSummaryClient<$Result.GetResult<Prisma.$LogCleanupSummaryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LogCleanupSummaries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogCleanupSummaryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LogCleanupSummaries
+     * const logCleanupSummaries = await prisma.logCleanupSummary.findMany()
+     * 
+     * // Get first 10 LogCleanupSummaries
+     * const logCleanupSummaries = await prisma.logCleanupSummary.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const logCleanupSummaryWithIdOnly = await prisma.logCleanupSummary.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LogCleanupSummaryFindManyArgs>(args?: SelectSubset<T, LogCleanupSummaryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogCleanupSummaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LogCleanupSummary.
+     * @param {LogCleanupSummaryCreateArgs} args - Arguments to create a LogCleanupSummary.
+     * @example
+     * // Create one LogCleanupSummary
+     * const LogCleanupSummary = await prisma.logCleanupSummary.create({
+     *   data: {
+     *     // ... data to create a LogCleanupSummary
+     *   }
+     * })
+     * 
+     */
+    create<T extends LogCleanupSummaryCreateArgs>(args: SelectSubset<T, LogCleanupSummaryCreateArgs<ExtArgs>>): Prisma__LogCleanupSummaryClient<$Result.GetResult<Prisma.$LogCleanupSummaryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LogCleanupSummaries.
+     * @param {LogCleanupSummaryCreateManyArgs} args - Arguments to create many LogCleanupSummaries.
+     * @example
+     * // Create many LogCleanupSummaries
+     * const logCleanupSummary = await prisma.logCleanupSummary.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LogCleanupSummaryCreateManyArgs>(args?: SelectSubset<T, LogCleanupSummaryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LogCleanupSummaries and returns the data saved in the database.
+     * @param {LogCleanupSummaryCreateManyAndReturnArgs} args - Arguments to create many LogCleanupSummaries.
+     * @example
+     * // Create many LogCleanupSummaries
+     * const logCleanupSummary = await prisma.logCleanupSummary.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LogCleanupSummaries and only return the `id`
+     * const logCleanupSummaryWithIdOnly = await prisma.logCleanupSummary.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LogCleanupSummaryCreateManyAndReturnArgs>(args?: SelectSubset<T, LogCleanupSummaryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogCleanupSummaryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LogCleanupSummary.
+     * @param {LogCleanupSummaryDeleteArgs} args - Arguments to delete one LogCleanupSummary.
+     * @example
+     * // Delete one LogCleanupSummary
+     * const LogCleanupSummary = await prisma.logCleanupSummary.delete({
+     *   where: {
+     *     // ... filter to delete one LogCleanupSummary
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LogCleanupSummaryDeleteArgs>(args: SelectSubset<T, LogCleanupSummaryDeleteArgs<ExtArgs>>): Prisma__LogCleanupSummaryClient<$Result.GetResult<Prisma.$LogCleanupSummaryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LogCleanupSummary.
+     * @param {LogCleanupSummaryUpdateArgs} args - Arguments to update one LogCleanupSummary.
+     * @example
+     * // Update one LogCleanupSummary
+     * const logCleanupSummary = await prisma.logCleanupSummary.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LogCleanupSummaryUpdateArgs>(args: SelectSubset<T, LogCleanupSummaryUpdateArgs<ExtArgs>>): Prisma__LogCleanupSummaryClient<$Result.GetResult<Prisma.$LogCleanupSummaryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LogCleanupSummaries.
+     * @param {LogCleanupSummaryDeleteManyArgs} args - Arguments to filter LogCleanupSummaries to delete.
+     * @example
+     * // Delete a few LogCleanupSummaries
+     * const { count } = await prisma.logCleanupSummary.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LogCleanupSummaryDeleteManyArgs>(args?: SelectSubset<T, LogCleanupSummaryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LogCleanupSummaries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogCleanupSummaryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LogCleanupSummaries
+     * const logCleanupSummary = await prisma.logCleanupSummary.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LogCleanupSummaryUpdateManyArgs>(args: SelectSubset<T, LogCleanupSummaryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LogCleanupSummaries and returns the data updated in the database.
+     * @param {LogCleanupSummaryUpdateManyAndReturnArgs} args - Arguments to update many LogCleanupSummaries.
+     * @example
+     * // Update many LogCleanupSummaries
+     * const logCleanupSummary = await prisma.logCleanupSummary.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LogCleanupSummaries and only return the `id`
+     * const logCleanupSummaryWithIdOnly = await prisma.logCleanupSummary.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LogCleanupSummaryUpdateManyAndReturnArgs>(args: SelectSubset<T, LogCleanupSummaryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogCleanupSummaryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LogCleanupSummary.
+     * @param {LogCleanupSummaryUpsertArgs} args - Arguments to update or create a LogCleanupSummary.
+     * @example
+     * // Update or create a LogCleanupSummary
+     * const logCleanupSummary = await prisma.logCleanupSummary.upsert({
+     *   create: {
+     *     // ... data to create a LogCleanupSummary
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LogCleanupSummary we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LogCleanupSummaryUpsertArgs>(args: SelectSubset<T, LogCleanupSummaryUpsertArgs<ExtArgs>>): Prisma__LogCleanupSummaryClient<$Result.GetResult<Prisma.$LogCleanupSummaryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LogCleanupSummaries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogCleanupSummaryCountArgs} args - Arguments to filter LogCleanupSummaries to count.
+     * @example
+     * // Count the number of LogCleanupSummaries
+     * const count = await prisma.logCleanupSummary.count({
+     *   where: {
+     *     // ... the filter for the LogCleanupSummaries we want to count
+     *   }
+     * })
+    **/
+    count<T extends LogCleanupSummaryCountArgs>(
+      args?: Subset<T, LogCleanupSummaryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LogCleanupSummaryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LogCleanupSummary.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogCleanupSummaryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LogCleanupSummaryAggregateArgs>(args: Subset<T, LogCleanupSummaryAggregateArgs>): Prisma.PrismaPromise<GetLogCleanupSummaryAggregateType<T>>
+
+    /**
+     * Group by LogCleanupSummary.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogCleanupSummaryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LogCleanupSummaryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LogCleanupSummaryGroupByArgs['orderBy'] }
+        : { orderBy?: LogCleanupSummaryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LogCleanupSummaryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLogCleanupSummaryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LogCleanupSummary model
+   */
+  readonly fields: LogCleanupSummaryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LogCleanupSummary.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LogCleanupSummaryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LogCleanupSummary model
+   */
+  interface LogCleanupSummaryFieldRefs {
+    readonly id: FieldRef<"LogCleanupSummary", 'String'>
+    readonly totalRowsDeleted: FieldRef<"LogCleanupSummary", 'Int'>
+    readonly successfulJobs: FieldRef<"LogCleanupSummary", 'Int'>
+    readonly failedJobs: FieldRef<"LogCleanupSummary", 'Int'>
+    readonly durationMs: FieldRef<"LogCleanupSummary", 'Int'>
+    readonly description: FieldRef<"LogCleanupSummary", 'String'>
+    readonly isManual: FieldRef<"LogCleanupSummary", 'Boolean'>
+    readonly createdAt: FieldRef<"LogCleanupSummary", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LogCleanupSummary findUnique
+   */
+  export type LogCleanupSummaryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogCleanupSummary
+     */
+    select?: LogCleanupSummarySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogCleanupSummary
+     */
+    omit?: LogCleanupSummaryOmit<ExtArgs> | null
+    /**
+     * Filter, which LogCleanupSummary to fetch.
+     */
+    where: LogCleanupSummaryWhereUniqueInput
+  }
+
+  /**
+   * LogCleanupSummary findUniqueOrThrow
+   */
+  export type LogCleanupSummaryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogCleanupSummary
+     */
+    select?: LogCleanupSummarySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogCleanupSummary
+     */
+    omit?: LogCleanupSummaryOmit<ExtArgs> | null
+    /**
+     * Filter, which LogCleanupSummary to fetch.
+     */
+    where: LogCleanupSummaryWhereUniqueInput
+  }
+
+  /**
+   * LogCleanupSummary findFirst
+   */
+  export type LogCleanupSummaryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogCleanupSummary
+     */
+    select?: LogCleanupSummarySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogCleanupSummary
+     */
+    omit?: LogCleanupSummaryOmit<ExtArgs> | null
+    /**
+     * Filter, which LogCleanupSummary to fetch.
+     */
+    where?: LogCleanupSummaryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LogCleanupSummaries to fetch.
+     */
+    orderBy?: LogCleanupSummaryOrderByWithRelationInput | LogCleanupSummaryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LogCleanupSummaries.
+     */
+    cursor?: LogCleanupSummaryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LogCleanupSummaries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LogCleanupSummaries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LogCleanupSummaries.
+     */
+    distinct?: LogCleanupSummaryScalarFieldEnum | LogCleanupSummaryScalarFieldEnum[]
+  }
+
+  /**
+   * LogCleanupSummary findFirstOrThrow
+   */
+  export type LogCleanupSummaryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogCleanupSummary
+     */
+    select?: LogCleanupSummarySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogCleanupSummary
+     */
+    omit?: LogCleanupSummaryOmit<ExtArgs> | null
+    /**
+     * Filter, which LogCleanupSummary to fetch.
+     */
+    where?: LogCleanupSummaryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LogCleanupSummaries to fetch.
+     */
+    orderBy?: LogCleanupSummaryOrderByWithRelationInput | LogCleanupSummaryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LogCleanupSummaries.
+     */
+    cursor?: LogCleanupSummaryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LogCleanupSummaries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LogCleanupSummaries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LogCleanupSummaries.
+     */
+    distinct?: LogCleanupSummaryScalarFieldEnum | LogCleanupSummaryScalarFieldEnum[]
+  }
+
+  /**
+   * LogCleanupSummary findMany
+   */
+  export type LogCleanupSummaryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogCleanupSummary
+     */
+    select?: LogCleanupSummarySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogCleanupSummary
+     */
+    omit?: LogCleanupSummaryOmit<ExtArgs> | null
+    /**
+     * Filter, which LogCleanupSummaries to fetch.
+     */
+    where?: LogCleanupSummaryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LogCleanupSummaries to fetch.
+     */
+    orderBy?: LogCleanupSummaryOrderByWithRelationInput | LogCleanupSummaryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LogCleanupSummaries.
+     */
+    cursor?: LogCleanupSummaryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LogCleanupSummaries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LogCleanupSummaries.
+     */
+    skip?: number
+    distinct?: LogCleanupSummaryScalarFieldEnum | LogCleanupSummaryScalarFieldEnum[]
+  }
+
+  /**
+   * LogCleanupSummary create
+   */
+  export type LogCleanupSummaryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogCleanupSummary
+     */
+    select?: LogCleanupSummarySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogCleanupSummary
+     */
+    omit?: LogCleanupSummaryOmit<ExtArgs> | null
+    /**
+     * The data needed to create a LogCleanupSummary.
+     */
+    data: XOR<LogCleanupSummaryCreateInput, LogCleanupSummaryUncheckedCreateInput>
+  }
+
+  /**
+   * LogCleanupSummary createMany
+   */
+  export type LogCleanupSummaryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LogCleanupSummaries.
+     */
+    data: LogCleanupSummaryCreateManyInput | LogCleanupSummaryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LogCleanupSummary createManyAndReturn
+   */
+  export type LogCleanupSummaryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogCleanupSummary
+     */
+    select?: LogCleanupSummarySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogCleanupSummary
+     */
+    omit?: LogCleanupSummaryOmit<ExtArgs> | null
+    /**
+     * The data used to create many LogCleanupSummaries.
+     */
+    data: LogCleanupSummaryCreateManyInput | LogCleanupSummaryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LogCleanupSummary update
+   */
+  export type LogCleanupSummaryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogCleanupSummary
+     */
+    select?: LogCleanupSummarySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogCleanupSummary
+     */
+    omit?: LogCleanupSummaryOmit<ExtArgs> | null
+    /**
+     * The data needed to update a LogCleanupSummary.
+     */
+    data: XOR<LogCleanupSummaryUpdateInput, LogCleanupSummaryUncheckedUpdateInput>
+    /**
+     * Choose, which LogCleanupSummary to update.
+     */
+    where: LogCleanupSummaryWhereUniqueInput
+  }
+
+  /**
+   * LogCleanupSummary updateMany
+   */
+  export type LogCleanupSummaryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LogCleanupSummaries.
+     */
+    data: XOR<LogCleanupSummaryUpdateManyMutationInput, LogCleanupSummaryUncheckedUpdateManyInput>
+    /**
+     * Filter which LogCleanupSummaries to update
+     */
+    where?: LogCleanupSummaryWhereInput
+    /**
+     * Limit how many LogCleanupSummaries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LogCleanupSummary updateManyAndReturn
+   */
+  export type LogCleanupSummaryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogCleanupSummary
+     */
+    select?: LogCleanupSummarySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogCleanupSummary
+     */
+    omit?: LogCleanupSummaryOmit<ExtArgs> | null
+    /**
+     * The data used to update LogCleanupSummaries.
+     */
+    data: XOR<LogCleanupSummaryUpdateManyMutationInput, LogCleanupSummaryUncheckedUpdateManyInput>
+    /**
+     * Filter which LogCleanupSummaries to update
+     */
+    where?: LogCleanupSummaryWhereInput
+    /**
+     * Limit how many LogCleanupSummaries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LogCleanupSummary upsert
+   */
+  export type LogCleanupSummaryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogCleanupSummary
+     */
+    select?: LogCleanupSummarySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogCleanupSummary
+     */
+    omit?: LogCleanupSummaryOmit<ExtArgs> | null
+    /**
+     * The filter to search for the LogCleanupSummary to update in case it exists.
+     */
+    where: LogCleanupSummaryWhereUniqueInput
+    /**
+     * In case the LogCleanupSummary found by the `where` argument doesn't exist, create a new LogCleanupSummary with this data.
+     */
+    create: XOR<LogCleanupSummaryCreateInput, LogCleanupSummaryUncheckedCreateInput>
+    /**
+     * In case the LogCleanupSummary was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LogCleanupSummaryUpdateInput, LogCleanupSummaryUncheckedUpdateInput>
+  }
+
+  /**
+   * LogCleanupSummary delete
+   */
+  export type LogCleanupSummaryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogCleanupSummary
+     */
+    select?: LogCleanupSummarySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogCleanupSummary
+     */
+    omit?: LogCleanupSummaryOmit<ExtArgs> | null
+    /**
+     * Filter which LogCleanupSummary to delete.
+     */
+    where: LogCleanupSummaryWhereUniqueInput
+  }
+
+  /**
+   * LogCleanupSummary deleteMany
+   */
+  export type LogCleanupSummaryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LogCleanupSummaries to delete
+     */
+    where?: LogCleanupSummaryWhereInput
+    /**
+     * Limit how many LogCleanupSummaries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LogCleanupSummary without action
+   */
+  export type LogCleanupSummaryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogCleanupSummary
+     */
+    select?: LogCleanupSummarySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogCleanupSummary
+     */
+    omit?: LogCleanupSummaryOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10693,6 +11864,20 @@ export namespace Prisma {
   };
 
   export type ExecutionLogScalarFieldEnum = (typeof ExecutionLogScalarFieldEnum)[keyof typeof ExecutionLogScalarFieldEnum]
+
+
+  export const LogCleanupSummaryScalarFieldEnum: {
+    id: 'id',
+    totalRowsDeleted: 'totalRowsDeleted',
+    successfulJobs: 'successfulJobs',
+    failedJobs: 'failedJobs',
+    durationMs: 'durationMs',
+    description: 'description',
+    isManual: 'isManual',
+    createdAt: 'createdAt'
+  };
+
+  export type LogCleanupSummaryScalarFieldEnum = (typeof LogCleanupSummaryScalarFieldEnum)[keyof typeof LogCleanupSummaryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -11368,6 +12553,75 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"ExecutionLog"> | Date | string
   }
 
+  export type LogCleanupSummaryWhereInput = {
+    AND?: LogCleanupSummaryWhereInput | LogCleanupSummaryWhereInput[]
+    OR?: LogCleanupSummaryWhereInput[]
+    NOT?: LogCleanupSummaryWhereInput | LogCleanupSummaryWhereInput[]
+    id?: StringFilter<"LogCleanupSummary"> | string
+    totalRowsDeleted?: IntFilter<"LogCleanupSummary"> | number
+    successfulJobs?: IntFilter<"LogCleanupSummary"> | number
+    failedJobs?: IntFilter<"LogCleanupSummary"> | number
+    durationMs?: IntFilter<"LogCleanupSummary"> | number
+    description?: StringNullableFilter<"LogCleanupSummary"> | string | null
+    isManual?: BoolFilter<"LogCleanupSummary"> | boolean
+    createdAt?: DateTimeFilter<"LogCleanupSummary"> | Date | string
+  }
+
+  export type LogCleanupSummaryOrderByWithRelationInput = {
+    id?: SortOrder
+    totalRowsDeleted?: SortOrder
+    successfulJobs?: SortOrder
+    failedJobs?: SortOrder
+    durationMs?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isManual?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LogCleanupSummaryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LogCleanupSummaryWhereInput | LogCleanupSummaryWhereInput[]
+    OR?: LogCleanupSummaryWhereInput[]
+    NOT?: LogCleanupSummaryWhereInput | LogCleanupSummaryWhereInput[]
+    totalRowsDeleted?: IntFilter<"LogCleanupSummary"> | number
+    successfulJobs?: IntFilter<"LogCleanupSummary"> | number
+    failedJobs?: IntFilter<"LogCleanupSummary"> | number
+    durationMs?: IntFilter<"LogCleanupSummary"> | number
+    description?: StringNullableFilter<"LogCleanupSummary"> | string | null
+    isManual?: BoolFilter<"LogCleanupSummary"> | boolean
+    createdAt?: DateTimeFilter<"LogCleanupSummary"> | Date | string
+  }, "id">
+
+  export type LogCleanupSummaryOrderByWithAggregationInput = {
+    id?: SortOrder
+    totalRowsDeleted?: SortOrder
+    successfulJobs?: SortOrder
+    failedJobs?: SortOrder
+    durationMs?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isManual?: SortOrder
+    createdAt?: SortOrder
+    _count?: LogCleanupSummaryCountOrderByAggregateInput
+    _avg?: LogCleanupSummaryAvgOrderByAggregateInput
+    _max?: LogCleanupSummaryMaxOrderByAggregateInput
+    _min?: LogCleanupSummaryMinOrderByAggregateInput
+    _sum?: LogCleanupSummarySumOrderByAggregateInput
+  }
+
+  export type LogCleanupSummaryScalarWhereWithAggregatesInput = {
+    AND?: LogCleanupSummaryScalarWhereWithAggregatesInput | LogCleanupSummaryScalarWhereWithAggregatesInput[]
+    OR?: LogCleanupSummaryScalarWhereWithAggregatesInput[]
+    NOT?: LogCleanupSummaryScalarWhereWithAggregatesInput | LogCleanupSummaryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LogCleanupSummary"> | string
+    totalRowsDeleted?: IntWithAggregatesFilter<"LogCleanupSummary"> | number
+    successfulJobs?: IntWithAggregatesFilter<"LogCleanupSummary"> | number
+    failedJobs?: IntWithAggregatesFilter<"LogCleanupSummary"> | number
+    durationMs?: IntWithAggregatesFilter<"LogCleanupSummary"> | number
+    description?: StringNullableWithAggregatesFilter<"LogCleanupSummary"> | string | null
+    isManual?: BoolWithAggregatesFilter<"LogCleanupSummary"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"LogCleanupSummary"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -11974,6 +13228,83 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LogCleanupSummaryCreateInput = {
+    id?: string
+    totalRowsDeleted: number
+    successfulJobs: number
+    failedJobs: number
+    durationMs: number
+    description?: string | null
+    isManual?: boolean
+    createdAt?: Date | string
+  }
+
+  export type LogCleanupSummaryUncheckedCreateInput = {
+    id?: string
+    totalRowsDeleted: number
+    successfulJobs: number
+    failedJobs: number
+    durationMs: number
+    description?: string | null
+    isManual?: boolean
+    createdAt?: Date | string
+  }
+
+  export type LogCleanupSummaryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    totalRowsDeleted?: IntFieldUpdateOperationsInput | number
+    successfulJobs?: IntFieldUpdateOperationsInput | number
+    failedJobs?: IntFieldUpdateOperationsInput | number
+    durationMs?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isManual?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LogCleanupSummaryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    totalRowsDeleted?: IntFieldUpdateOperationsInput | number
+    successfulJobs?: IntFieldUpdateOperationsInput | number
+    failedJobs?: IntFieldUpdateOperationsInput | number
+    durationMs?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isManual?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LogCleanupSummaryCreateManyInput = {
+    id?: string
+    totalRowsDeleted: number
+    successfulJobs: number
+    failedJobs: number
+    durationMs: number
+    description?: string | null
+    isManual?: boolean
+    createdAt?: Date | string
+  }
+
+  export type LogCleanupSummaryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    totalRowsDeleted?: IntFieldUpdateOperationsInput | number
+    successfulJobs?: IntFieldUpdateOperationsInput | number
+    failedJobs?: IntFieldUpdateOperationsInput | number
+    durationMs?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isManual?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LogCleanupSummaryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    totalRowsDeleted?: IntFieldUpdateOperationsInput | number
+    successfulJobs?: IntFieldUpdateOperationsInput | number
+    failedJobs?: IntFieldUpdateOperationsInput | number
+    durationMs?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isManual?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -12555,6 +13886,53 @@ export namespace Prisma {
   export type ExecutionLogSumOrderByAggregateInput = {
     status?: SortOrder
     duration?: SortOrder
+  }
+
+  export type LogCleanupSummaryCountOrderByAggregateInput = {
+    id?: SortOrder
+    totalRowsDeleted?: SortOrder
+    successfulJobs?: SortOrder
+    failedJobs?: SortOrder
+    durationMs?: SortOrder
+    description?: SortOrder
+    isManual?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LogCleanupSummaryAvgOrderByAggregateInput = {
+    totalRowsDeleted?: SortOrder
+    successfulJobs?: SortOrder
+    failedJobs?: SortOrder
+    durationMs?: SortOrder
+  }
+
+  export type LogCleanupSummaryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    totalRowsDeleted?: SortOrder
+    successfulJobs?: SortOrder
+    failedJobs?: SortOrder
+    durationMs?: SortOrder
+    description?: SortOrder
+    isManual?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LogCleanupSummaryMinOrderByAggregateInput = {
+    id?: SortOrder
+    totalRowsDeleted?: SortOrder
+    successfulJobs?: SortOrder
+    failedJobs?: SortOrder
+    durationMs?: SortOrder
+    description?: SortOrder
+    isManual?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LogCleanupSummarySumOrderByAggregateInput = {
+    totalRowsDeleted?: SortOrder
+    successfulJobs?: SortOrder
+    failedJobs?: SortOrder
+    durationMs?: SortOrder
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {

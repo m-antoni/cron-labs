@@ -11,8 +11,8 @@ export const prisma =
   globalForPrisma.prisma ||
   new PrismaClient({
     adapter,
-    // Add this to see the actual SQL queries in your terminal
-    log: ['query', 'error', 'warn'],
+    // log: ['query', 'error', 'warn'],
+    log: ['error'], // log if something goes wrong
   });
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;

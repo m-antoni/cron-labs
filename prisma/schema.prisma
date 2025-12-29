@@ -155,3 +155,22 @@ model ExecutionLog {
 
   @@map("execution_logs")
 }
+
+// ==========================================
+// 4. LOG & CLEANUP SUMMARY
+// ==========================================
+model LogCleanupSummary {
+  id               String   @id @default(cuid())
+  
+  // Code uses 'totalRowsDeleted', Database uses 'total_rows_deleted'
+  totalRowsDeleted Int      @map("total_rows_deleted") 
+  successfulJobs   Int      @map("successful_jobs")
+  failedJobs       Int      @map("failed_jobs")
+  durationMs       Int      @map("duration_ms")
+  description      String?  @map("description")
+  isManual         Boolean  @default(false) @map("is_manual")
+  
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  @@map("log_cleanup_summaries")
+}
