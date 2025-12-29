@@ -50,7 +50,7 @@ export default function ButtonGroup({ id, dispatch, env }: ButtonGroupProps) {
           </Dropdown.Item>
 
           <Dropdown.Item href="#" className="mt-n1 mb-n1 mr-n3 d-flex align-items-center">
-            <FaBoltLightning size={16} className="mr-2 ml-n1" /> Test
+            <FaBoltLightning size={16} className="mr-2 ml-n1" /> Enable
           </Dropdown.Item>
 
           <Dropdown.Item

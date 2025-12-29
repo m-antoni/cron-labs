@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { JobFormTypes, ScheduleType } from '@/app/types/appTypes';
+
 export function generate32CharToken(): string {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const array = new Uint8Array(32);
@@ -78,4 +80,48 @@ export const truncateUrl = (url: string | undefined | null, maxLength: number = 
 export const formatDuration = (ms: number) => {
   if (ms < 1000) return `${ms}ms`;
   return `${(ms / 1000).toFixed(2)}s`;
+};
+
+// format the job schedule
+export const scheduleFormat = (job: JobFormTypes) => {
+  if (job.scheduleType === ScheduleType.MINUTES) {
+    // "Every 15 mins"
+    return `Every ${job.intervalMinutes} Minutes`;
+  }
+
+  if (job.scheduleType === ScheduleType.DAILY) {
+    // "Daily at 08:00 AM"
+    return `Daily at ${job.dailyTime}`;
+  }
+
+  if (job.scheduleType === ScheduleType.MONTHLY) {
+    // "Every 12th at 08:00 AM"
+    return `Every ${getOrdinalSuffix(job.monthlyDay ?? 1)} at ${job.monthlyTime}`;
+  }
+
+  return 'Unknown Schedule';
+};
+
+// format day suffix
+export const getOrdinalSuffix = (day: number): string => {
+  if (day < 1 || day > 31) return day.toString(); // Safety check for valid dates
+
+  const lastDigit = day % 10;
+  const lastTwoDigits = day % 100;
+
+  // Handle exceptions for 11, 12, and 13 (they always use 'th')
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 13) {
+    return `${day}th`;
+  }
+
+  switch (lastDigit) {
+    case 1:
+      return `${day}st`;
+    case 2:
+      return `${day}nd`;
+    case 3:
+      return `${day}rd`;
+    default:
+      return `${day}th`;
+  }
 };

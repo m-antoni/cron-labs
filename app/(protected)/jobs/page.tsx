@@ -1,10 +1,10 @@
 'use client';
 
-import { getAppsAction } from '@/app/actions/app';
+import { getAppsAction } from '@/app/actions/job';
 import ButtonGroup from '@/app/components/ui/ButtonGroup';
 import Spinner from '@/app/components/ui/Spinner';
 import { formatDate } from '@/app/lib/formatDate';
-import { removeDebugInfo, truncateUrl } from '@/app/lib/helpers';
+import { removeDebugInfo, scheduleFormat, truncateUrl } from '@/app/lib/helpers';
 import { AppFormProps } from '@/app/types/appTypes';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -66,8 +66,9 @@ export default function CronJobs() {
                       <tr>
                         <th>App Title</th>
                         <th>URL</th>
-                        <th className="text-center">Enable </th>
-                        <th className="text-center">Schedule Type</th>
+                        <th className="text-center">Status </th>
+                        <th className="text-center">Schedule</th>
+                        <th className="text-center">Schedule</th>
                         <th className="text-center">Created At</th>
                         <th></th>
                       </tr>
@@ -77,23 +78,23 @@ export default function CronJobs() {
                         apps.map((item, index) => (
                           <tr key={index}>
                             <td>{item.appTitle}</td>
-                            <td>{truncateUrl(item.url, 25)}</td>
+                            <td>{truncateUrl(item.url, 30)}</td>
                             <td className="text-center">
                               {item.isEnabled ? (
                                 <span className="badge bg-success text-dark">
                                   <span className="fs-11">ACTIVE</span>
                                 </span>
                               ) : (
-                                <span className="badge bg-primary text-dark">
+                                <span className="badge bg-dark">
                                   <span className="fs-11">DISABLED</span>
                                 </span>
                               )}
                             </td>
 
-                            <td className="text-center">{item.scheduleType}</td>
+                            <td className="text-center">{scheduleFormat(item)}</td>
 
                             <td className="text-center">
-                              {item.createdAt ? formatDate(item.createdAt, 'YYYY-MM-DD') : 'N/A'}
+                              {item.createdAt ? formatDate(item.createdAt) : 'N/A'}
                             </td>
                             <td>
                               <ButtonGroup id={item.id!} dispatch={dispatch} env={item.env} />

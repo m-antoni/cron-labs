@@ -125,7 +125,7 @@ export async function GET(request: Request) {
       text: `Database cleanup completed.\n${emailPayload.body}`,
       html: `
              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 3px; overflow: hidden;">
-          <div style="background-color: #2b3553; color: white; padding: 10px; text-align: center;">
+          <div style="background-color: #2b3553; color: white; padding: 15px; text-align: center;">
             <h2 style="margin: 0; font-size: 18px;">CronLabs Database Cleanup</h2>
           </div>
           <div style="padding: 20px;">

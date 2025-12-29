@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteAppAction } from '@/app/actions/app';
+import { deleteAppAction } from '@/app/actions/job';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import { useState } from 'react';

@@ -1,3 +1,5 @@
+import { App, ExecutionLog } from '@/generated/prisma';
+
 export type AppFormProps = {
   // From DB optional
   id?: string | undefined;
@@ -36,6 +38,8 @@ export enum ScheduleType {
 
 // use in JobForm
 export type JobFormTypes = {
+  id?: string;
+  userId?: string;
   appTitle: string;
   url: string;
   description: string;
@@ -45,4 +49,25 @@ export type JobFormTypes = {
   dailyTime: string;
   monthlyDay: number;
   monthlyTime: string;
+  // Execution Logs
+  executionLogs?: ExecutionLogSummary[];
+};
+
+export type ExecutionLogSummary = {
+  id: string;
+  status: number;
+  success: boolean;
+  duration?: number | null;
+  createdAt: Date | string;
+};
+
+export type LogWithApp = ExecutionLog & {
+  app: App;
+};
+
+export type DashboardTypes = {
+  executionLogs: LogWithApp[];
+  getJobs: number;
+  getSuccess: number;
+  getFailed: number;
 };

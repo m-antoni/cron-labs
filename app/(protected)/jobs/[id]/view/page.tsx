@@ -10,7 +10,7 @@ import { useSaveForm } from '@/app/hooks/useSaveForm';
 import Spinner from '@/app/components/ui/Spinner';
 import AlertMessage from '@/app/components/ui/AlertMessage';
 import { useParams } from 'next/navigation';
-import { getSingleAppAction } from '@/app/actions/app';
+import { getSingleAppAction } from '@/app/actions/job';
 import { useDeleteWithAlert } from '@/app/hooks/useDeleteWithAlert';
 import useJob from '@/app/hooks/useJob';
 import { useNotification } from '@/app/hooks/useNotification';
@@ -100,7 +100,7 @@ export default function ViewDetails() {
                   {loading ? <Spinner text="Saving..." size={19} /> : `Save`}
                 </Button>
                 <Link href="#" className="btn btn-secondary px-3 mr-2 text-warning">
-                  <FaBoltLightning size={16} className="mr-1" />
+                  <FaBoltLightning className="text-warning" />
                 </Link>
               </div>
             </div>

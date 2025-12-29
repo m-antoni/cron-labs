@@ -3,7 +3,7 @@
 import { prisma } from '@/app/lib/prisma';
 import { auth } from '@/app/lib/auth'; // Adjust this path to your auth.ts
 import { revalidatePath } from 'next/cache';
-import { AppFormProps } from '../types/appTypes';
+import { AppFormProps } from '@/app/types/appTypes';
 
 // ** --- CREATE ---
 export async function createAppAction(data: AppFormProps) {
@@ -41,7 +41,7 @@ export async function createAppAction(data: AppFormProps) {
       },
     });
 
-    revalidatePath('/');
+    revalidatePath('/jobs');
     return { success: true, data: result };
   } catch (error) {
     console.error('Create Error:', error);
@@ -50,7 +50,7 @@ export async function createAppAction(data: AppFormProps) {
 }
 
 // ** --- READ ---
-export async function getAppsAction() {
+export async function getAppsAction(take = 10) {
   try {
     // Get the current user session
     const session = await auth();
@@ -61,9 +61,11 @@ export async function getAppsAction() {
       where: { userId: session.user.id },
       include: { envVariables: true },
       skip: 0,
-      take: 20,
+      take,
       orderBy: { createdAt: 'desc' },
     });
+
+    revalidatePath(`/jobs`);
     return apps;
   } catch (error) {
     console.error('Fetch Error:', error);
@@ -85,6 +87,7 @@ export async function getSingleAppAction(id: string) {
       include: { envVariables: true },
     });
 
+    revalidatePath(`/job/${id}/view`);
     return app || null;
   } catch (error) {
     console.error('Error fetching app:', error);
@@ -127,7 +130,7 @@ export async function updateAppAction(data: AppFormProps) {
       include: { envVariables: true },
     });
 
-    revalidatePath('/');
+    revalidatePath(`/jobs`);
     return { success: true, data: result };
   } catch (error) {
     console.error('Update Error:', error);
@@ -148,19 +151,10 @@ export async function deleteAppAction(id: string) {
       },
     });
 
-    revalidatePath('/');
+    revalidatePath('/jobs');
     return { success: true };
   } catch (error) {
     console.error('Delete Error:', error);
     return { success: false, error: 'Failed to delete app' };
   }
-}
-
-// ** --- TOGGLE ENABLE CRON JOB ---
-export async function toggleAppAction(appId: string, currentState: boolean) {
-  await prisma.app.update({
-    where: { id: appId },
-    data: { isEnabled: !currentState },
-  });
-  revalidatePath('/dashboard');
 }
