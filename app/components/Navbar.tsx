@@ -51,20 +51,19 @@ export default function Navbar() {
                   data-toggle="modal"
                   data-target="#searchModal"
                 >
-                  <FaMagnifyingGlass size={16} className="text-light mb-1 mr-n2" />
+                  {/* <FaMagnifyingGlass size={16} className="text-light mb-1 mr-n2" /> */}
                   {/* <span className="d-lg-none d-md-block">Search</span> */}
                 </button>
               </li>
-              <li className="dropdown nav-item mt-1">
+              {/* <li className="dropdown nav-item mt-1">
                 <a
                   href="javascript:void(0)"
                   className="dropdown-toggle nav-link mr-n1"
                   data-toggle="dropdown"
                 >
                   <FaBell size={16} />
-
-                  {/* <div className="notification d-none d-lg-block d-xl-block" /> */}
-                  {/* <p className="d-lg-none">Notifications</p> */}
+                  <div className="notification d-none d-lg-block d-xl-block" />
+                  <p className="d-lg-none">Notifications</p>
                 </a>
                 <ul className="dropdown-menu dropdown-menu-right dropdown-navbar">
                   <li className="nav-link">
@@ -93,7 +92,7 @@ export default function Navbar() {
                     </a>
                   </li>
                 </ul>
-              </li>
+              </li> */}
               <li className="dropdown nav-item">
                 <a href="#" className="dropdown-toggle nav-link" data-toggle="dropdown">
                   <div className="photo">
@@ -104,7 +103,7 @@ export default function Navbar() {
                   <p className="d-lg-none">Log out</p>
                 </a>
                 <ul className="dropdown-menu dropdown-navbar">
-                  <li className="nav-link">
+                  {/* <li className="nav-link">
                     <a href="javascript:void(0)" className="nav-item dropdown-item">
                       Profile
                     </a>
@@ -114,7 +113,7 @@ export default function Navbar() {
                       Settings
                     </a>
                   </li>
-                  <li className="dropdown-divider" />
+                  <li className="dropdown-divider" /> */}
                   <li className="nav-link">
                     <a
                       href="javascript:void(0)"

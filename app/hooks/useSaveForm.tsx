@@ -8,7 +8,7 @@ import {
 } from '@/app/lib/helpers';
 import { useRouter } from 'next/navigation';
 import { AppFormProps } from '@/app/types/appTypes';
-import { createAppAction, updateAppAction } from '../actions/job';
+import { createAppAction, updateAppAction } from '../actions/jobs';
 
 export function useSaveForm() {
   const [loading, setLoading] = useState(false);

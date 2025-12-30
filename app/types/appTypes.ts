@@ -49,8 +49,6 @@ export type JobFormTypes = {
   dailyTime: string;
   monthlyDay: number;
   monthlyTime: string;
-  // Execution Logs
-  executionLogs?: ExecutionLogSummary[];
 };
 
 export type ExecutionLogSummary = {

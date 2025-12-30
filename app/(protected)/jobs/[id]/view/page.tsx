@@ -10,7 +10,7 @@ import { useSaveForm } from '@/app/hooks/useSaveForm';
 import Spinner from '@/app/components/ui/Spinner';
 import AlertMessage from '@/app/components/ui/AlertMessage';
 import { useParams } from 'next/navigation';
-import { getSingleAppAction } from '@/app/actions/job';
+import { getSingleAppAction } from '@/app/actions/jobs';
 import { useDeleteWithAlert } from '@/app/hooks/useDeleteWithAlert';
 import useJob from '@/app/hooks/useJob';
 import { useNotification } from '@/app/hooks/useNotification';

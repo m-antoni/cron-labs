@@ -16,10 +16,16 @@ export function validateEmail(email: string): boolean {
 }
 
 export function validateWebsite(url: string): boolean {
-  const pattern = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)(\/[\w-]*)*(\?.*)?(#.*)?$/i;
-  return pattern.test(url);
+  try {
+    // If it doesn't have a protocol, add one temporarily to test validity
+    const urlToTest = url.includes('://') ? url : `https://${url}`;
+    new URL(urlToTest);
+    return true;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
 }
-
 // find duplicate keys
 export function findDuplicateKeys(arr: any, keyName: string): string {
   const duplicates = Object.keys(

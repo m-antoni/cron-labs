@@ -1,6 +1,6 @@
 'use client';
 
-import { getAppsAction } from '@/app/actions/job';
+import { getAppsAction } from '@/app/actions/jobs';
 import ButtonGroup from '@/app/components/ui/ButtonGroup';
 import Spinner from '@/app/components/ui/Spinner';
 import { formatDate } from '@/app/lib/formatDate';

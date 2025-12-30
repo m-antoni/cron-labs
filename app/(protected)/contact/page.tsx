@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Contact() {
   return (
     <div className="row">
-      <div className="col-md-6">
+      <div className="col-md-12">
         <div className="card card-user">
           <div className="card-body">
             <p className="card-text"></p>
@@ -30,77 +30,43 @@ export default function Contact() {
               Thank you for visiting my small project hope you enjoy it!
             </div>
           </div>
-          <div className="card-footer">
-            <table className="table table-borderless mb-0 ml-5">
+          <div className="d-flex justify-content-center">
+            <table className="table table-borderless mb-0 mx-auto w-auto">
               <tbody>
-                <tr>
-                  <th className="text-white text-left">Website</th>
-                  <td>
+                <tr className="text-center">
+                  <th className="text-white text-center">Website</th>
+                  <td className="text-left">
                     <Link href="https://michaelantoni.vercel.app" target="_blank">
                       <span className="text-warning">https://michaelantoni.vercel.app</span>
                     </Link>
                   </td>
                 </tr>
                 <tr>
-                  <th className="text-white text-left">LinkedIn</th>
-                  <td>
+                  <th className="text-white text-center">LinkedIn</th>
+                  <td className="text-left">
                     <Link href="https://www.linkedin.com/in/m-antoni" target="_blank">
                       <span className="text-warning">https://www.linkedin.com/in/m-antoni</span>
                     </Link>
                   </td>
                 </tr>
                 <tr>
-                  <th className="text-white text-left">GitHub</th>
-                  <td>
+                  <th className="text-white text-center">GitHub</th>
+                  <td className="text-left">
                     <Link href="https://www.github.com/m-antoni" target="_blank">
                       <span className="text-warning">https://www.github.com/m-antoni</span>
                     </Link>
                   </td>
                 </tr>
                 <tr>
-                  <th className="text-white text-left">Email</th>
-                  <td>
+                  <th className="text-white text-center">Email</th>
+                  <td className="text-left">
                     <span className="text-warning">michaelantoni.tech@gmail.com</span>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
-      <div className="col-md-6">
-        <div className="card">
-          <div className="card-header">
-            <h4 className="title ">Contact Me!</h4>
-          </div>
-          <div className="card-body">
-            <form>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label>Email:</label>
-                    <input type="text" className="form-control" placeholder="john@yourmail.com" />
-                  </div>
-                  <div className="form-group">
-                    <label>Subject:</label>
-                    <input type="text" className="form-control" placeholder="Subject" />
-                  </div>
-                  <div className="form-group">
-                    <label>Body:</label>
-                    <textarea
-                      className="form-control c-textarea"
-                      placeholder="Your message content"
-                    />
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div className="card-footer d-flex justify-content-end pb-4 mt-n3">
-            <button type="submit" className="btn btn-fill btn-warning px-3">
-              Send Message
-            </button>
-          </div>
+          <div className="card-footer"></div>
         </div>
       </div>
     </div>

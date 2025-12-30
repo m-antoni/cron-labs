@@ -144,11 +144,11 @@ export async function GET(request: Request) {
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding: 8px 0; width: 120px;"><strong>Total Rows:</strong></td>
+                    <td style="padding: 8px 0; width: 120px;"><strong>Deleted Rows:</strong></td>
                     <td style="padding: 8px 0;">${deleteResult.count}</td>
                 </tr>
                 <tr>
-                    <td style="padding: 8px 0; width: 120px;"><strong>Successful Jobs:</strong></td>
+                    <td style="padding: 8px 0; width: 120px;"><strong>Success Jobs:</strong></td>
                     <td style="padding: 8px 0;">${successCount}</td>
                 </tr>
                 <tr>
@@ -156,7 +156,7 @@ export async function GET(request: Request) {
                     <td style="padding: 8px 0;">${failureCount}</td>
                 </tr>
                 <tr>
-                    <td style="padding: 8px 0; width: 140px;"><strong>Trigger Source:</strong></td>
+                    <td style="padding: 8px 0; width: 140px;"><strong>Trigger:</strong></td>
                     <td style="padding: 8px 0;">
                         ${isManual ? 'Manual Action' : 'Automated Cron'} 
                         <br />
@@ -164,7 +164,7 @@ export async function GET(request: Request) {
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding: 8px 0; width: 120px;"><strong>Cleanup Duration:</strong></td>
+                    <td style="padding: 8px 0; width: 120px;"><strong>Duration:</strong></td>
                     <td style="padding: 8px 0;">${formatDuration(processDuration)}</td>
                 </tr>
                 <tr>
