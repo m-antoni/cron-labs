@@ -97,7 +97,7 @@ export default function CronJobs() {
                               {item.createdAt ? formatDate(item.createdAt) : 'N/A'}
                             </td>
                             <td>
-                              <ButtonGroup id={item.id!} dispatch={dispatch} env={item.env} />
+                              <ButtonGroup id={item.id!} dispatch={dispatch} env={item.env || []} />
                             </td>
                           </tr>
                         ))}

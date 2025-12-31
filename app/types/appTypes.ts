@@ -20,7 +20,7 @@ export type AppFormProps = {
   notifyOnRecovery: boolean;
   notificationEmail: string;
   // ENV
-  env: EnvItem[];
+  env?: EnvItem[];
 };
 
 export type EnvItem = {
@@ -69,3 +69,42 @@ export type DashboardTypes = {
   getSuccess: number;
   getFailed: number;
 };
+
+export interface AppReference {
+  id: string;
+  userId: string;
+  appTitle: string;
+  url: string;
+  description: string;
+  isEnabled: boolean;
+  scheduleType: ScheduleType;
+  intervalMinutes: number;
+  dailyTime: string;
+  monthlyDay: number;
+  monthlyTime: string;
+  notifyOnFailure: boolean;
+  notifyOnRecovery: boolean;
+  notificationEmail: string;
+  createdAt: Date;
+}
+
+export interface ExecutionLogItem {
+  // Renamed slightly to avoid Prisma conflicts
+  id: string;
+  appId: string;
+  status: number;
+  success: boolean;
+  duration: number | null;
+  errorMessage: string | null;
+  responseBody: string | null;
+  createdAt: string | Date;
+  app: AppReference; // This allows item.app.id and item.app.appTitle
+}
+
+export interface ExecutionLogResponse {
+  executionLogs: ExecutionLogItem[];
+  totalCount: number;
+  totalPages: number;
+  success?: boolean;
+  error?: string;
+}

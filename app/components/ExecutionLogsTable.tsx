@@ -3,13 +3,10 @@ import { FaCircle, FaClock } from 'react-icons/fa6';
 import { FaCheckCircle } from 'react-icons/fa';
 import { formatDuration, scheduleFormat } from '@/app/lib/helpers';
 import { calculateNextRun, formatLastRun } from '@/app/lib/formatDate';
-import { DashboardTypes } from '@/app/types/appTypes';
+import { ExecutionLogResponse } from '@/app/types/appTypes';
 
-type ExecutionLogsTableProps = {
-  data: DashboardTypes;
-};
-
-export default function ExecutionLogsTable({ data }: ExecutionLogsTableProps) {
+export default function ExecutionLogsTable({ data }: { data: ExecutionLogResponse }) {
+  console.log('test', data);
   return (
     <div className="table-responsive-md">
       <table className="table tablesorter">
@@ -24,8 +21,9 @@ export default function ExecutionLogsTable({ data }: ExecutionLogsTableProps) {
           </tr>
         </thead>
         <tbody>
-          {data.executionLogs.length > 0 &&
-            data.executionLogs.map((item: any) => (
+          {data.executionLogs &&
+            data.executionLogs.length > 0 &&
+            data.executionLogs.map((item) => (
               <tr key={item.id}>
                 <td>
                   <Link href={`/jobs/${item.app.id}/view`} className="text-info">
@@ -40,7 +38,9 @@ export default function ExecutionLogsTable({ data }: ExecutionLogsTableProps) {
                   <FaClock className="mr-1" /> {calculateNextRun(item.createdAt, item.app)}
                 </td>
                 <td>
-                  <div className="badge bg-dark">{formatDuration(item.duration)}</div>
+                  <div className="badge bg-dark text-white">
+                    {item.duration !== null ? formatDuration(item.duration) : 'n/a'}
+                  </div>
                 </td>
                 <td className="text-center">
                   {item.success ? (

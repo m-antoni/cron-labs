@@ -1,12 +1,13 @@
 'use client';
 
 import { getDashboardAction } from '@/app/actions/logs';
-import ExecutionLogsTable from '@/app/components/ExecutionLogsTable';
 import Spinner from '@/app/components/ui/Spinner';
+import { calculateNextRun, formatLastRun } from '@/app/lib/formatDate';
+import { formatDuration, scheduleFormat } from '@/app/lib/helpers';
 import { DashboardTypes } from '@/app/types/appTypes';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { FaSync } from 'react-icons/fa';
+import { FaCheckCircle, FaCircle, FaClock, FaSync } from 'react-icons/fa';
 
 export default function Dashboard() {
   const [data, setData] = useState<DashboardTypes>({
@@ -101,7 +102,52 @@ export default function Dashboard() {
                 <div className="card-header">Cron Job Shedule</div>
                 <div className="card-body">
                   <div className="table-responsive-md">
-                    <ExecutionLogsTable data={data} />
+                    <div className="table-responsive-md">
+                      <table className="table tablesorter">
+                        <thead className=" text-primary">
+                          <tr>
+                            <th>App Title</th>
+                            <th>Schedule</th>
+                            <th>Last Run </th>
+                            <th>Next Run</th>
+                            <th>Duration</th>
+                            <th className="text-center">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {data.executionLogs.length > 0 &&
+                            data.executionLogs.map((item: any) => (
+                              <tr key={item.id}>
+                                <td>
+                                  <Link href={`/jobs/${item.app.id}/view`} className="text-info">
+                                    {item.app.appTitle}
+                                  </Link>
+                                </td>
+                                <td>{scheduleFormat(item.app)}</td>
+                                <td>
+                                  <FaCheckCircle className="mr-1" /> {formatLastRun(item.createdAt)}
+                                </td>
+                                <td>
+                                  <FaClock className="mr-1" />{' '}
+                                  {calculateNextRun(item.createdAt, item.app)}
+                                </td>
+                                <td>
+                                  <div className="badge bg-dark text-white">
+                                    {formatDuration(item.duration)}
+                                  </div>
+                                </td>
+                                <td className="text-center">
+                                  {item.success ? (
+                                    <FaCircle size={18} className="text-success" />
+                                  ) : (
+                                    <FaCircle size={18} className="text-danger" />
+                                  )}
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                   {data.executionLogs.length > 0 && (
                     <Link href={`/logs`} className=" btn btn-secondary btn-sm mt-3">

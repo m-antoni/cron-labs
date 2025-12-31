@@ -28,16 +28,18 @@ export async function createAppAction(data: AppFormProps) {
         notifyOnRecovery: data.notifyOnRecovery,
         notificationEmail: data.notificationEmail,
         userId: session.user.id,
-        // Use the name from your Schema: 'envVariables'
-        envVariables: {
-          create: data.env.map((item) => ({
-            envKey: item.envKey,
-            envValue: item.envValue,
-          })),
-        },
+        envVariables:
+          data.env && data.env.length > 0
+            ? {
+                create: data.env.map((item) => ({
+                  envKey: item.envKey,
+                  envValue: item.envValue,
+                })),
+              }
+            : undefined, // Prisma skips this field entirely if it's undefined
       },
       include: {
-        envVariables: true, // Update this to match the relation name too
+        envVariables: true,
       },
     });
 
@@ -101,7 +103,8 @@ export async function updateAppAction(data: AppFormProps) {
     const session = await auth();
     if (!session?.user?.id) return { success: false, error: 'Unauthorized' };
 
-    const envData = data.env.map(({ envKey, envValue }) => ({ envKey, envValue }));
+    const safeEnv = data.env || [];
+    const envData = safeEnv.map(({ envKey, envValue }) => ({ envKey, envValue }));
 
     const result = await prisma.app.update({
       where: {

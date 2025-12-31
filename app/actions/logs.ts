@@ -3,6 +3,7 @@
 import { prisma } from '@/app/lib/prisma';
 import { auth } from '@/app/lib/auth'; // Adjust this path to your auth.ts
 import { revalidatePath } from 'next/cache';
+import { ExecutionLogResponse } from '@/app/types/appTypes';
 
 // ** ---  Get the ExecutionLogs, Total Jobs, Success, Failed ---
 export async function getDashboardAction(take = 10) {
@@ -19,7 +20,7 @@ export async function getDashboardAction(take = 10) {
       // Fetch the executionlogs for the table
       prisma.executionLog.findMany({
         where: {
-          app: { userId: session.user.id },
+          app: { userId: session.user.id, isEnabled: true },
         },
         include: {
           app: true,
@@ -66,7 +67,45 @@ export async function getDashboardAction(take = 10) {
     revalidatePath('/dashboard');
     return responsePayload;
   } catch (error) {
-    console.error('Get Schedules Error', error);
-    return { success: false, error: 'Failed to fetch the schedules' };
+    console.error('Get Execution Logs with total jobs Error', error);
+    return { success: false, error: 'Failed to fetch the Execution Logs with total jobs ' };
+  }
+}
+
+// ** Get Executionlogs with Pagination
+export async function getExecutionLogs(
+  page: number = 1,
+  pageSize: number = 10,
+): Promise<ExecutionLogResponse> {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    return { executionLogs: [], totalCount: 0, totalPages: 0, error: 'Unauthorized' };
+  }
+
+  try {
+    const skip = (page - 1) * pageSize;
+    const userFilter = { app: { userId: session.user.id, isEnabled: true } };
+
+    const [executionLogs, totalCount] = await Promise.all([
+      prisma.executionLog.findMany({
+        where: userFilter,
+        include: { app: true },
+        skip: skip,
+        take: pageSize,
+        orderBy: { createdAt: 'desc' },
+      }),
+      prisma.executionLog.count({ where: userFilter }),
+    ]);
+
+    return {
+      executionLogs: executionLogs as any,
+      totalCount,
+      totalPages: Math.ceil(totalCount / pageSize),
+      success: true,
+    };
+  } catch (error) {
+    console.error('Get Execution Logs Error', error);
+    return { executionLogs: [], totalCount: 0, totalPages: 0, error: 'Failed to fetch logs' };
   }
 }

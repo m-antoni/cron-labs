@@ -41,7 +41,7 @@ export function useSaveForm() {
 
     // ENV validation
     const duplicateKeys = findDuplicateKeys(payload.env, 'envKey');
-    cleanArray(payload.env);
+
     if (duplicateKeys) errorMessages.push(`Duplicate environment keys: "${duplicateKeys}"`);
     const emptyValues = findKeysWithEmptyValues(payload.env, 'envKey', 'envValue');
     if (emptyValues) errorMessages.push(`Environment variables with empty value: "${emptyValues}"`);
@@ -52,6 +52,8 @@ export function useSaveForm() {
 
     // ** SEND DATA TO NEON DATABASE
     setLoading(true);
+
+    payload.env = cleanArray(payload.env);
 
     let result;
     if (payload.id) {
