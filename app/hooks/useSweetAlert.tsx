@@ -1,11 +1,11 @@
 'use client';
 
-import { deleteAppAction } from '@/app/actions/jobs';
+import { deleteAppAction, isEnableJobAction } from '@/app/actions/jobs';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
 
-export function useDeleteWithAlert() {
+export default function useDeleteWithAlert() {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -14,7 +14,7 @@ export function useDeleteWithAlert() {
     reload: boolean;
   };
 
-  const showAlert = async (id: string, dispatch?: dispatchTypes) => {
+  const showDeleteAlert = async (id: string, dispatch?: dispatchTypes) => {
     const result = await Swal.fire({
       title: 'Are you sure?',
       text: 'Do you really want to delete this?',
@@ -48,6 +48,7 @@ export function useDeleteWithAlert() {
       } finally {
         setIsDeleting(false);
       }
+      //localhost:3000/jobs#
 
       // ** Reload the page, get API new list
       if (dispatch) {
@@ -56,5 +57,30 @@ export function useDeleteWithAlert() {
     }
   };
 
-  return { showAlert, isDeleting };
+  // Enable/Disabled Status Alert success
+  const showSuccessEnabledAlert = async (id: string, dispatch?: dispatchTypes) => {
+    try {
+      const isEnabled = await isEnableJobAction(id);
+
+      if (isEnabled.success) {
+        await Swal.fire({
+          title: `Update status success!`,
+          text: `Job has been. ${isEnabled.isEnabled ? `Enabled` : `Disabled`}`,
+          icon: 'success',
+          timer: 2000,
+          showConfirmButton: false,
+        });
+
+        // ** Reload the page, get API new list
+        if (dispatch) {
+          dispatch.setReload(!dispatch.reload);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire('Error', 'Something went wrong.', 'error');
+    }
+  };
+
+  return { showDeleteAlert, isDeleting, showSuccessEnabledAlert };
 }

@@ -18,11 +18,12 @@ export default function Logs() {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const pageSize = 15;
 
   const fetchLogs = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await getExecutionLogs(currentPage, 15);
+      const res = await getExecutionLogs(currentPage);
       setData(res);
     } catch (error) {
       console.error('Failed to load logs:', error);
@@ -68,7 +69,7 @@ export default function Logs() {
                   <ExecutionLogsTable data={data} />
                   <BootstrapPagination
                     total={data.totalCount}
-                    pageSize={10}
+                    pageSize={pageSize}
                     current={currentPage}
                     onChange={(page) => setCurrentPage(page)}
                   />

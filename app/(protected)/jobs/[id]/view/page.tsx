@@ -11,13 +11,13 @@ import Spinner from '@/app/components/ui/Spinner';
 import AlertMessage from '@/app/components/ui/AlertMessage';
 import { useParams } from 'next/navigation';
 import { getSingleAppAction } from '@/app/actions/jobs';
-import { useDeleteWithAlert } from '@/app/hooks/useDeleteWithAlert';
+import useSweetAlert from '@/app/hooks/useSweetAlert';
 import useJob from '@/app/hooks/useJob';
 import { useNotification } from '@/app/hooks/useNotification';
 import { useUser } from '@/app/hooks/useAuth';
 import JobForm from '@/app/components/forms/JobForm';
 import NotificationForm from '@/app/components/forms/NotificationForm';
-import { ScheduleType } from '@/app/types/appTypes';
+import { AppFormProps, JobFormTypes, ScheduleType } from '@/app/types/appTypes';
 import { FaBoltLightning, FaTrash } from 'react-icons/fa6';
 
 export default function ViewDetails() {
@@ -27,19 +27,20 @@ export default function ViewDetails() {
   const { isLoading } = useUser();
   const envForm = useEnvForm();
   const { saveForm, loading, errors } = useSaveForm();
-  const { showAlert } = useDeleteWithAlert();
+  const { showDeleteAlert } = useSweetAlert();
   const { job, onChangeType, onChangeValue, setJob } = useJob();
   const { notification, onChangeNotification, setNotification } = useNotification('');
 
   const { id } = useParams();
 
   useEffect(() => {
-    // invoke function
+    // self invoke function
     (async () => {
       _setLoading(true);
       const app = await getSingleAppAction(id as string);
+      console.log('client', app);
       if (app) {
-        // job
+        // set job
         setJob({
           id: app.id,
           appTitle: app.appTitle,
@@ -54,14 +55,13 @@ export default function ViewDetails() {
           createdAt: app.createdAt,
           updatedAt: app.updatedAt,
         });
-
-        // notification
+        // set email notification
         setNotification({
           notifyOnFailure: app.notifyOnFailure,
           notifyOnRecovery: app.notifyOnRecovery,
           notificationEmail: app.notificationEmail,
         });
-        // env
+        // set env
         envForm.setEnv(app.envVariables);
         _setLoading(false);
       }
@@ -150,11 +150,11 @@ export default function ViewDetails() {
             </div>
           </div>
           <div className="col-md-12 pb-5">
-            <div className=" d-flex justify-content-end mt-n1">
+            <div className=" d-flex justify-content-end mt-n2">
               <Link
                 href="#"
                 className="btn btn-secondary px-3 text-warning"
-                onClick={() => showAlert(id as string)}
+                onClick={() => showDeleteAlert(id as string)}
               >
                 <FaTrash size={16} className="mr-1 " />
                 Delete

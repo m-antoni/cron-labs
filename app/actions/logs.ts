@@ -1,7 +1,7 @@
 'use server';
 
 import { prisma } from '@/app/lib/prisma';
-import { auth } from '@/app/lib/auth'; // Adjust this path to your auth.ts
+import { auth } from '@/app/lib/auth';
 import { revalidatePath } from 'next/cache';
 import { ExecutionLogResponse } from '@/app/types/appTypes';
 
@@ -73,10 +73,7 @@ export async function getDashboardAction(take = 10) {
 }
 
 // ** Get Executionlogs with Pagination
-export async function getExecutionLogs(
-  page: number = 1,
-  pageSize: number = 10,
-): Promise<ExecutionLogResponse> {
+export async function getExecutionLogs(page: number = 1): Promise<ExecutionLogResponse> {
   const session = await auth();
 
   if (!session?.user?.id) {
@@ -84,6 +81,7 @@ export async function getExecutionLogs(
   }
 
   try {
+    const pageSize = 15; // static page size
     const skip = (page - 1) * pageSize;
     const userFilter = { app: { userId: session.user.id, isEnabled: true } };
 

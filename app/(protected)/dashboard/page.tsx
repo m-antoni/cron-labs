@@ -41,13 +41,13 @@ export default function Dashboard() {
                   <h4 className="card-title">Dashboard</h4>
                 </div>
                 <div>
-                  <Link
-                    href="#"
+                  <button
+                    disabled={loading}
                     className="btn btn-secondary px-3"
                     onClick={() => setRefresh(!refresh)}
                   >
-                    <FaSync className="text-warning" />
-                  </Link>
+                    <FaSync className={`text-warning ${loading ? 'fa-spin' : ''}`} />
+                  </button>
                 </div>
               </div>
             </div>

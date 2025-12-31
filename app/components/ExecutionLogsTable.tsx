@@ -6,7 +6,6 @@ import { calculateNextRun, formatLastRun } from '@/app/lib/formatDate';
 import { ExecutionLogResponse } from '@/app/types/appTypes';
 
 export default function ExecutionLogsTable({ data }: { data: ExecutionLogResponse }) {
-  console.log('test', data);
   return (
     <div className="table-responsive-md">
       <table className="table tablesorter">

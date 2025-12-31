@@ -1,13 +1,12 @@
 'use server';
 
 import { prisma } from '@/app/lib/prisma';
-import { auth } from '@/app/lib/auth'; // Adjust this path to your auth.ts
+import { auth } from '@/app/lib/auth';
 import { revalidatePath } from 'next/cache';
 import { AppFormProps } from '@/app/types/appTypes';
 
 // ** --- CREATE ---
 export async function createAppAction(data: AppFormProps) {
-  // return;
   try {
     // Get the current user session
     const session = await auth();
@@ -56,7 +55,7 @@ export async function getAppsAction(take = 10) {
   try {
     // Get the current user session
     const session = await auth();
-    if (!session?.user?.id) return [];
+    if (!session?.user?.id) return null;
 
     const apps = await prisma.app.findMany({
       // Filter so the user ONLY sees their own apps
@@ -68,7 +67,7 @@ export async function getAppsAction(take = 10) {
     });
 
     revalidatePath(`/jobs`);
-    return apps;
+    return apps || null;
   } catch (error) {
     console.error('Fetch Error:', error);
     return [];
@@ -90,7 +89,7 @@ export async function getSingleAppAction(id: string) {
     });
 
     revalidatePath(`/job/${id}/view`);
-    return app || null;
+    return app;
   } catch (error) {
     console.error('Error fetching app:', error);
     return null;
@@ -145,12 +144,12 @@ export async function updateAppAction(data: AppFormProps) {
 export async function deleteAppAction(id: string) {
   try {
     const session = await auth();
-    if (!session?.user?.id) return { success: false, error: 'Unauthorized' };
+    if (!session?.user?.id) return null;
 
     await prisma.app.delete({
       where: {
         id,
-        userId: session.user.id, // 2. Security: Prevent deleting apps that don't belong to you
+        userId: session.user.id, // Security: Prevent deleting apps that don't belong to you
       },
     });
 
@@ -159,5 +158,39 @@ export async function deleteAppAction(id: string) {
   } catch (error) {
     console.error('Delete Error:', error);
     return { success: false, error: 'Failed to delete app' };
+  }
+}
+
+// ** -- Enabled or Disabled a Job
+export async function isEnableJobAction(id: string) {
+  // check user
+  const session = await auth();
+  if (!session?.user?.id) return { success: false, error: 'Unauthorized' };
+
+  try {
+    // first fetch the current job and check the enabled column
+    const currentJob = await prisma.app.findUnique({
+      where: { id, userId: session.user.id },
+      select: { isEnabled: true },
+    });
+
+    if (!currentJob) return { success: false, error: 'Job Not Found' };
+
+    // then update to true or false
+    const isEnabled = await prisma.app.update({
+      where: {
+        id,
+        userId: session.user.id,
+      },
+      data: {
+        isEnabled: !currentJob.isEnabled,
+      },
+    });
+
+    revalidatePath('/jobs');
+    return { success: true, isEnabled };
+  } catch (error) {
+    console.log('Error to enabled/disabled a job', error);
+    return { success: false, error: 'Failed to update job enabled/disabled' };
   }
 }
