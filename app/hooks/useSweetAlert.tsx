@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteAppAction, isEnableJobAction } from '@/app/actions/jobs';
+import { deleteJobAction, isEnableJobAction } from '@/app/actions/jobs';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
@@ -31,7 +31,7 @@ export default function useDeleteWithAlert() {
         Swal.showLoading();
 
         // ** Delete action API
-        await deleteAppAction(id);
+        await deleteJobAction(id);
 
         await Swal.fire({
           title: 'Deleted!',

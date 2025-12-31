@@ -10,14 +10,14 @@ import { useSaveForm } from '@/app/hooks/useSaveForm';
 import Spinner from '@/app/components/ui/Spinner';
 import AlertMessage from '@/app/components/ui/AlertMessage';
 import { useParams } from 'next/navigation';
-import { getSingleAppAction } from '@/app/actions/jobs';
+import { getSingleJobAction } from '@/app/actions/jobs';
 import useSweetAlert from '@/app/hooks/useSweetAlert';
 import useJob from '@/app/hooks/useJob';
 import { useNotification } from '@/app/hooks/useNotification';
 import { useUser } from '@/app/hooks/useAuth';
 import JobForm from '@/app/components/forms/JobForm';
 import NotificationForm from '@/app/components/forms/NotificationForm';
-import { AppFormProps, JobFormTypes, ScheduleType } from '@/app/types/appTypes';
+import { ScheduleType } from '@/app/types/appTypes';
 import { FaBoltLightning, FaTrash } from 'react-icons/fa6';
 
 export default function ViewDetails() {
@@ -37,7 +37,7 @@ export default function ViewDetails() {
     // self invoke function
     (async () => {
       _setLoading(true);
-      const app = await getSingleAppAction(id as string);
+      const app = await getSingleJobAction(id as string);
       console.log('client', app);
       if (app) {
         // set job

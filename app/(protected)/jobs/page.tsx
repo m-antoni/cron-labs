@@ -1,6 +1,6 @@
 'use client';
 
-import { getAppsAction } from '@/app/actions/jobs';
+import { getJobsAction } from '@/app/actions/jobs';
 import ButtonGroup from '@/app/components/ui/ButtonGroup';
 import Spinner from '@/app/components/ui/Spinner';
 import { formatDate } from '@/app/lib/formatDate';
@@ -18,14 +18,14 @@ export default function CronJobs() {
     // self invoke function
     (async () => {
       setLoading(true);
-      const getApps = await getAppsAction();
+      const getApps = await getJobsAction();
       const clean = removeDebugInfo(getApps);
       setApps(clean);
       setLoading(false);
     })();
   }, [reload]);
 
-  // Pass as Props to ButtonGroup
+  // Pass as Props to ButtonGroupPa
   const dispatch = {
     reload,
     setReload,

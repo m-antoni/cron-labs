@@ -8,7 +8,7 @@ import {
 } from '@/app/lib/helpers';
 import { useRouter } from 'next/navigation';
 import { AppFormProps } from '@/app/types/appTypes';
-import { createAppAction, updateAppAction } from '../actions/jobs';
+import { createJobAction, updateJobAction } from '../actions/jobs';
 
 export function useSaveForm() {
   const [loading, setLoading] = useState(false);
@@ -58,10 +58,10 @@ export function useSaveForm() {
     let result;
     if (payload.id) {
       // ** UPDATE existing app
-      result = await updateAppAction(payload);
+      result = await updateJobAction(payload);
     } else {
       // ** CREATE new app
-      result = await createAppAction(payload);
+      result = await createJobAction(payload);
     }
 
     setLoading(false);

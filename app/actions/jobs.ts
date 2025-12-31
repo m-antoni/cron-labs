@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { AppFormProps } from '@/app/types/appTypes';
 
 // ** --- CREATE ---
-export async function createAppAction(data: AppFormProps) {
+export async function createJobAction(data: AppFormProps) {
   try {
     // Get the current user session
     const session = await auth();
@@ -50,8 +50,8 @@ export async function createAppAction(data: AppFormProps) {
   }
 }
 
-// ** --- READ ---
-export async function getAppsAction(take = 10) {
+// ** --- READ JOBS ---
+export async function getJobsAction(take = 10) {
   try {
     // Get the current user session
     const session = await auth();
@@ -75,7 +75,7 @@ export async function getAppsAction(take = 10) {
 }
 
 // ** --- READ (SINGLE) ---
-export async function getSingleAppAction(id: string) {
+export async function getSingleJobAction(id: string) {
   try {
     const session = await auth();
     if (!session?.user?.id) return null;
@@ -97,7 +97,7 @@ export async function getSingleAppAction(id: string) {
 }
 
 // ** --- UPDATE ---
-export async function updateAppAction(data: AppFormProps) {
+export async function updateJobAction(data: AppFormProps) {
   try {
     const session = await auth();
     if (!session?.user?.id) return { success: false, error: 'Unauthorized' };
@@ -141,7 +141,7 @@ export async function updateAppAction(data: AppFormProps) {
 }
 
 // ** --- DELETE ---
-export async function deleteAppAction(id: string) {
+export async function deleteJobAction(id: string) {
   try {
     const session = await auth();
     if (!session?.user?.id) return null;
