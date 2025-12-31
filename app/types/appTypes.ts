@@ -86,6 +86,7 @@ export interface AppReference {
   notifyOnRecovery: boolean;
   notificationEmail: string;
   createdAt: Date;
+  lastRunAt?: Date;
 }
 
 export interface ExecutionLogItem {

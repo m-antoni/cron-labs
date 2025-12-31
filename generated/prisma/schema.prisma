@@ -109,8 +109,9 @@ model App {
   envVariables  EnvVar[]
   executionLogs ExecutionLog[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  lastRunAt DateTime? @map("last_run_at")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@map("apps")
 }

@@ -7224,6 +7224,7 @@ export namespace Prisma {
     notifyOnRecovery: boolean | null
     notificationEmail: string | null
     userId: string | null
+    lastRunAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7243,6 +7244,7 @@ export namespace Prisma {
     notifyOnRecovery: boolean | null
     notificationEmail: string | null
     userId: string | null
+    lastRunAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7262,6 +7264,7 @@ export namespace Prisma {
     notifyOnRecovery: number
     notificationEmail: number
     userId: number
+    lastRunAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7293,6 +7296,7 @@ export namespace Prisma {
     notifyOnRecovery?: true
     notificationEmail?: true
     userId?: true
+    lastRunAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7312,6 +7316,7 @@ export namespace Prisma {
     notifyOnRecovery?: true
     notificationEmail?: true
     userId?: true
+    lastRunAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7331,6 +7336,7 @@ export namespace Prisma {
     notifyOnRecovery?: true
     notificationEmail?: true
     userId?: true
+    lastRunAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7437,6 +7443,7 @@ export namespace Prisma {
     notifyOnRecovery: boolean
     notificationEmail: string
     userId: string
+    lastRunAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: AppCountAggregateOutputType | null
@@ -7475,6 +7482,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail?: boolean
     userId?: boolean
+    lastRunAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7498,6 +7506,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail?: boolean
     userId?: boolean
+    lastRunAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7518,6 +7527,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail?: boolean
     userId?: boolean
+    lastRunAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7538,11 +7548,12 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail?: boolean
     userId?: boolean
+    lastRunAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AppOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "appTitle" | "url" | "description" | "isEnabled" | "scheduleType" | "intervalMinutes" | "dailyTime" | "monthlyDay" | "monthlyTime" | "notifyOnFailure" | "notifyOnRecovery" | "notificationEmail" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["app"]>
+  export type AppOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "appTitle" | "url" | "description" | "isEnabled" | "scheduleType" | "intervalMinutes" | "dailyTime" | "monthlyDay" | "monthlyTime" | "notifyOnFailure" | "notifyOnRecovery" | "notificationEmail" | "userId" | "lastRunAt" | "createdAt" | "updatedAt", ExtArgs["result"]["app"]>
   export type AppInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     envVariables?: boolean | App$envVariablesArgs<ExtArgs>
@@ -7578,6 +7589,7 @@ export namespace Prisma {
       notifyOnRecovery: boolean
       notificationEmail: string
       userId: string
+      lastRunAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["app"]>
@@ -8020,6 +8032,7 @@ export namespace Prisma {
     readonly notifyOnRecovery: FieldRef<"App", 'Boolean'>
     readonly notificationEmail: FieldRef<"App", 'String'>
     readonly userId: FieldRef<"App", 'String'>
+    readonly lastRunAt: FieldRef<"App", 'DateTime'>
     readonly createdAt: FieldRef<"App", 'DateTime'>
     readonly updatedAt: FieldRef<"App", 'DateTime'>
   }
@@ -11835,6 +11848,7 @@ export namespace Prisma {
     notifyOnRecovery: 'notifyOnRecovery',
     notificationEmail: 'notificationEmail',
     userId: 'userId',
+    lastRunAt: 'lastRunAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -12330,6 +12344,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFilter<"App"> | boolean
     notificationEmail?: StringFilter<"App"> | string
     userId?: StringFilter<"App"> | string
+    lastRunAt?: DateTimeNullableFilter<"App"> | Date | string | null
     createdAt?: DateTimeFilter<"App"> | Date | string
     updatedAt?: DateTimeFilter<"App"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -12352,6 +12367,7 @@ export namespace Prisma {
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
     userId?: SortOrder
+    lastRunAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -12377,6 +12393,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFilter<"App"> | boolean
     notificationEmail?: StringFilter<"App"> | string
     userId?: StringFilter<"App"> | string
+    lastRunAt?: DateTimeNullableFilter<"App"> | Date | string | null
     createdAt?: DateTimeFilter<"App"> | Date | string
     updatedAt?: DateTimeFilter<"App"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -12399,6 +12416,7 @@ export namespace Prisma {
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
     userId?: SortOrder
+    lastRunAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AppCountOrderByAggregateInput
@@ -12426,6 +12444,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolWithAggregatesFilter<"App"> | boolean
     notificationEmail?: StringWithAggregatesFilter<"App"> | string
     userId?: StringWithAggregatesFilter<"App"> | string
+    lastRunAt?: DateTimeNullableWithAggregatesFilter<"App"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"App"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"App"> | Date | string
   }
@@ -12978,6 +12997,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutAppsInput
@@ -13000,6 +13020,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail: string
     userId: string
+    lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     envVariables?: EnvVarUncheckedCreateNestedManyWithoutAppInput
@@ -13020,6 +13041,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAppsNestedInput
@@ -13042,6 +13064,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     envVariables?: EnvVarUncheckedUpdateManyWithoutAppNestedInput
@@ -13063,6 +13086,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail: string
     userId: string
+    lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13081,6 +13105,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13100,6 +13125,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13752,6 +13778,7 @@ export namespace Prisma {
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
     userId?: SortOrder
+    lastRunAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13776,6 +13803,7 @@ export namespace Prisma {
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
     userId?: SortOrder
+    lastRunAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13795,6 +13823,7 @@ export namespace Prisma {
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
     userId?: SortOrder
+    lastRunAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14629,6 +14658,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     envVariables?: EnvVarCreateNestedManyWithoutAppInput
@@ -14649,6 +14679,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     envVariables?: EnvVarUncheckedCreateNestedManyWithoutAppInput
@@ -14787,6 +14818,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFilter<"App"> | boolean
     notificationEmail?: StringFilter<"App"> | string
     userId?: StringFilter<"App"> | string
+    lastRunAt?: DateTimeNullableFilter<"App"> | Date | string | null
     createdAt?: DateTimeFilter<"App"> | Date | string
     updatedAt?: DateTimeFilter<"App"> | Date | string
   }
@@ -15185,6 +15217,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutAppsInput
@@ -15206,6 +15239,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail: string
     userId: string
+    lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     executionLogs?: ExecutionLogUncheckedCreateNestedManyWithoutAppInput
@@ -15241,6 +15275,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAppsNestedInput
@@ -15262,6 +15297,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     executionLogs?: ExecutionLogUncheckedUpdateManyWithoutAppNestedInput
@@ -15281,6 +15317,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutAppsInput
@@ -15302,6 +15339,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail: string
     userId: string
+    lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     envVariables?: EnvVarUncheckedCreateNestedManyWithoutAppInput
@@ -15337,6 +15375,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAppsNestedInput
@@ -15358,6 +15397,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     envVariables?: EnvVarUncheckedUpdateManyWithoutAppNestedInput
@@ -15405,6 +15445,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15507,6 +15548,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     envVariables?: EnvVarUpdateManyWithoutAppNestedInput
@@ -15527,6 +15569,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     envVariables?: EnvVarUncheckedUpdateManyWithoutAppNestedInput
@@ -15547,6 +15590,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

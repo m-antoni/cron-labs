@@ -67,9 +67,8 @@ export default function CronJobs() {
                         <th>App Title</th>
                         <th>URL</th>
                         <th className="text-center">Status </th>
-                        <th className="text-center">Schedule</th>
-                        <th className="text-center">Schedule</th>
                         <th className="text-center">Created At</th>
+                        <th className="text-center">Action</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -90,8 +89,6 @@ export default function CronJobs() {
                                 </span>
                               )}
                             </td>
-
-                            <td className="text-center">{scheduleFormat(item)}</td>
 
                             <td className="text-center">
                               {item.createdAt ? formatDate(item.createdAt) : 'N/A'}

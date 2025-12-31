@@ -65,7 +65,6 @@ export async function getJobsAction(take = 10) {
       take,
       orderBy: { createdAt: 'desc' },
     });
-
     revalidatePath(`/jobs`);
     return apps || null;
   } catch (error) {
@@ -124,6 +123,7 @@ export async function updateJobAction(data: AppFormProps) {
         notifyOnRecovery: data.notifyOnRecovery,
         notificationEmail: data.notificationEmail,
         userId: session.user.id,
+        lastRunAt: null,
         envVariables: {
           deleteMany: {},
           create: envData,

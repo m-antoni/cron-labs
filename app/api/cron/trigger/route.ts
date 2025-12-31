@@ -13,12 +13,12 @@ export async function GET(request: Request) {
   // Calculate total minutes since epoch to handle intervals consistently
   const totalMinutes = Math.floor(now.getTime() / 60000);
 
-  // Format current time as HH:mm (24-hour) for database comparison
-  const currentTimeStr = now.toLocaleTimeString('en-GB', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  });
+  // Use UTC values for comparison to match Vercel and cron-job.org server times
+  const currentHour = now.getUTCHours();
+  const currentMin = now.getUTCMinutes();
+  const currentDay = now.getUTCDate();
+  const currentMonth = now.getUTCMonth();
+  const currentYear = now.getUTCFullYear();
 
   try {
     // Fetch only the apps that the user has explicitly enabled
@@ -28,6 +28,14 @@ export async function GET(request: Request) {
 
     // Determine which apps are due for execution based on their specific schedules
     const activeTasks = appsToTrigger.filter((app) => {
+      const lastRun = app.lastRunAt ? new Date(app.lastRunAt) : new Date(0);
+
+      // Check if the job has already successfully executed today (UTC)
+      const ranToday =
+        lastRun.getUTCDate() === currentDay &&
+        lastRun.getUTCMonth() === currentMonth &&
+        lastRun.getUTCFullYear() === currentYear;
+
       // Minutes Schedule: Checks if current or previous minute matches interval
       // This "buffer" ensures we don't miss tasks since cron-job.org runs every 2 mins
       if (app.scheduleType === 'MINUTES' && app.intervalMinutes) {
@@ -37,18 +45,23 @@ export async function GET(request: Request) {
         return isDueNow || wasDueLastMin;
       }
 
-      // Daily Schedule: Matches the current hour and minute string
-      if (app.scheduleType === 'DAILY' && app.dailyTime === currentTimeStr) {
-        return true;
+      // Daily Schedule: Checks if current time is past the scheduled time and hasn't run today
+      // This stateful check prevents missing the job if the trigger is slightly late
+      if (app.scheduleType === 'DAILY' && app.dailyTime) {
+        const [targetHr, targetMin] = app.dailyTime.split(':').map(Number);
+        const isTimeReached =
+          currentHour > targetHr || (currentHour === targetHr && currentMin >= targetMin);
+
+        return isTimeReached && !ranToday;
       }
 
-      // Monthly Schedule: Matches specific day of the month and time
-      if (
-        app.scheduleType === 'MONTHLY' &&
-        app.monthlyDay === now.getDate() &&
-        app.monthlyTime === currentTimeStr
-      ) {
-        return true;
+      // Monthly Schedule: Matches specific day of the month and time reached
+      if (app.scheduleType === 'MONTHLY' && app.monthlyDay === currentDay && app.monthlyTime) {
+        const [targetHr, targetMin] = app.monthlyTime.split(':').map(Number);
+        const isTimeReached =
+          currentHour > targetHr || (currentHour === targetHr && currentMin >= targetMin);
+
+        return isTimeReached && !ranToday;
       }
 
       return false;
@@ -57,6 +70,12 @@ export async function GET(request: Request) {
     // Execute all due tasks simultaneously without letting one failure stop the rest
     const results = await Promise.allSettled(
       activeTasks.map(async (app) => {
+        // Mark the job as executed immediately to prevent overlap from subsequent pings
+        await prisma.app.update({
+          where: { id: app.id },
+          data: { lastRunAt: new Date() },
+        });
+
         const start = Date.now();
         try {
           // Perform the actual ping to the external application URL
@@ -89,7 +108,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       processed: activeTasks.length,
-      time: currentTimeStr,
+      timestamp: now.toISOString(),
     });
   } catch (error) {
     console.error('Cron Error:', error);
