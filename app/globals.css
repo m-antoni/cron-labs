@@ -257,6 +257,10 @@ input:checked + .slider:before {
   width: 80px;
 }
 
+.w-method {
+  width: 80px;
+}
+
 /* Custom Toggle Switch */
 .custom-switch {
   position: relative;

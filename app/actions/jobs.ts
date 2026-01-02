@@ -27,6 +27,7 @@ export async function createJobAction(data: AppFormProps) {
         notifyOnRecovery: data.notifyOnRecovery,
         notificationEmail: data.notificationEmail,
         userId: session.user.id,
+        method: data.method,
         envVariables:
           data.env && data.env.length > 0
             ? {
@@ -123,6 +124,7 @@ export async function updateJobAction(data: AppFormProps) {
         notifyOnRecovery: data.notifyOnRecovery,
         notificationEmail: data.notificationEmail,
         userId: session.user.id,
+        method: data.method,
         lastRunAt: null,
         envVariables: {
           deleteMany: {},

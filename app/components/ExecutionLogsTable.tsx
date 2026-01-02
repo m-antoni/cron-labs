@@ -35,7 +35,7 @@ export default function ExecutionLogsTable({ data }: { data: ExecutionLogRespons
                   {item.app.lastRunAt ? formatDate(item.app.lastRunAt) : 'n/a'}
                 </td>
                 <td>
-                  <FaClock className="mr-1" /> {calculateNextRun(item.createdAt, item.app)}
+                  <FaClock className="mr-1" /> {calculateNextRun(item.createdAt, item.app as any)}
                 </td>
                 <td>
                   <div className="badge bg-dark text-white">

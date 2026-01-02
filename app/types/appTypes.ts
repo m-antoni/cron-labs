@@ -1,4 +1,4 @@
-import { App, ExecutionLog } from '@/generated/prisma';
+import { App, ExecutionLog, HttpMethod } from '@/generated/prisma';
 
 export type AppFormProps = {
   // From DB optional
@@ -15,6 +15,7 @@ export type AppFormProps = {
   dailyTime: string;
   monthlyDay: number;
   monthlyTime: string;
+  method: HttpMethod;
   // Notification
   notifyOnFailure: boolean;
   notifyOnRecovery: boolean;
@@ -49,6 +50,7 @@ export type JobFormTypes = {
   dailyTime: string;
   monthlyDay: number;
   monthlyTime: string;
+  method?: HttpMethod;
 };
 
 export type ExecutionLogSummary = {

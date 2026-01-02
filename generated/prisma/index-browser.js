@@ -178,6 +178,7 @@ exports.Prisma.AppScalarFieldEnum = {
   dailyTime: 'dailyTime',
   monthlyDay: 'monthlyDay',
   monthlyTime: 'monthlyTime',
+  method: 'method',
   notifyOnFailure: 'notifyOnFailure',
   notifyOnRecovery: 'notifyOnRecovery',
   notificationEmail: 'notificationEmail',
@@ -191,6 +192,13 @@ exports.Prisma.EnvVarScalarFieldEnum = {
   id: 'id',
   envKey: 'envKey',
   envValue: 'envValue',
+  appId: 'appId'
+};
+
+exports.Prisma.HeaderScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  value: 'value',
   appId: 'appId'
 };
 
@@ -236,6 +244,14 @@ exports.ScheduleType = exports.$Enums.ScheduleType = {
   MONTHLY: 'MONTHLY'
 };
 
+exports.HttpMethod = exports.$Enums.HttpMethod = {
+  GET: 'GET',
+  POST: 'POST',
+  PUT: 'PUT',
+  PATCH: 'PATCH',
+  DELETE: 'DELETE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
@@ -244,6 +260,7 @@ exports.Prisma.ModelName = {
   Authenticator: 'Authenticator',
   App: 'App',
   EnvVar: 'EnvVar',
+  Header: 'Header',
   ExecutionLog: 'ExecutionLog',
   LogCleanupSummary: 'LogCleanupSummary'
 };

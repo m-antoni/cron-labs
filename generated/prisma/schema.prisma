@@ -97,6 +97,7 @@ model App {
   dailyTime       String?      @map("daily_time")
   monthlyDay      Int?         @map("monthly_day")
   monthlyTime     String?      @map("monthly_time")
+  method          HttpMethod   @default(GET)
 
   // Form Notification Fields
   notifyOnFailure   Boolean @default(false) @map("notify_on_failure")
@@ -108,6 +109,7 @@ model App {
   user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   envVariables  EnvVar[]
   executionLogs ExecutionLog[]
+  headers       Header[]
 
   lastRunAt DateTime? @map("last_run_at")
   createdAt DateTime  @default(now())
@@ -133,6 +135,27 @@ enum ScheduleType {
   MINUTES
   DAILY
   MONTHLY
+}
+
+enum HttpMethod {
+  GET
+  POST
+  PUT
+  PATCH
+  DELETE
+}
+
+model Header {
+  id    String @id @default(cuid())
+  key   String @map("header_key")
+  value String @map("header_value")
+
+  // Relation to App
+  appId String @map("app_id")
+  app   App    @relation(fields: [appId], references: [id], onDelete: Cascade)
+
+  @@unique([appId, key])
+  @@map("headers")
 }
 
 // ==========================================

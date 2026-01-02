@@ -21,7 +21,7 @@ export default function AddNew() {
   const { user, isLoading } = useUser();
   const envForm = useEnvForm();
   const { notification, onChangeNotification } = useNotification(user?.email || '');
-  const { job, onChangeType, onChangeValue } = useJob();
+  const { job, onChangeType, onChangeValue, onChangeMethod } = useJob();
   const { saveForm, loading, errors } = useSaveForm();
 
   // submit data
@@ -76,6 +76,7 @@ export default function AddNew() {
                 job={job}
                 onChangeValue={onChangeValue}
                 onChangeType={onChangeType}
+                onChangeMethod={onChangeMethod}
                 ScheduleType={ScheduleType}
               />
             </div>

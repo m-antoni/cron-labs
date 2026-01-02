@@ -49,6 +49,11 @@ export type App = $Result.DefaultSelection<Prisma.$AppPayload>
  */
 export type EnvVar = $Result.DefaultSelection<Prisma.$EnvVarPayload>
 /**
+ * Model Header
+ * 
+ */
+export type Header = $Result.DefaultSelection<Prisma.$HeaderPayload>
+/**
  * Model ExecutionLog
  * 
  */
@@ -71,11 +76,26 @@ export namespace $Enums {
 
 export type ScheduleType = (typeof ScheduleType)[keyof typeof ScheduleType]
 
+
+export const HttpMethod: {
+  GET: 'GET',
+  POST: 'POST',
+  PUT: 'PUT',
+  PATCH: 'PATCH',
+  DELETE: 'DELETE'
+};
+
+export type HttpMethod = (typeof HttpMethod)[keyof typeof HttpMethod]
+
 }
 
 export type ScheduleType = $Enums.ScheduleType
 
 export const ScheduleType: typeof $Enums.ScheduleType
+
+export type HttpMethod = $Enums.HttpMethod
+
+export const HttpMethod: typeof $Enums.HttpMethod
 
 /**
  * ##  Prisma Client ʲˢ
@@ -263,6 +283,16 @@ export class PrismaClient<
     * ```
     */
   get envVar(): Prisma.EnvVarDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.header`: Exposes CRUD operations for the **Header** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Headers
+    * const headers = await prisma.header.findMany()
+    * ```
+    */
+  get header(): Prisma.HeaderDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.executionLog`: Exposes CRUD operations for the **ExecutionLog** model.
@@ -724,6 +754,7 @@ export namespace Prisma {
     Authenticator: 'Authenticator',
     App: 'App',
     EnvVar: 'EnvVar',
+    Header: 'Header',
     ExecutionLog: 'ExecutionLog',
     LogCleanupSummary: 'LogCleanupSummary'
   };
@@ -741,7 +772,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "app" | "envVar" | "executionLog" | "logCleanupSummary"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "app" | "envVar" | "header" | "executionLog" | "logCleanupSummary"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1263,6 +1294,80 @@ export namespace Prisma {
           }
         }
       }
+      Header: {
+        payload: Prisma.$HeaderPayload<ExtArgs>
+        fields: Prisma.HeaderFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HeaderFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HeaderPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HeaderFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HeaderPayload>
+          }
+          findFirst: {
+            args: Prisma.HeaderFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HeaderPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HeaderFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HeaderPayload>
+          }
+          findMany: {
+            args: Prisma.HeaderFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HeaderPayload>[]
+          }
+          create: {
+            args: Prisma.HeaderCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HeaderPayload>
+          }
+          createMany: {
+            args: Prisma.HeaderCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HeaderCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HeaderPayload>[]
+          }
+          delete: {
+            args: Prisma.HeaderDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HeaderPayload>
+          }
+          update: {
+            args: Prisma.HeaderUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HeaderPayload>
+          }
+          deleteMany: {
+            args: Prisma.HeaderDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HeaderUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.HeaderUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HeaderPayload>[]
+          }
+          upsert: {
+            args: Prisma.HeaderUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HeaderPayload>
+          }
+          aggregate: {
+            args: Prisma.HeaderAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHeader>
+          }
+          groupBy: {
+            args: Prisma.HeaderGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HeaderGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HeaderCountArgs<ExtArgs>
+            result: $Utils.Optional<HeaderCountAggregateOutputType> | number
+          }
+        }
+      }
       ExecutionLog: {
         payload: Prisma.$ExecutionLogPayload<ExtArgs>
         fields: Prisma.ExecutionLogFieldRefs
@@ -1526,6 +1631,7 @@ export namespace Prisma {
     authenticator?: AuthenticatorOmit
     app?: AppOmit
     envVar?: EnvVarOmit
+    header?: HeaderOmit
     executionLog?: ExecutionLogOmit
     logCleanupSummary?: LogCleanupSummaryOmit
   }
@@ -1668,11 +1774,13 @@ export namespace Prisma {
   export type AppCountOutputType = {
     envVariables: number
     executionLogs: number
+    headers: number
   }
 
   export type AppCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     envVariables?: boolean | AppCountOutputTypeCountEnvVariablesArgs
     executionLogs?: boolean | AppCountOutputTypeCountExecutionLogsArgs
+    headers?: boolean | AppCountOutputTypeCountHeadersArgs
   }
 
   // Custom InputTypes
@@ -1698,6 +1806,13 @@ export namespace Prisma {
    */
   export type AppCountOutputTypeCountExecutionLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExecutionLogWhereInput
+  }
+
+  /**
+   * AppCountOutputType without action
+   */
+  export type AppCountOutputTypeCountHeadersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HeaderWhereInput
   }
 
 
@@ -7220,6 +7335,7 @@ export namespace Prisma {
     dailyTime: string | null
     monthlyDay: number | null
     monthlyTime: string | null
+    method: $Enums.HttpMethod | null
     notifyOnFailure: boolean | null
     notifyOnRecovery: boolean | null
     notificationEmail: string | null
@@ -7240,6 +7356,7 @@ export namespace Prisma {
     dailyTime: string | null
     monthlyDay: number | null
     monthlyTime: string | null
+    method: $Enums.HttpMethod | null
     notifyOnFailure: boolean | null
     notifyOnRecovery: boolean | null
     notificationEmail: string | null
@@ -7260,6 +7377,7 @@ export namespace Prisma {
     dailyTime: number
     monthlyDay: number
     monthlyTime: number
+    method: number
     notifyOnFailure: number
     notifyOnRecovery: number
     notificationEmail: number
@@ -7292,6 +7410,7 @@ export namespace Prisma {
     dailyTime?: true
     monthlyDay?: true
     monthlyTime?: true
+    method?: true
     notifyOnFailure?: true
     notifyOnRecovery?: true
     notificationEmail?: true
@@ -7312,6 +7431,7 @@ export namespace Prisma {
     dailyTime?: true
     monthlyDay?: true
     monthlyTime?: true
+    method?: true
     notifyOnFailure?: true
     notifyOnRecovery?: true
     notificationEmail?: true
@@ -7332,6 +7452,7 @@ export namespace Prisma {
     dailyTime?: true
     monthlyDay?: true
     monthlyTime?: true
+    method?: true
     notifyOnFailure?: true
     notifyOnRecovery?: true
     notificationEmail?: true
@@ -7439,6 +7560,7 @@ export namespace Prisma {
     dailyTime: string | null
     monthlyDay: number | null
     monthlyTime: string | null
+    method: $Enums.HttpMethod
     notifyOnFailure: boolean
     notifyOnRecovery: boolean
     notificationEmail: string
@@ -7478,6 +7600,7 @@ export namespace Prisma {
     dailyTime?: boolean
     monthlyDay?: boolean
     monthlyTime?: boolean
+    method?: boolean
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail?: boolean
@@ -7488,6 +7611,7 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     envVariables?: boolean | App$envVariablesArgs<ExtArgs>
     executionLogs?: boolean | App$executionLogsArgs<ExtArgs>
+    headers?: boolean | App$headersArgs<ExtArgs>
     _count?: boolean | AppCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["app"]>
 
@@ -7502,6 +7626,7 @@ export namespace Prisma {
     dailyTime?: boolean
     monthlyDay?: boolean
     monthlyTime?: boolean
+    method?: boolean
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail?: boolean
@@ -7523,6 +7648,7 @@ export namespace Prisma {
     dailyTime?: boolean
     monthlyDay?: boolean
     monthlyTime?: boolean
+    method?: boolean
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail?: boolean
@@ -7544,6 +7670,7 @@ export namespace Prisma {
     dailyTime?: boolean
     monthlyDay?: boolean
     monthlyTime?: boolean
+    method?: boolean
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail?: boolean
@@ -7553,11 +7680,12 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type AppOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "appTitle" | "url" | "description" | "isEnabled" | "scheduleType" | "intervalMinutes" | "dailyTime" | "monthlyDay" | "monthlyTime" | "notifyOnFailure" | "notifyOnRecovery" | "notificationEmail" | "userId" | "lastRunAt" | "createdAt" | "updatedAt", ExtArgs["result"]["app"]>
+  export type AppOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "appTitle" | "url" | "description" | "isEnabled" | "scheduleType" | "intervalMinutes" | "dailyTime" | "monthlyDay" | "monthlyTime" | "method" | "notifyOnFailure" | "notifyOnRecovery" | "notificationEmail" | "userId" | "lastRunAt" | "createdAt" | "updatedAt", ExtArgs["result"]["app"]>
   export type AppInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     envVariables?: boolean | App$envVariablesArgs<ExtArgs>
     executionLogs?: boolean | App$executionLogsArgs<ExtArgs>
+    headers?: boolean | App$headersArgs<ExtArgs>
     _count?: boolean | AppCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AppIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7573,6 +7701,7 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs>
       envVariables: Prisma.$EnvVarPayload<ExtArgs>[]
       executionLogs: Prisma.$ExecutionLogPayload<ExtArgs>[]
+      headers: Prisma.$HeaderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7585,6 +7714,7 @@ export namespace Prisma {
       dailyTime: string | null
       monthlyDay: number | null
       monthlyTime: string | null
+      method: $Enums.HttpMethod
       notifyOnFailure: boolean
       notifyOnRecovery: boolean
       notificationEmail: string
@@ -7989,6 +8119,7 @@ export namespace Prisma {
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     envVariables<T extends App$envVariablesArgs<ExtArgs> = {}>(args?: Subset<T, App$envVariablesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnvVarPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     executionLogs<T extends App$executionLogsArgs<ExtArgs> = {}>(args?: Subset<T, App$executionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExecutionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    headers<T extends App$headersArgs<ExtArgs> = {}>(args?: Subset<T, App$headersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HeaderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8028,6 +8159,7 @@ export namespace Prisma {
     readonly dailyTime: FieldRef<"App", 'String'>
     readonly monthlyDay: FieldRef<"App", 'Int'>
     readonly monthlyTime: FieldRef<"App", 'String'>
+    readonly method: FieldRef<"App", 'HttpMethod'>
     readonly notifyOnFailure: FieldRef<"App", 'Boolean'>
     readonly notifyOnRecovery: FieldRef<"App", 'Boolean'>
     readonly notificationEmail: FieldRef<"App", 'String'>
@@ -8476,6 +8608,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ExecutionLogScalarFieldEnum | ExecutionLogScalarFieldEnum[]
+  }
+
+  /**
+   * App.headers
+   */
+  export type App$headersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderInclude<ExtArgs> | null
+    where?: HeaderWhereInput
+    orderBy?: HeaderOrderByWithRelationInput | HeaderOrderByWithRelationInput[]
+    cursor?: HeaderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HeaderScalarFieldEnum | HeaderScalarFieldEnum[]
   }
 
   /**
@@ -9539,6 +9695,1051 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: EnvVarInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Header
+   */
+
+  export type AggregateHeader = {
+    _count: HeaderCountAggregateOutputType | null
+    _min: HeaderMinAggregateOutputType | null
+    _max: HeaderMaxAggregateOutputType | null
+  }
+
+  export type HeaderMinAggregateOutputType = {
+    id: string | null
+    key: string | null
+    value: string | null
+    appId: string | null
+  }
+
+  export type HeaderMaxAggregateOutputType = {
+    id: string | null
+    key: string | null
+    value: string | null
+    appId: string | null
+  }
+
+  export type HeaderCountAggregateOutputType = {
+    id: number
+    key: number
+    value: number
+    appId: number
+    _all: number
+  }
+
+
+  export type HeaderMinAggregateInputType = {
+    id?: true
+    key?: true
+    value?: true
+    appId?: true
+  }
+
+  export type HeaderMaxAggregateInputType = {
+    id?: true
+    key?: true
+    value?: true
+    appId?: true
+  }
+
+  export type HeaderCountAggregateInputType = {
+    id?: true
+    key?: true
+    value?: true
+    appId?: true
+    _all?: true
+  }
+
+  export type HeaderAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Header to aggregate.
+     */
+    where?: HeaderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Headers to fetch.
+     */
+    orderBy?: HeaderOrderByWithRelationInput | HeaderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HeaderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Headers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Headers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Headers
+    **/
+    _count?: true | HeaderCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HeaderMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HeaderMaxAggregateInputType
+  }
+
+  export type GetHeaderAggregateType<T extends HeaderAggregateArgs> = {
+        [P in keyof T & keyof AggregateHeader]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHeader[P]>
+      : GetScalarType<T[P], AggregateHeader[P]>
+  }
+
+
+
+
+  export type HeaderGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HeaderWhereInput
+    orderBy?: HeaderOrderByWithAggregationInput | HeaderOrderByWithAggregationInput[]
+    by: HeaderScalarFieldEnum[] | HeaderScalarFieldEnum
+    having?: HeaderScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HeaderCountAggregateInputType | true
+    _min?: HeaderMinAggregateInputType
+    _max?: HeaderMaxAggregateInputType
+  }
+
+  export type HeaderGroupByOutputType = {
+    id: string
+    key: string
+    value: string
+    appId: string
+    _count: HeaderCountAggregateOutputType | null
+    _min: HeaderMinAggregateOutputType | null
+    _max: HeaderMaxAggregateOutputType | null
+  }
+
+  type GetHeaderGroupByPayload<T extends HeaderGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HeaderGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HeaderGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HeaderGroupByOutputType[P]>
+            : GetScalarType<T[P], HeaderGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HeaderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    value?: boolean
+    appId?: boolean
+    app?: boolean | AppDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["header"]>
+
+  export type HeaderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    value?: boolean
+    appId?: boolean
+    app?: boolean | AppDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["header"]>
+
+  export type HeaderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    value?: boolean
+    appId?: boolean
+    app?: boolean | AppDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["header"]>
+
+  export type HeaderSelectScalar = {
+    id?: boolean
+    key?: boolean
+    value?: boolean
+    appId?: boolean
+  }
+
+  export type HeaderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "key" | "value" | "appId", ExtArgs["result"]["header"]>
+  export type HeaderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    app?: boolean | AppDefaultArgs<ExtArgs>
+  }
+  export type HeaderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    app?: boolean | AppDefaultArgs<ExtArgs>
+  }
+  export type HeaderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    app?: boolean | AppDefaultArgs<ExtArgs>
+  }
+
+  export type $HeaderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Header"
+    objects: {
+      app: Prisma.$AppPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      key: string
+      value: string
+      appId: string
+    }, ExtArgs["result"]["header"]>
+    composites: {}
+  }
+
+  type HeaderGetPayload<S extends boolean | null | undefined | HeaderDefaultArgs> = $Result.GetResult<Prisma.$HeaderPayload, S>
+
+  type HeaderCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HeaderFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HeaderCountAggregateInputType | true
+    }
+
+  export interface HeaderDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Header'], meta: { name: 'Header' } }
+    /**
+     * Find zero or one Header that matches the filter.
+     * @param {HeaderFindUniqueArgs} args - Arguments to find a Header
+     * @example
+     * // Get one Header
+     * const header = await prisma.header.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HeaderFindUniqueArgs>(args: SelectSubset<T, HeaderFindUniqueArgs<ExtArgs>>): Prisma__HeaderClient<$Result.GetResult<Prisma.$HeaderPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Header that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HeaderFindUniqueOrThrowArgs} args - Arguments to find a Header
+     * @example
+     * // Get one Header
+     * const header = await prisma.header.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HeaderFindUniqueOrThrowArgs>(args: SelectSubset<T, HeaderFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HeaderClient<$Result.GetResult<Prisma.$HeaderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Header that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HeaderFindFirstArgs} args - Arguments to find a Header
+     * @example
+     * // Get one Header
+     * const header = await prisma.header.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HeaderFindFirstArgs>(args?: SelectSubset<T, HeaderFindFirstArgs<ExtArgs>>): Prisma__HeaderClient<$Result.GetResult<Prisma.$HeaderPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Header that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HeaderFindFirstOrThrowArgs} args - Arguments to find a Header
+     * @example
+     * // Get one Header
+     * const header = await prisma.header.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HeaderFindFirstOrThrowArgs>(args?: SelectSubset<T, HeaderFindFirstOrThrowArgs<ExtArgs>>): Prisma__HeaderClient<$Result.GetResult<Prisma.$HeaderPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Headers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HeaderFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Headers
+     * const headers = await prisma.header.findMany()
+     * 
+     * // Get first 10 Headers
+     * const headers = await prisma.header.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const headerWithIdOnly = await prisma.header.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HeaderFindManyArgs>(args?: SelectSubset<T, HeaderFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HeaderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Header.
+     * @param {HeaderCreateArgs} args - Arguments to create a Header.
+     * @example
+     * // Create one Header
+     * const Header = await prisma.header.create({
+     *   data: {
+     *     // ... data to create a Header
+     *   }
+     * })
+     * 
+     */
+    create<T extends HeaderCreateArgs>(args: SelectSubset<T, HeaderCreateArgs<ExtArgs>>): Prisma__HeaderClient<$Result.GetResult<Prisma.$HeaderPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Headers.
+     * @param {HeaderCreateManyArgs} args - Arguments to create many Headers.
+     * @example
+     * // Create many Headers
+     * const header = await prisma.header.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HeaderCreateManyArgs>(args?: SelectSubset<T, HeaderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Headers and returns the data saved in the database.
+     * @param {HeaderCreateManyAndReturnArgs} args - Arguments to create many Headers.
+     * @example
+     * // Create many Headers
+     * const header = await prisma.header.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Headers and only return the `id`
+     * const headerWithIdOnly = await prisma.header.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HeaderCreateManyAndReturnArgs>(args?: SelectSubset<T, HeaderCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HeaderPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Header.
+     * @param {HeaderDeleteArgs} args - Arguments to delete one Header.
+     * @example
+     * // Delete one Header
+     * const Header = await prisma.header.delete({
+     *   where: {
+     *     // ... filter to delete one Header
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HeaderDeleteArgs>(args: SelectSubset<T, HeaderDeleteArgs<ExtArgs>>): Prisma__HeaderClient<$Result.GetResult<Prisma.$HeaderPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Header.
+     * @param {HeaderUpdateArgs} args - Arguments to update one Header.
+     * @example
+     * // Update one Header
+     * const header = await prisma.header.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HeaderUpdateArgs>(args: SelectSubset<T, HeaderUpdateArgs<ExtArgs>>): Prisma__HeaderClient<$Result.GetResult<Prisma.$HeaderPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Headers.
+     * @param {HeaderDeleteManyArgs} args - Arguments to filter Headers to delete.
+     * @example
+     * // Delete a few Headers
+     * const { count } = await prisma.header.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HeaderDeleteManyArgs>(args?: SelectSubset<T, HeaderDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Headers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HeaderUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Headers
+     * const header = await prisma.header.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HeaderUpdateManyArgs>(args: SelectSubset<T, HeaderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Headers and returns the data updated in the database.
+     * @param {HeaderUpdateManyAndReturnArgs} args - Arguments to update many Headers.
+     * @example
+     * // Update many Headers
+     * const header = await prisma.header.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Headers and only return the `id`
+     * const headerWithIdOnly = await prisma.header.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends HeaderUpdateManyAndReturnArgs>(args: SelectSubset<T, HeaderUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HeaderPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Header.
+     * @param {HeaderUpsertArgs} args - Arguments to update or create a Header.
+     * @example
+     * // Update or create a Header
+     * const header = await prisma.header.upsert({
+     *   create: {
+     *     // ... data to create a Header
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Header we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HeaderUpsertArgs>(args: SelectSubset<T, HeaderUpsertArgs<ExtArgs>>): Prisma__HeaderClient<$Result.GetResult<Prisma.$HeaderPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Headers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HeaderCountArgs} args - Arguments to filter Headers to count.
+     * @example
+     * // Count the number of Headers
+     * const count = await prisma.header.count({
+     *   where: {
+     *     // ... the filter for the Headers we want to count
+     *   }
+     * })
+    **/
+    count<T extends HeaderCountArgs>(
+      args?: Subset<T, HeaderCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HeaderCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Header.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HeaderAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HeaderAggregateArgs>(args: Subset<T, HeaderAggregateArgs>): Prisma.PrismaPromise<GetHeaderAggregateType<T>>
+
+    /**
+     * Group by Header.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HeaderGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HeaderGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HeaderGroupByArgs['orderBy'] }
+        : { orderBy?: HeaderGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HeaderGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHeaderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Header model
+   */
+  readonly fields: HeaderFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Header.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HeaderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    app<T extends AppDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AppDefaultArgs<ExtArgs>>): Prisma__AppClient<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Header model
+   */
+  interface HeaderFieldRefs {
+    readonly id: FieldRef<"Header", 'String'>
+    readonly key: FieldRef<"Header", 'String'>
+    readonly value: FieldRef<"Header", 'String'>
+    readonly appId: FieldRef<"Header", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Header findUnique
+   */
+  export type HeaderFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderInclude<ExtArgs> | null
+    /**
+     * Filter, which Header to fetch.
+     */
+    where: HeaderWhereUniqueInput
+  }
+
+  /**
+   * Header findUniqueOrThrow
+   */
+  export type HeaderFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderInclude<ExtArgs> | null
+    /**
+     * Filter, which Header to fetch.
+     */
+    where: HeaderWhereUniqueInput
+  }
+
+  /**
+   * Header findFirst
+   */
+  export type HeaderFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderInclude<ExtArgs> | null
+    /**
+     * Filter, which Header to fetch.
+     */
+    where?: HeaderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Headers to fetch.
+     */
+    orderBy?: HeaderOrderByWithRelationInput | HeaderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Headers.
+     */
+    cursor?: HeaderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Headers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Headers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Headers.
+     */
+    distinct?: HeaderScalarFieldEnum | HeaderScalarFieldEnum[]
+  }
+
+  /**
+   * Header findFirstOrThrow
+   */
+  export type HeaderFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderInclude<ExtArgs> | null
+    /**
+     * Filter, which Header to fetch.
+     */
+    where?: HeaderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Headers to fetch.
+     */
+    orderBy?: HeaderOrderByWithRelationInput | HeaderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Headers.
+     */
+    cursor?: HeaderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Headers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Headers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Headers.
+     */
+    distinct?: HeaderScalarFieldEnum | HeaderScalarFieldEnum[]
+  }
+
+  /**
+   * Header findMany
+   */
+  export type HeaderFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderInclude<ExtArgs> | null
+    /**
+     * Filter, which Headers to fetch.
+     */
+    where?: HeaderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Headers to fetch.
+     */
+    orderBy?: HeaderOrderByWithRelationInput | HeaderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Headers.
+     */
+    cursor?: HeaderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Headers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Headers.
+     */
+    skip?: number
+    distinct?: HeaderScalarFieldEnum | HeaderScalarFieldEnum[]
+  }
+
+  /**
+   * Header create
+   */
+  export type HeaderCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Header.
+     */
+    data: XOR<HeaderCreateInput, HeaderUncheckedCreateInput>
+  }
+
+  /**
+   * Header createMany
+   */
+  export type HeaderCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Headers.
+     */
+    data: HeaderCreateManyInput | HeaderCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Header createManyAndReturn
+   */
+  export type HeaderCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * The data used to create many Headers.
+     */
+    data: HeaderCreateManyInput | HeaderCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Header update
+   */
+  export type HeaderUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Header.
+     */
+    data: XOR<HeaderUpdateInput, HeaderUncheckedUpdateInput>
+    /**
+     * Choose, which Header to update.
+     */
+    where: HeaderWhereUniqueInput
+  }
+
+  /**
+   * Header updateMany
+   */
+  export type HeaderUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Headers.
+     */
+    data: XOR<HeaderUpdateManyMutationInput, HeaderUncheckedUpdateManyInput>
+    /**
+     * Filter which Headers to update
+     */
+    where?: HeaderWhereInput
+    /**
+     * Limit how many Headers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Header updateManyAndReturn
+   */
+  export type HeaderUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * The data used to update Headers.
+     */
+    data: XOR<HeaderUpdateManyMutationInput, HeaderUncheckedUpdateManyInput>
+    /**
+     * Filter which Headers to update
+     */
+    where?: HeaderWhereInput
+    /**
+     * Limit how many Headers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Header upsert
+   */
+  export type HeaderUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Header to update in case it exists.
+     */
+    where: HeaderWhereUniqueInput
+    /**
+     * In case the Header found by the `where` argument doesn't exist, create a new Header with this data.
+     */
+    create: XOR<HeaderCreateInput, HeaderUncheckedCreateInput>
+    /**
+     * In case the Header was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HeaderUpdateInput, HeaderUncheckedUpdateInput>
+  }
+
+  /**
+   * Header delete
+   */
+  export type HeaderDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderInclude<ExtArgs> | null
+    /**
+     * Filter which Header to delete.
+     */
+    where: HeaderWhereUniqueInput
+  }
+
+  /**
+   * Header deleteMany
+   */
+  export type HeaderDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Headers to delete
+     */
+    where?: HeaderWhereInput
+    /**
+     * Limit how many Headers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Header without action
+   */
+  export type HeaderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Header
+     */
+    select?: HeaderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Header
+     */
+    omit?: HeaderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HeaderInclude<ExtArgs> | null
   }
 
 
@@ -11844,6 +13045,7 @@ export namespace Prisma {
     dailyTime: 'dailyTime',
     monthlyDay: 'monthlyDay',
     monthlyTime: 'monthlyTime',
+    method: 'method',
     notifyOnFailure: 'notifyOnFailure',
     notifyOnRecovery: 'notifyOnRecovery',
     notificationEmail: 'notificationEmail',
@@ -11864,6 +13066,16 @@ export namespace Prisma {
   };
 
   export type EnvVarScalarFieldEnum = (typeof EnvVarScalarFieldEnum)[keyof typeof EnvVarScalarFieldEnum]
+
+
+  export const HeaderScalarFieldEnum: {
+    id: 'id',
+    key: 'key',
+    value: 'value',
+    appId: 'appId'
+  };
+
+  export type HeaderScalarFieldEnum = (typeof HeaderScalarFieldEnum)[keyof typeof HeaderScalarFieldEnum]
 
 
   export const ExecutionLogScalarFieldEnum: {
@@ -11983,6 +13195,20 @@ export namespace Prisma {
    * Reference to a field of type 'ScheduleType[]'
    */
   export type ListEnumScheduleTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ScheduleType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'HttpMethod'
+   */
+  export type EnumHttpMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HttpMethod'>
+    
+
+
+  /**
+   * Reference to a field of type 'HttpMethod[]'
+   */
+  export type ListEnumHttpMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HttpMethod[]'>
     
 
 
@@ -12340,6 +13566,7 @@ export namespace Prisma {
     dailyTime?: StringNullableFilter<"App"> | string | null
     monthlyDay?: IntNullableFilter<"App"> | number | null
     monthlyTime?: StringNullableFilter<"App"> | string | null
+    method?: EnumHttpMethodFilter<"App"> | $Enums.HttpMethod
     notifyOnFailure?: BoolFilter<"App"> | boolean
     notifyOnRecovery?: BoolFilter<"App"> | boolean
     notificationEmail?: StringFilter<"App"> | string
@@ -12350,6 +13577,7 @@ export namespace Prisma {
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     envVariables?: EnvVarListRelationFilter
     executionLogs?: ExecutionLogListRelationFilter
+    headers?: HeaderListRelationFilter
   }
 
   export type AppOrderByWithRelationInput = {
@@ -12363,6 +13591,7 @@ export namespace Prisma {
     dailyTime?: SortOrderInput | SortOrder
     monthlyDay?: SortOrderInput | SortOrder
     monthlyTime?: SortOrderInput | SortOrder
+    method?: SortOrder
     notifyOnFailure?: SortOrder
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
@@ -12373,6 +13602,7 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
     envVariables?: EnvVarOrderByRelationAggregateInput
     executionLogs?: ExecutionLogOrderByRelationAggregateInput
+    headers?: HeaderOrderByRelationAggregateInput
   }
 
   export type AppWhereUniqueInput = Prisma.AtLeast<{
@@ -12389,6 +13619,7 @@ export namespace Prisma {
     dailyTime?: StringNullableFilter<"App"> | string | null
     monthlyDay?: IntNullableFilter<"App"> | number | null
     monthlyTime?: StringNullableFilter<"App"> | string | null
+    method?: EnumHttpMethodFilter<"App"> | $Enums.HttpMethod
     notifyOnFailure?: BoolFilter<"App"> | boolean
     notifyOnRecovery?: BoolFilter<"App"> | boolean
     notificationEmail?: StringFilter<"App"> | string
@@ -12399,6 +13630,7 @@ export namespace Prisma {
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     envVariables?: EnvVarListRelationFilter
     executionLogs?: ExecutionLogListRelationFilter
+    headers?: HeaderListRelationFilter
   }, "id">
 
   export type AppOrderByWithAggregationInput = {
@@ -12412,6 +13644,7 @@ export namespace Prisma {
     dailyTime?: SortOrderInput | SortOrder
     monthlyDay?: SortOrderInput | SortOrder
     monthlyTime?: SortOrderInput | SortOrder
+    method?: SortOrder
     notifyOnFailure?: SortOrder
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
@@ -12440,6 +13673,7 @@ export namespace Prisma {
     dailyTime?: StringNullableWithAggregatesFilter<"App"> | string | null
     monthlyDay?: IntNullableWithAggregatesFilter<"App"> | number | null
     monthlyTime?: StringNullableWithAggregatesFilter<"App"> | string | null
+    method?: EnumHttpMethodWithAggregatesFilter<"App"> | $Enums.HttpMethod
     notifyOnFailure?: BoolWithAggregatesFilter<"App"> | boolean
     notifyOnRecovery?: BoolWithAggregatesFilter<"App"> | boolean
     notificationEmail?: StringWithAggregatesFilter<"App"> | string
@@ -12498,6 +13732,57 @@ export namespace Prisma {
     envKey?: StringWithAggregatesFilter<"EnvVar"> | string
     envValue?: StringWithAggregatesFilter<"EnvVar"> | string
     appId?: StringWithAggregatesFilter<"EnvVar"> | string
+  }
+
+  export type HeaderWhereInput = {
+    AND?: HeaderWhereInput | HeaderWhereInput[]
+    OR?: HeaderWhereInput[]
+    NOT?: HeaderWhereInput | HeaderWhereInput[]
+    id?: StringFilter<"Header"> | string
+    key?: StringFilter<"Header"> | string
+    value?: StringFilter<"Header"> | string
+    appId?: StringFilter<"Header"> | string
+    app?: XOR<AppScalarRelationFilter, AppWhereInput>
+  }
+
+  export type HeaderOrderByWithRelationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    appId?: SortOrder
+    app?: AppOrderByWithRelationInput
+  }
+
+  export type HeaderWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    appId_key?: HeaderAppIdKeyCompoundUniqueInput
+    AND?: HeaderWhereInput | HeaderWhereInput[]
+    OR?: HeaderWhereInput[]
+    NOT?: HeaderWhereInput | HeaderWhereInput[]
+    key?: StringFilter<"Header"> | string
+    value?: StringFilter<"Header"> | string
+    appId?: StringFilter<"Header"> | string
+    app?: XOR<AppScalarRelationFilter, AppWhereInput>
+  }, "id" | "appId_key">
+
+  export type HeaderOrderByWithAggregationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    appId?: SortOrder
+    _count?: HeaderCountOrderByAggregateInput
+    _max?: HeaderMaxOrderByAggregateInput
+    _min?: HeaderMinOrderByAggregateInput
+  }
+
+  export type HeaderScalarWhereWithAggregatesInput = {
+    AND?: HeaderScalarWhereWithAggregatesInput | HeaderScalarWhereWithAggregatesInput[]
+    OR?: HeaderScalarWhereWithAggregatesInput[]
+    NOT?: HeaderScalarWhereWithAggregatesInput | HeaderScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Header"> | string
+    key?: StringWithAggregatesFilter<"Header"> | string
+    value?: StringWithAggregatesFilter<"Header"> | string
+    appId?: StringWithAggregatesFilter<"Header"> | string
   }
 
   export type ExecutionLogWhereInput = {
@@ -12994,6 +14279,7 @@ export namespace Prisma {
     dailyTime?: string | null
     monthlyDay?: number | null
     monthlyTime?: string | null
+    method?: $Enums.HttpMethod
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
@@ -13003,6 +14289,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutAppsInput
     envVariables?: EnvVarCreateNestedManyWithoutAppInput
     executionLogs?: ExecutionLogCreateNestedManyWithoutAppInput
+    headers?: HeaderCreateNestedManyWithoutAppInput
   }
 
   export type AppUncheckedCreateInput = {
@@ -13016,6 +14303,7 @@ export namespace Prisma {
     dailyTime?: string | null
     monthlyDay?: number | null
     monthlyTime?: string | null
+    method?: $Enums.HttpMethod
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
@@ -13025,6 +14313,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     envVariables?: EnvVarUncheckedCreateNestedManyWithoutAppInput
     executionLogs?: ExecutionLogUncheckedCreateNestedManyWithoutAppInput
+    headers?: HeaderUncheckedCreateNestedManyWithoutAppInput
   }
 
   export type AppUpdateInput = {
@@ -13038,6 +14327,7 @@ export namespace Prisma {
     dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
     monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
     monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
@@ -13047,6 +14337,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutAppsNestedInput
     envVariables?: EnvVarUpdateManyWithoutAppNestedInput
     executionLogs?: ExecutionLogUpdateManyWithoutAppNestedInput
+    headers?: HeaderUpdateManyWithoutAppNestedInput
   }
 
   export type AppUncheckedUpdateInput = {
@@ -13060,6 +14351,7 @@ export namespace Prisma {
     dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
     monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
     monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
@@ -13069,6 +14361,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     envVariables?: EnvVarUncheckedUpdateManyWithoutAppNestedInput
     executionLogs?: ExecutionLogUncheckedUpdateManyWithoutAppNestedInput
+    headers?: HeaderUncheckedUpdateManyWithoutAppNestedInput
   }
 
   export type AppCreateManyInput = {
@@ -13082,6 +14375,7 @@ export namespace Prisma {
     dailyTime?: string | null
     monthlyDay?: number | null
     monthlyTime?: string | null
+    method?: $Enums.HttpMethod
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
@@ -13102,6 +14396,7 @@ export namespace Prisma {
     dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
     monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
     monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
@@ -13121,6 +14416,7 @@ export namespace Prisma {
     dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
     monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
     monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
@@ -13175,6 +14471,54 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     envKey?: StringFieldUpdateOperationsInput | string
     envValue?: StringFieldUpdateOperationsInput | string
+    appId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HeaderCreateInput = {
+    id?: string
+    key: string
+    value: string
+    app: AppCreateNestedOneWithoutHeadersInput
+  }
+
+  export type HeaderUncheckedCreateInput = {
+    id?: string
+    key: string
+    value: string
+    appId: string
+  }
+
+  export type HeaderUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    app?: AppUpdateOneRequiredWithoutHeadersNestedInput
+  }
+
+  export type HeaderUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    appId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HeaderCreateManyInput = {
+    id?: string
+    key: string
+    value: string
+    appId: string
+  }
+
+  export type HeaderUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HeaderUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
     appId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -13743,6 +15087,13 @@ export namespace Prisma {
     not?: NestedEnumScheduleTypeFilter<$PrismaModel> | $Enums.ScheduleType
   }
 
+  export type EnumHttpMethodFilter<$PrismaModel = never> = {
+    equals?: $Enums.HttpMethod | EnumHttpMethodFieldRefInput<$PrismaModel>
+    in?: $Enums.HttpMethod[] | ListEnumHttpMethodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HttpMethod[] | ListEnumHttpMethodFieldRefInput<$PrismaModel>
+    not?: NestedEnumHttpMethodFilter<$PrismaModel> | $Enums.HttpMethod
+  }
+
   export type EnvVarListRelationFilter = {
     every?: EnvVarWhereInput
     some?: EnvVarWhereInput
@@ -13755,11 +15106,21 @@ export namespace Prisma {
     none?: ExecutionLogWhereInput
   }
 
+  export type HeaderListRelationFilter = {
+    every?: HeaderWhereInput
+    some?: HeaderWhereInput
+    none?: HeaderWhereInput
+  }
+
   export type EnvVarOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type ExecutionLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HeaderOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13774,6 +15135,7 @@ export namespace Prisma {
     dailyTime?: SortOrder
     monthlyDay?: SortOrder
     monthlyTime?: SortOrder
+    method?: SortOrder
     notifyOnFailure?: SortOrder
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
@@ -13799,6 +15161,7 @@ export namespace Prisma {
     dailyTime?: SortOrder
     monthlyDay?: SortOrder
     monthlyTime?: SortOrder
+    method?: SortOrder
     notifyOnFailure?: SortOrder
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
@@ -13819,6 +15182,7 @@ export namespace Prisma {
     dailyTime?: SortOrder
     monthlyDay?: SortOrder
     monthlyTime?: SortOrder
+    method?: SortOrder
     notifyOnFailure?: SortOrder
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
@@ -13841,6 +15205,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumScheduleTypeFilter<$PrismaModel>
     _max?: NestedEnumScheduleTypeFilter<$PrismaModel>
+  }
+
+  export type EnumHttpMethodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.HttpMethod | EnumHttpMethodFieldRefInput<$PrismaModel>
+    in?: $Enums.HttpMethod[] | ListEnumHttpMethodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HttpMethod[] | ListEnumHttpMethodFieldRefInput<$PrismaModel>
+    not?: NestedEnumHttpMethodWithAggregatesFilter<$PrismaModel> | $Enums.HttpMethod
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHttpMethodFilter<$PrismaModel>
+    _max?: NestedEnumHttpMethodFilter<$PrismaModel>
   }
 
   export type AppScalarRelationFilter = {
@@ -13871,6 +15245,32 @@ export namespace Prisma {
     id?: SortOrder
     envKey?: SortOrder
     envValue?: SortOrder
+    appId?: SortOrder
+  }
+
+  export type HeaderAppIdKeyCompoundUniqueInput = {
+    appId: string
+    key: string
+  }
+
+  export type HeaderCountOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    appId?: SortOrder
+  }
+
+  export type HeaderMaxOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    appId?: SortOrder
+  }
+
+  export type HeaderMinOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
     appId?: SortOrder
   }
 
@@ -14230,6 +15630,13 @@ export namespace Prisma {
     connect?: ExecutionLogWhereUniqueInput | ExecutionLogWhereUniqueInput[]
   }
 
+  export type HeaderCreateNestedManyWithoutAppInput = {
+    create?: XOR<HeaderCreateWithoutAppInput, HeaderUncheckedCreateWithoutAppInput> | HeaderCreateWithoutAppInput[] | HeaderUncheckedCreateWithoutAppInput[]
+    connectOrCreate?: HeaderCreateOrConnectWithoutAppInput | HeaderCreateOrConnectWithoutAppInput[]
+    createMany?: HeaderCreateManyAppInputEnvelope
+    connect?: HeaderWhereUniqueInput | HeaderWhereUniqueInput[]
+  }
+
   export type EnvVarUncheckedCreateNestedManyWithoutAppInput = {
     create?: XOR<EnvVarCreateWithoutAppInput, EnvVarUncheckedCreateWithoutAppInput> | EnvVarCreateWithoutAppInput[] | EnvVarUncheckedCreateWithoutAppInput[]
     connectOrCreate?: EnvVarCreateOrConnectWithoutAppInput | EnvVarCreateOrConnectWithoutAppInput[]
@@ -14244,8 +15651,19 @@ export namespace Prisma {
     connect?: ExecutionLogWhereUniqueInput | ExecutionLogWhereUniqueInput[]
   }
 
+  export type HeaderUncheckedCreateNestedManyWithoutAppInput = {
+    create?: XOR<HeaderCreateWithoutAppInput, HeaderUncheckedCreateWithoutAppInput> | HeaderCreateWithoutAppInput[] | HeaderUncheckedCreateWithoutAppInput[]
+    connectOrCreate?: HeaderCreateOrConnectWithoutAppInput | HeaderCreateOrConnectWithoutAppInput[]
+    createMany?: HeaderCreateManyAppInputEnvelope
+    connect?: HeaderWhereUniqueInput | HeaderWhereUniqueInput[]
+  }
+
   export type EnumScheduleTypeFieldUpdateOperationsInput = {
     set?: $Enums.ScheduleType
+  }
+
+  export type EnumHttpMethodFieldUpdateOperationsInput = {
+    set?: $Enums.HttpMethod
   }
 
   export type UserUpdateOneRequiredWithoutAppsNestedInput = {
@@ -14284,6 +15702,20 @@ export namespace Prisma {
     deleteMany?: ExecutionLogScalarWhereInput | ExecutionLogScalarWhereInput[]
   }
 
+  export type HeaderUpdateManyWithoutAppNestedInput = {
+    create?: XOR<HeaderCreateWithoutAppInput, HeaderUncheckedCreateWithoutAppInput> | HeaderCreateWithoutAppInput[] | HeaderUncheckedCreateWithoutAppInput[]
+    connectOrCreate?: HeaderCreateOrConnectWithoutAppInput | HeaderCreateOrConnectWithoutAppInput[]
+    upsert?: HeaderUpsertWithWhereUniqueWithoutAppInput | HeaderUpsertWithWhereUniqueWithoutAppInput[]
+    createMany?: HeaderCreateManyAppInputEnvelope
+    set?: HeaderWhereUniqueInput | HeaderWhereUniqueInput[]
+    disconnect?: HeaderWhereUniqueInput | HeaderWhereUniqueInput[]
+    delete?: HeaderWhereUniqueInput | HeaderWhereUniqueInput[]
+    connect?: HeaderWhereUniqueInput | HeaderWhereUniqueInput[]
+    update?: HeaderUpdateWithWhereUniqueWithoutAppInput | HeaderUpdateWithWhereUniqueWithoutAppInput[]
+    updateMany?: HeaderUpdateManyWithWhereWithoutAppInput | HeaderUpdateManyWithWhereWithoutAppInput[]
+    deleteMany?: HeaderScalarWhereInput | HeaderScalarWhereInput[]
+  }
+
   export type EnvVarUncheckedUpdateManyWithoutAppNestedInput = {
     create?: XOR<EnvVarCreateWithoutAppInput, EnvVarUncheckedCreateWithoutAppInput> | EnvVarCreateWithoutAppInput[] | EnvVarUncheckedCreateWithoutAppInput[]
     connectOrCreate?: EnvVarCreateOrConnectWithoutAppInput | EnvVarCreateOrConnectWithoutAppInput[]
@@ -14312,6 +15744,20 @@ export namespace Prisma {
     deleteMany?: ExecutionLogScalarWhereInput | ExecutionLogScalarWhereInput[]
   }
 
+  export type HeaderUncheckedUpdateManyWithoutAppNestedInput = {
+    create?: XOR<HeaderCreateWithoutAppInput, HeaderUncheckedCreateWithoutAppInput> | HeaderCreateWithoutAppInput[] | HeaderUncheckedCreateWithoutAppInput[]
+    connectOrCreate?: HeaderCreateOrConnectWithoutAppInput | HeaderCreateOrConnectWithoutAppInput[]
+    upsert?: HeaderUpsertWithWhereUniqueWithoutAppInput | HeaderUpsertWithWhereUniqueWithoutAppInput[]
+    createMany?: HeaderCreateManyAppInputEnvelope
+    set?: HeaderWhereUniqueInput | HeaderWhereUniqueInput[]
+    disconnect?: HeaderWhereUniqueInput | HeaderWhereUniqueInput[]
+    delete?: HeaderWhereUniqueInput | HeaderWhereUniqueInput[]
+    connect?: HeaderWhereUniqueInput | HeaderWhereUniqueInput[]
+    update?: HeaderUpdateWithWhereUniqueWithoutAppInput | HeaderUpdateWithWhereUniqueWithoutAppInput[]
+    updateMany?: HeaderUpdateManyWithWhereWithoutAppInput | HeaderUpdateManyWithWhereWithoutAppInput[]
+    deleteMany?: HeaderScalarWhereInput | HeaderScalarWhereInput[]
+  }
+
   export type AppCreateNestedOneWithoutEnvVariablesInput = {
     create?: XOR<AppCreateWithoutEnvVariablesInput, AppUncheckedCreateWithoutEnvVariablesInput>
     connectOrCreate?: AppCreateOrConnectWithoutEnvVariablesInput
@@ -14324,6 +15770,20 @@ export namespace Prisma {
     upsert?: AppUpsertWithoutEnvVariablesInput
     connect?: AppWhereUniqueInput
     update?: XOR<XOR<AppUpdateToOneWithWhereWithoutEnvVariablesInput, AppUpdateWithoutEnvVariablesInput>, AppUncheckedUpdateWithoutEnvVariablesInput>
+  }
+
+  export type AppCreateNestedOneWithoutHeadersInput = {
+    create?: XOR<AppCreateWithoutHeadersInput, AppUncheckedCreateWithoutHeadersInput>
+    connectOrCreate?: AppCreateOrConnectWithoutHeadersInput
+    connect?: AppWhereUniqueInput
+  }
+
+  export type AppUpdateOneRequiredWithoutHeadersNestedInput = {
+    create?: XOR<AppCreateWithoutHeadersInput, AppUncheckedCreateWithoutHeadersInput>
+    connectOrCreate?: AppCreateOrConnectWithoutHeadersInput
+    upsert?: AppUpsertWithoutHeadersInput
+    connect?: AppWhereUniqueInput
+    update?: XOR<XOR<AppUpdateToOneWithWhereWithoutHeadersInput, AppUpdateWithoutHeadersInput>, AppUncheckedUpdateWithoutHeadersInput>
   }
 
   export type AppCreateNestedOneWithoutExecutionLogsInput = {
@@ -14548,6 +16008,13 @@ export namespace Prisma {
     not?: NestedEnumScheduleTypeFilter<$PrismaModel> | $Enums.ScheduleType
   }
 
+  export type NestedEnumHttpMethodFilter<$PrismaModel = never> = {
+    equals?: $Enums.HttpMethod | EnumHttpMethodFieldRefInput<$PrismaModel>
+    in?: $Enums.HttpMethod[] | ListEnumHttpMethodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HttpMethod[] | ListEnumHttpMethodFieldRefInput<$PrismaModel>
+    not?: NestedEnumHttpMethodFilter<$PrismaModel> | $Enums.HttpMethod
+  }
+
   export type NestedEnumScheduleTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ScheduleType | EnumScheduleTypeFieldRefInput<$PrismaModel>
     in?: $Enums.ScheduleType[] | ListEnumScheduleTypeFieldRefInput<$PrismaModel>
@@ -14556,6 +16023,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumScheduleTypeFilter<$PrismaModel>
     _max?: NestedEnumScheduleTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumHttpMethodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.HttpMethod | EnumHttpMethodFieldRefInput<$PrismaModel>
+    in?: $Enums.HttpMethod[] | ListEnumHttpMethodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HttpMethod[] | ListEnumHttpMethodFieldRefInput<$PrismaModel>
+    not?: NestedEnumHttpMethodWithAggregatesFilter<$PrismaModel> | $Enums.HttpMethod
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHttpMethodFilter<$PrismaModel>
+    _max?: NestedEnumHttpMethodFilter<$PrismaModel>
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -14655,6 +16132,7 @@ export namespace Prisma {
     dailyTime?: string | null
     monthlyDay?: number | null
     monthlyTime?: string | null
+    method?: $Enums.HttpMethod
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
@@ -14663,6 +16141,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     envVariables?: EnvVarCreateNestedManyWithoutAppInput
     executionLogs?: ExecutionLogCreateNestedManyWithoutAppInput
+    headers?: HeaderCreateNestedManyWithoutAppInput
   }
 
   export type AppUncheckedCreateWithoutUserInput = {
@@ -14676,6 +16155,7 @@ export namespace Prisma {
     dailyTime?: string | null
     monthlyDay?: number | null
     monthlyTime?: string | null
+    method?: $Enums.HttpMethod
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
@@ -14684,6 +16164,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     envVariables?: EnvVarUncheckedCreateNestedManyWithoutAppInput
     executionLogs?: ExecutionLogUncheckedCreateNestedManyWithoutAppInput
+    headers?: HeaderUncheckedCreateNestedManyWithoutAppInput
   }
 
   export type AppCreateOrConnectWithoutUserInput = {
@@ -14814,6 +16295,7 @@ export namespace Prisma {
     dailyTime?: StringNullableFilter<"App"> | string | null
     monthlyDay?: IntNullableFilter<"App"> | number | null
     monthlyTime?: StringNullableFilter<"App"> | string | null
+    method?: EnumHttpMethodFilter<"App"> | $Enums.HttpMethod
     notifyOnFailure?: BoolFilter<"App"> | boolean
     notifyOnRecovery?: BoolFilter<"App"> | boolean
     notificationEmail?: StringFilter<"App"> | string
@@ -15110,6 +16592,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type HeaderCreateWithoutAppInput = {
+    id?: string
+    key: string
+    value: string
+  }
+
+  export type HeaderUncheckedCreateWithoutAppInput = {
+    id?: string
+    key: string
+    value: string
+  }
+
+  export type HeaderCreateOrConnectWithoutAppInput = {
+    where: HeaderWhereUniqueInput
+    create: XOR<HeaderCreateWithoutAppInput, HeaderUncheckedCreateWithoutAppInput>
+  }
+
+  export type HeaderCreateManyAppInputEnvelope = {
+    data: HeaderCreateManyAppInput | HeaderCreateManyAppInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutAppsInput = {
     update: XOR<UserUpdateWithoutAppsInput, UserUncheckedUpdateWithoutAppsInput>
     create: XOR<UserCreateWithoutAppsInput, UserUncheckedCreateWithoutAppsInput>
@@ -15203,6 +16707,32 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ExecutionLog"> | Date | string
   }
 
+  export type HeaderUpsertWithWhereUniqueWithoutAppInput = {
+    where: HeaderWhereUniqueInput
+    update: XOR<HeaderUpdateWithoutAppInput, HeaderUncheckedUpdateWithoutAppInput>
+    create: XOR<HeaderCreateWithoutAppInput, HeaderUncheckedCreateWithoutAppInput>
+  }
+
+  export type HeaderUpdateWithWhereUniqueWithoutAppInput = {
+    where: HeaderWhereUniqueInput
+    data: XOR<HeaderUpdateWithoutAppInput, HeaderUncheckedUpdateWithoutAppInput>
+  }
+
+  export type HeaderUpdateManyWithWhereWithoutAppInput = {
+    where: HeaderScalarWhereInput
+    data: XOR<HeaderUpdateManyMutationInput, HeaderUncheckedUpdateManyWithoutAppInput>
+  }
+
+  export type HeaderScalarWhereInput = {
+    AND?: HeaderScalarWhereInput | HeaderScalarWhereInput[]
+    OR?: HeaderScalarWhereInput[]
+    NOT?: HeaderScalarWhereInput | HeaderScalarWhereInput[]
+    id?: StringFilter<"Header"> | string
+    key?: StringFilter<"Header"> | string
+    value?: StringFilter<"Header"> | string
+    appId?: StringFilter<"Header"> | string
+  }
+
   export type AppCreateWithoutEnvVariablesInput = {
     id?: string
     appTitle: string
@@ -15214,6 +16744,7 @@ export namespace Prisma {
     dailyTime?: string | null
     monthlyDay?: number | null
     monthlyTime?: string | null
+    method?: $Enums.HttpMethod
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
@@ -15222,6 +16753,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutAppsInput
     executionLogs?: ExecutionLogCreateNestedManyWithoutAppInput
+    headers?: HeaderCreateNestedManyWithoutAppInput
   }
 
   export type AppUncheckedCreateWithoutEnvVariablesInput = {
@@ -15235,6 +16767,7 @@ export namespace Prisma {
     dailyTime?: string | null
     monthlyDay?: number | null
     monthlyTime?: string | null
+    method?: $Enums.HttpMethod
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
@@ -15243,6 +16776,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     executionLogs?: ExecutionLogUncheckedCreateNestedManyWithoutAppInput
+    headers?: HeaderUncheckedCreateNestedManyWithoutAppInput
   }
 
   export type AppCreateOrConnectWithoutEnvVariablesInput = {
@@ -15272,6 +16806,7 @@ export namespace Prisma {
     dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
     monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
     monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
@@ -15280,6 +16815,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAppsNestedInput
     executionLogs?: ExecutionLogUpdateManyWithoutAppNestedInput
+    headers?: HeaderUpdateManyWithoutAppNestedInput
   }
 
   export type AppUncheckedUpdateWithoutEnvVariablesInput = {
@@ -15293,6 +16829,7 @@ export namespace Prisma {
     dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
     monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
     monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
@@ -15300,6 +16837,115 @@ export namespace Prisma {
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    executionLogs?: ExecutionLogUncheckedUpdateManyWithoutAppNestedInput
+    headers?: HeaderUncheckedUpdateManyWithoutAppNestedInput
+  }
+
+  export type AppCreateWithoutHeadersInput = {
+    id?: string
+    appTitle: string
+    url: string
+    description: string
+    isEnabled?: boolean
+    scheduleType: $Enums.ScheduleType
+    intervalMinutes?: number | null
+    dailyTime?: string | null
+    monthlyDay?: number | null
+    monthlyTime?: string | null
+    method?: $Enums.HttpMethod
+    notifyOnFailure?: boolean
+    notifyOnRecovery?: boolean
+    notificationEmail: string
+    lastRunAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAppsInput
+    envVariables?: EnvVarCreateNestedManyWithoutAppInput
+    executionLogs?: ExecutionLogCreateNestedManyWithoutAppInput
+  }
+
+  export type AppUncheckedCreateWithoutHeadersInput = {
+    id?: string
+    appTitle: string
+    url: string
+    description: string
+    isEnabled?: boolean
+    scheduleType: $Enums.ScheduleType
+    intervalMinutes?: number | null
+    dailyTime?: string | null
+    monthlyDay?: number | null
+    monthlyTime?: string | null
+    method?: $Enums.HttpMethod
+    notifyOnFailure?: boolean
+    notifyOnRecovery?: boolean
+    notificationEmail: string
+    userId: string
+    lastRunAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    envVariables?: EnvVarUncheckedCreateNestedManyWithoutAppInput
+    executionLogs?: ExecutionLogUncheckedCreateNestedManyWithoutAppInput
+  }
+
+  export type AppCreateOrConnectWithoutHeadersInput = {
+    where: AppWhereUniqueInput
+    create: XOR<AppCreateWithoutHeadersInput, AppUncheckedCreateWithoutHeadersInput>
+  }
+
+  export type AppUpsertWithoutHeadersInput = {
+    update: XOR<AppUpdateWithoutHeadersInput, AppUncheckedUpdateWithoutHeadersInput>
+    create: XOR<AppCreateWithoutHeadersInput, AppUncheckedCreateWithoutHeadersInput>
+    where?: AppWhereInput
+  }
+
+  export type AppUpdateToOneWithWhereWithoutHeadersInput = {
+    where?: AppWhereInput
+    data: XOR<AppUpdateWithoutHeadersInput, AppUncheckedUpdateWithoutHeadersInput>
+  }
+
+  export type AppUpdateWithoutHeadersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appTitle?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    scheduleType?: EnumScheduleTypeFieldUpdateOperationsInput | $Enums.ScheduleType
+    intervalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
+    monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
+    notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
+    notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
+    notificationEmail?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAppsNestedInput
+    envVariables?: EnvVarUpdateManyWithoutAppNestedInput
+    executionLogs?: ExecutionLogUpdateManyWithoutAppNestedInput
+  }
+
+  export type AppUncheckedUpdateWithoutHeadersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appTitle?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    scheduleType?: EnumScheduleTypeFieldUpdateOperationsInput | $Enums.ScheduleType
+    intervalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
+    monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
+    notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
+    notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
+    notificationEmail?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    envVariables?: EnvVarUncheckedUpdateManyWithoutAppNestedInput
     executionLogs?: ExecutionLogUncheckedUpdateManyWithoutAppNestedInput
   }
 
@@ -15314,6 +16960,7 @@ export namespace Prisma {
     dailyTime?: string | null
     monthlyDay?: number | null
     monthlyTime?: string | null
+    method?: $Enums.HttpMethod
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
@@ -15322,6 +16969,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutAppsInput
     envVariables?: EnvVarCreateNestedManyWithoutAppInput
+    headers?: HeaderCreateNestedManyWithoutAppInput
   }
 
   export type AppUncheckedCreateWithoutExecutionLogsInput = {
@@ -15335,6 +16983,7 @@ export namespace Prisma {
     dailyTime?: string | null
     monthlyDay?: number | null
     monthlyTime?: string | null
+    method?: $Enums.HttpMethod
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
@@ -15343,6 +16992,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     envVariables?: EnvVarUncheckedCreateNestedManyWithoutAppInput
+    headers?: HeaderUncheckedCreateNestedManyWithoutAppInput
   }
 
   export type AppCreateOrConnectWithoutExecutionLogsInput = {
@@ -15372,6 +17022,7 @@ export namespace Prisma {
     dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
     monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
     monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
@@ -15380,6 +17031,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAppsNestedInput
     envVariables?: EnvVarUpdateManyWithoutAppNestedInput
+    headers?: HeaderUpdateManyWithoutAppNestedInput
   }
 
   export type AppUncheckedUpdateWithoutExecutionLogsInput = {
@@ -15393,6 +17045,7 @@ export namespace Prisma {
     dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
     monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
     monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
@@ -15401,6 +17054,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     envVariables?: EnvVarUncheckedUpdateManyWithoutAppNestedInput
+    headers?: HeaderUncheckedUpdateManyWithoutAppNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -15442,6 +17096,7 @@ export namespace Prisma {
     dailyTime?: string | null
     monthlyDay?: number | null
     monthlyTime?: string | null
+    method?: $Enums.HttpMethod
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
@@ -15545,6 +17200,7 @@ export namespace Prisma {
     dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
     monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
     monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
@@ -15553,6 +17209,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     envVariables?: EnvVarUpdateManyWithoutAppNestedInput
     executionLogs?: ExecutionLogUpdateManyWithoutAppNestedInput
+    headers?: HeaderUpdateManyWithoutAppNestedInput
   }
 
   export type AppUncheckedUpdateWithoutUserInput = {
@@ -15566,6 +17223,7 @@ export namespace Prisma {
     dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
     monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
     monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
@@ -15574,6 +17232,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     envVariables?: EnvVarUncheckedUpdateManyWithoutAppNestedInput
     executionLogs?: ExecutionLogUncheckedUpdateManyWithoutAppNestedInput
+    headers?: HeaderUncheckedUpdateManyWithoutAppNestedInput
   }
 
   export type AppUncheckedUpdateManyWithoutUserInput = {
@@ -15587,6 +17246,7 @@ export namespace Prisma {
     dailyTime?: NullableStringFieldUpdateOperationsInput | string | null
     monthlyDay?: NullableIntFieldUpdateOperationsInput | number | null
     monthlyTime?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: EnumHttpMethodFieldUpdateOperationsInput | $Enums.HttpMethod
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
@@ -15609,6 +17269,12 @@ export namespace Prisma {
     errorMessage?: string | null
     duration?: number | null
     createdAt?: Date | string
+  }
+
+  export type HeaderCreateManyAppInput = {
+    id?: string
+    key: string
+    value: string
   }
 
   export type EnvVarUpdateWithoutAppInput = {
@@ -15657,6 +17323,24 @@ export namespace Prisma {
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HeaderUpdateWithoutAppInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HeaderUncheckedUpdateWithoutAppInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HeaderUncheckedUpdateManyWithoutAppInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
   }
 
 

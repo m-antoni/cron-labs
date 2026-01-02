@@ -1,7 +1,8 @@
 'use client';
 
 import { JobFormTypes, ScheduleType } from '@/app/types/appTypes';
-import Select, { StylesConfig } from 'react-select';
+import Select, { SingleValue, StylesConfig } from 'react-select';
+import { HttpMethod } from '@/generated/prisma';
 
 // --- Types and Data Generators ---
 interface Option {
@@ -22,6 +23,15 @@ const dailyOptions: Option[] = [
   { value: '12:00', label: '12:00' },
   { value: '19:00', label: '19:00' },
   { value: '00:00', label: '00:00' },
+];
+
+type MethodOption = { value: HttpMethod; label: string };
+const httpMethodOptions: MethodOption[] = [
+  { value: 'GET', label: 'GET' },
+  { value: 'POST', label: 'POST' },
+  { value: 'PUT', label: 'PUT' },
+  { value: 'PATCH', label: 'PATCH' },
+  { value: 'DELETE', label: 'DELETE' },
 ];
 
 // Generate 1 to 31 (Numbers for Prisma)
@@ -79,8 +89,15 @@ type JobFormProps = {
   onChangeValue: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void;
   onChangeType: (type: ScheduleType) => void;
   ScheduleType: typeof ScheduleType;
+  onChangeMethod: (newValue: any) => void;
 };
-export default function JobForm({ job, onChangeValue, onChangeType, ScheduleType }: JobFormProps) {
+export default function JobForm({
+  job,
+  onChangeValue,
+  onChangeType,
+  ScheduleType,
+  onChangeMethod,
+}: JobFormProps) {
   return (
     <>
       <h4 className="card-title">Cron Job</h4>
@@ -152,8 +169,28 @@ export default function JobForm({ job, onChangeValue, onChangeType, ScheduleType
         </div>
       </div>
 
+      <div className="row mt-3">
+        <div className="col-md-6">
+          <div className="form-group">
+            <label className="text-white mr-2">Method</label>
+            <div className="select-wrapper w-method">
+              <Select
+                options={httpMethodOptions}
+                value={
+                  httpMethodOptions.find((opt) => String(opt.value) === String(job.method)) ||
+                  httpMethodOptions[0]
+                }
+                onChange={(val) => onChangeMethod(val)}
+                styles={inlineSelectStyles}
+                isSearchable={false}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="row">
-        <div className="col-12 ml-1 mt-4">
+        <div className="col-12 ml-1 mt-2">
           <label className="text-white font-weight-bold">Execution Schedule</label>
 
           {/* Row A: Minutes */}

@@ -66,6 +66,7 @@ export default function CronJobs() {
                       <tr>
                         <th>App Title</th>
                         <th>URL</th>
+                        <th>Schedule Type</th>
                         <th className="text-center">Status </th>
                         <th className="text-center">Created At</th>
                         <th className="text-center">Action</th>
@@ -78,6 +79,7 @@ export default function CronJobs() {
                           <tr key={index}>
                             <td>{item.appTitle}</td>
                             <td>{truncateUrl(item.url, 30)}</td>
+                            <td>{scheduleFormat(item)}</td>
                             <td className="text-center">
                               {item.isEnabled ? (
                                 <span className="badge bg-success text-dark">

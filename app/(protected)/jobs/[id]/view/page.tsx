@@ -28,7 +28,7 @@ export default function ViewDetails() {
   const envForm = useEnvForm();
   const { saveForm, loading, errors } = useSaveForm();
   const { showDeleteAlert } = useSweetAlert();
-  const { job, onChangeType, onChangeValue, setJob } = useJob();
+  const { job, onChangeType, onChangeValue, setJob, onChangeMethod } = useJob();
   const { notification, onChangeNotification, setNotification } = useNotification('');
 
   const { id } = useParams();
@@ -38,7 +38,6 @@ export default function ViewDetails() {
     (async () => {
       _setLoading(true);
       const app = await getSingleJobAction(id as string);
-      console.log('client', app);
       if (app) {
         // set job
         setJob({
@@ -52,6 +51,7 @@ export default function ViewDetails() {
           dailyTime: app.dailyTime ?? '07:00',
           monthlyDay: app.monthlyDay ?? 15,
           monthlyTime: app.monthlyTime ?? '09:00',
+          method: app.method,
           createdAt: app.createdAt,
           updatedAt: app.updatedAt,
         });
@@ -126,6 +126,7 @@ export default function ViewDetails() {
                   job={job}
                   onChangeValue={onChangeValue}
                   onChangeType={onChangeType}
+                  onChangeMethod={onChangeMethod}
                   ScheduleType={ScheduleType}
                 />
               </div>
