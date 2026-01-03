@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
 import EnvForm from '@/app/components/forms/EnvForm';
-import { useEnvForm } from '@/app/hooks/useEnvForm';
+import { useEnv } from '@/app/hooks/useEnv';
 import { useSaveForm } from '@/app/hooks/useSaveForm';
 import Spinner from '@/app/components/ui/Spinner';
 import AlertMessage from '@/app/components/ui/AlertMessage';
@@ -19,13 +19,17 @@ import JobForm from '@/app/components/forms/JobForm';
 import NotificationForm from '@/app/components/forms/NotificationForm';
 import { ScheduleType } from '@/app/types/appTypes';
 import { FaBoltLightning, FaTrash } from 'react-icons/fa6';
+import { useHeader } from '@/app/hooks/useHeader';
+import HeaderForm from '@/app/components/forms/HeaderForm';
+import { env } from 'process';
 
 export default function ViewDetails() {
   const [_loading, _setLoading] = useState(false);
 
   // custom hooks
   const { isLoading } = useUser();
-  const envForm = useEnvForm();
+  const envs = useEnv();
+  const headers = useHeader();
   const { saveForm, loading, errors } = useSaveForm();
   const { showDeleteAlert } = useSweetAlert();
   const { job, onChangeType, onChangeValue, setJob, onChangeMethod } = useJob();
@@ -38,6 +42,7 @@ export default function ViewDetails() {
     (async () => {
       _setLoading(true);
       const app = await getSingleJobAction(id as string);
+      console.log(app);
       if (app) {
         // set job
         setJob({
@@ -55,6 +60,8 @@ export default function ViewDetails() {
           createdAt: app.createdAt,
           updatedAt: app.updatedAt,
         });
+        // set headers
+        headers.setHeader(app.headers?.length ? app.headers : headers.header);
         // set email notification
         setNotification({
           notifyOnFailure: app.notifyOnFailure,
@@ -62,7 +69,7 @@ export default function ViewDetails() {
           notificationEmail: app.notificationEmail,
         });
         // set env
-        envForm.setEnv(app.envVariables);
+        envs.setEnv(app.envVariables?.length ? app.envVariables : envs.env);
         _setLoading(false);
       }
     })();
@@ -73,7 +80,8 @@ export default function ViewDetails() {
     const payload = {
       ...job,
       ...notification,
-      env: envForm.env,
+      headers: headers.header,
+      env: envs.env,
     };
 
     saveForm(payload);
@@ -118,7 +126,6 @@ export default function ViewDetails() {
         </div>
       ) : (
         <>
-          {' '}
           <div className="col-md-12">
             <div className="card">
               <div className="card-body">
@@ -132,6 +139,15 @@ export default function ViewDetails() {
               </div>
             </div>
           </div>
+
+          <div className="col-md-12">
+            <div className="card">
+              <div className="card-body">
+                <HeaderForm {...headers} />
+              </div>
+            </div>
+          </div>
+
           <div className="col-md-12">
             <div className="card">
               <div className="card-body">
@@ -143,13 +159,15 @@ export default function ViewDetails() {
               </div>
             </div>
           </div>
+
           <div className="col-md-12">
             <div className="card">
               <div className="card-body">
-                <EnvForm {...envForm} />
+                <EnvForm {...envs} />
               </div>
             </div>
           </div>
+
           <div className="col-md-12 pb-5">
             <div className=" d-flex justify-content-end mt-n2">
               <Link

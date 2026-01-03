@@ -54,8 +54,11 @@ export function useSaveForm() {
     setLoading(true);
 
     payload.env = cleanArray(payload.env);
+    payload.headers = cleanArray(payload.headers);
 
     let result;
+
+    // console.log(payload);
 
     if (payload.id) {
       // ** UPDATE existing app

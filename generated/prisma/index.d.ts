@@ -9710,22 +9710,22 @@ export namespace Prisma {
 
   export type HeaderMinAggregateOutputType = {
     id: string | null
-    key: string | null
-    value: string | null
+    headerKey: string | null
+    headerValue: string | null
     appId: string | null
   }
 
   export type HeaderMaxAggregateOutputType = {
     id: string | null
-    key: string | null
-    value: string | null
+    headerKey: string | null
+    headerValue: string | null
     appId: string | null
   }
 
   export type HeaderCountAggregateOutputType = {
     id: number
-    key: number
-    value: number
+    headerKey: number
+    headerValue: number
     appId: number
     _all: number
   }
@@ -9733,22 +9733,22 @@ export namespace Prisma {
 
   export type HeaderMinAggregateInputType = {
     id?: true
-    key?: true
-    value?: true
+    headerKey?: true
+    headerValue?: true
     appId?: true
   }
 
   export type HeaderMaxAggregateInputType = {
     id?: true
-    key?: true
-    value?: true
+    headerKey?: true
+    headerValue?: true
     appId?: true
   }
 
   export type HeaderCountAggregateInputType = {
     id?: true
-    key?: true
-    value?: true
+    headerKey?: true
+    headerValue?: true
     appId?: true
     _all?: true
   }
@@ -9827,8 +9827,8 @@ export namespace Prisma {
 
   export type HeaderGroupByOutputType = {
     id: string
-    key: string
-    value: string
+    headerKey: string
+    headerValue: string
     appId: string
     _count: HeaderCountAggregateOutputType | null
     _min: HeaderMinAggregateOutputType | null
@@ -9851,36 +9851,36 @@ export namespace Prisma {
 
   export type HeaderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    key?: boolean
-    value?: boolean
+    headerKey?: boolean
+    headerValue?: boolean
     appId?: boolean
     app?: boolean | AppDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["header"]>
 
   export type HeaderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    key?: boolean
-    value?: boolean
+    headerKey?: boolean
+    headerValue?: boolean
     appId?: boolean
     app?: boolean | AppDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["header"]>
 
   export type HeaderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    key?: boolean
-    value?: boolean
+    headerKey?: boolean
+    headerValue?: boolean
     appId?: boolean
     app?: boolean | AppDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["header"]>
 
   export type HeaderSelectScalar = {
     id?: boolean
-    key?: boolean
-    value?: boolean
+    headerKey?: boolean
+    headerValue?: boolean
     appId?: boolean
   }
 
-  export type HeaderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "key" | "value" | "appId", ExtArgs["result"]["header"]>
+  export type HeaderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "headerKey" | "headerValue" | "appId", ExtArgs["result"]["header"]>
   export type HeaderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     app?: boolean | AppDefaultArgs<ExtArgs>
   }
@@ -9898,8 +9898,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      key: string
-      value: string
+      headerKey: string
+      headerValue: string
       appId: string
     }, ExtArgs["result"]["header"]>
     composites: {}
@@ -10326,8 +10326,8 @@ export namespace Prisma {
    */
   interface HeaderFieldRefs {
     readonly id: FieldRef<"Header", 'String'>
-    readonly key: FieldRef<"Header", 'String'>
-    readonly value: FieldRef<"Header", 'String'>
+    readonly headerKey: FieldRef<"Header", 'String'>
+    readonly headerValue: FieldRef<"Header", 'String'>
     readonly appId: FieldRef<"Header", 'String'>
   }
     
@@ -13070,8 +13070,8 @@ export namespace Prisma {
 
   export const HeaderScalarFieldEnum: {
     id: 'id',
-    key: 'key',
-    value: 'value',
+    headerKey: 'headerKey',
+    headerValue: 'headerValue',
     appId: 'appId'
   };
 
@@ -13739,36 +13739,36 @@ export namespace Prisma {
     OR?: HeaderWhereInput[]
     NOT?: HeaderWhereInput | HeaderWhereInput[]
     id?: StringFilter<"Header"> | string
-    key?: StringFilter<"Header"> | string
-    value?: StringFilter<"Header"> | string
+    headerKey?: StringFilter<"Header"> | string
+    headerValue?: StringFilter<"Header"> | string
     appId?: StringFilter<"Header"> | string
     app?: XOR<AppScalarRelationFilter, AppWhereInput>
   }
 
   export type HeaderOrderByWithRelationInput = {
     id?: SortOrder
-    key?: SortOrder
-    value?: SortOrder
+    headerKey?: SortOrder
+    headerValue?: SortOrder
     appId?: SortOrder
     app?: AppOrderByWithRelationInput
   }
 
   export type HeaderWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    appId_key?: HeaderAppIdKeyCompoundUniqueInput
+    appId_headerKey?: HeaderAppIdHeaderKeyCompoundUniqueInput
     AND?: HeaderWhereInput | HeaderWhereInput[]
     OR?: HeaderWhereInput[]
     NOT?: HeaderWhereInput | HeaderWhereInput[]
-    key?: StringFilter<"Header"> | string
-    value?: StringFilter<"Header"> | string
+    headerKey?: StringFilter<"Header"> | string
+    headerValue?: StringFilter<"Header"> | string
     appId?: StringFilter<"Header"> | string
     app?: XOR<AppScalarRelationFilter, AppWhereInput>
-  }, "id" | "appId_key">
+  }, "id" | "appId_headerKey">
 
   export type HeaderOrderByWithAggregationInput = {
     id?: SortOrder
-    key?: SortOrder
-    value?: SortOrder
+    headerKey?: SortOrder
+    headerValue?: SortOrder
     appId?: SortOrder
     _count?: HeaderCountOrderByAggregateInput
     _max?: HeaderMaxOrderByAggregateInput
@@ -13780,8 +13780,8 @@ export namespace Prisma {
     OR?: HeaderScalarWhereWithAggregatesInput[]
     NOT?: HeaderScalarWhereWithAggregatesInput | HeaderScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Header"> | string
-    key?: StringWithAggregatesFilter<"Header"> | string
-    value?: StringWithAggregatesFilter<"Header"> | string
+    headerKey?: StringWithAggregatesFilter<"Header"> | string
+    headerValue?: StringWithAggregatesFilter<"Header"> | string
     appId?: StringWithAggregatesFilter<"Header"> | string
   }
 
@@ -14476,49 +14476,49 @@ export namespace Prisma {
 
   export type HeaderCreateInput = {
     id?: string
-    key: string
-    value: string
+    headerKey: string
+    headerValue: string
     app: AppCreateNestedOneWithoutHeadersInput
   }
 
   export type HeaderUncheckedCreateInput = {
     id?: string
-    key: string
-    value: string
+    headerKey: string
+    headerValue: string
     appId: string
   }
 
   export type HeaderUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    key?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
+    headerKey?: StringFieldUpdateOperationsInput | string
+    headerValue?: StringFieldUpdateOperationsInput | string
     app?: AppUpdateOneRequiredWithoutHeadersNestedInput
   }
 
   export type HeaderUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    key?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
+    headerKey?: StringFieldUpdateOperationsInput | string
+    headerValue?: StringFieldUpdateOperationsInput | string
     appId?: StringFieldUpdateOperationsInput | string
   }
 
   export type HeaderCreateManyInput = {
     id?: string
-    key: string
-    value: string
+    headerKey: string
+    headerValue: string
     appId: string
   }
 
   export type HeaderUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    key?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
+    headerKey?: StringFieldUpdateOperationsInput | string
+    headerValue?: StringFieldUpdateOperationsInput | string
   }
 
   export type HeaderUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    key?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
+    headerKey?: StringFieldUpdateOperationsInput | string
+    headerValue?: StringFieldUpdateOperationsInput | string
     appId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -15248,29 +15248,29 @@ export namespace Prisma {
     appId?: SortOrder
   }
 
-  export type HeaderAppIdKeyCompoundUniqueInput = {
+  export type HeaderAppIdHeaderKeyCompoundUniqueInput = {
     appId: string
-    key: string
+    headerKey: string
   }
 
   export type HeaderCountOrderByAggregateInput = {
     id?: SortOrder
-    key?: SortOrder
-    value?: SortOrder
+    headerKey?: SortOrder
+    headerValue?: SortOrder
     appId?: SortOrder
   }
 
   export type HeaderMaxOrderByAggregateInput = {
     id?: SortOrder
-    key?: SortOrder
-    value?: SortOrder
+    headerKey?: SortOrder
+    headerValue?: SortOrder
     appId?: SortOrder
   }
 
   export type HeaderMinOrderByAggregateInput = {
     id?: SortOrder
-    key?: SortOrder
-    value?: SortOrder
+    headerKey?: SortOrder
+    headerValue?: SortOrder
     appId?: SortOrder
   }
 
@@ -16594,14 +16594,14 @@ export namespace Prisma {
 
   export type HeaderCreateWithoutAppInput = {
     id?: string
-    key: string
-    value: string
+    headerKey: string
+    headerValue: string
   }
 
   export type HeaderUncheckedCreateWithoutAppInput = {
     id?: string
-    key: string
-    value: string
+    headerKey: string
+    headerValue: string
   }
 
   export type HeaderCreateOrConnectWithoutAppInput = {
@@ -16728,8 +16728,8 @@ export namespace Prisma {
     OR?: HeaderScalarWhereInput[]
     NOT?: HeaderScalarWhereInput | HeaderScalarWhereInput[]
     id?: StringFilter<"Header"> | string
-    key?: StringFilter<"Header"> | string
-    value?: StringFilter<"Header"> | string
+    headerKey?: StringFilter<"Header"> | string
+    headerValue?: StringFilter<"Header"> | string
     appId?: StringFilter<"Header"> | string
   }
 
@@ -17273,8 +17273,8 @@ export namespace Prisma {
 
   export type HeaderCreateManyAppInput = {
     id?: string
-    key: string
-    value: string
+    headerKey: string
+    headerValue: string
   }
 
   export type EnvVarUpdateWithoutAppInput = {
@@ -17327,20 +17327,20 @@ export namespace Prisma {
 
   export type HeaderUpdateWithoutAppInput = {
     id?: StringFieldUpdateOperationsInput | string
-    key?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
+    headerKey?: StringFieldUpdateOperationsInput | string
+    headerValue?: StringFieldUpdateOperationsInput | string
   }
 
   export type HeaderUncheckedUpdateWithoutAppInput = {
     id?: StringFieldUpdateOperationsInput | string
-    key?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
+    headerKey?: StringFieldUpdateOperationsInput | string
+    headerValue?: StringFieldUpdateOperationsInput | string
   }
 
   export type HeaderUncheckedUpdateManyWithoutAppInput = {
     id?: StringFieldUpdateOperationsInput | string
-    key?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
+    headerKey?: StringFieldUpdateOperationsInput | string
+    headerValue?: StringFieldUpdateOperationsInput | string
   }
 
 

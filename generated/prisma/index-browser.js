@@ -197,8 +197,8 @@ exports.Prisma.EnvVarScalarFieldEnum = {
 
 exports.Prisma.HeaderScalarFieldEnum = {
   id: 'id',
-  key: 'key',
-  value: 'value',
+  headerKey: 'headerKey',
+  headerValue: 'headerValue',
   appId: 'appId'
 };
 

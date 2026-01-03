@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   // -----------------------------
   const { searchParams } = new URL(request.url);
   const keepDays = Number(searchParams.get('keep')) || 0;
-  const latestCount = Number(searchParams.get('latest')) || 0; // New Param'
+  const latestCount = Number(searchParams.get('latest')) || 0;
 
   // -----------------------------
   // AUTHORIZATION CHECK

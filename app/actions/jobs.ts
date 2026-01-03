@@ -36,10 +36,22 @@ export async function createJobAction(data: AppFormProps) {
                   envValue: item.envValue,
                 })),
               }
-            : undefined, // Prisma skips this field entirely if it's undefined
+            : undefined,
+        headers:
+          data.headers && data.headers.length > 0
+            ? {
+                create: data.headers
+                  .filter((h) => h.headerKey.trim() !== '')
+                  .map((h) => ({
+                    headerKey: h.headerKey,
+                    headerValue: h.headerValue,
+                  })),
+              }
+            : undefined,
       },
       include: {
         envVariables: true,
+        headers: true,
       },
     });
 
@@ -60,8 +72,13 @@ export async function getJobsAction(take = 10) {
 
     const apps = await prisma.app.findMany({
       // Filter so the user ONLY sees their own apps
-      where: { userId: session.user.id },
-      include: { envVariables: true },
+      where: {
+        userId: session.user.id,
+      },
+      include: {
+        envVariables: true,
+        headers: true,
+      },
       skip: 0,
       take,
       orderBy: { createdAt: 'desc' },
@@ -85,7 +102,10 @@ export async function getSingleJobAction(id: string) {
         id,
         userId: session.user.id, // Security: Ensure the user owns the app they are trying to view
       },
-      include: { envVariables: true },
+      include: {
+        envVariables: true,
+        headers: true,
+      },
     });
 
     revalidatePath(`/job/${id}/view`);
@@ -102,8 +122,14 @@ export async function updateJobAction(data: AppFormProps) {
     const session = await auth();
     if (!session?.user?.id) return { success: false, error: 'Unauthorized' };
 
-    const safeEnv = data.env || [];
-    const envData = safeEnv.map(({ envKey, envValue }) => ({ envKey, envValue }));
+    // Filter out empty keys to keep the DB clean
+    const envData = (data.env || [])
+      .filter((item) => item.envKey.trim() !== '')
+      .map(({ envKey, envValue }) => ({ envKey, envValue }));
+
+    const headerData = (data.headers || [])
+      .filter((h) => h.headerKey.trim() !== '')
+      .map(({ headerKey, headerValue }) => ({ headerKey, headerValue }));
 
     const result = await prisma.app.update({
       where: {
@@ -123,15 +149,21 @@ export async function updateJobAction(data: AppFormProps) {
         notifyOnFailure: data.notifyOnFailure,
         notifyOnRecovery: data.notifyOnRecovery,
         notificationEmail: data.notificationEmail,
-        userId: session.user.id,
         method: data.method,
         lastRunAt: null,
         envVariables: {
           deleteMany: {},
           create: envData,
         },
+        headers: {
+          deleteMany: {},
+          create: headerData,
+        },
       },
-      include: { envVariables: true },
+      include: {
+        envVariables: true,
+        headers: true,
+      },
     });
 
     revalidatePath(`/jobs`);

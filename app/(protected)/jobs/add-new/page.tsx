@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
 import EnvForm from '@/app/components/forms/EnvForm';
-import { useEnvForm } from '@/app/hooks/useEnvForm';
+import { useEnv } from '@/app/hooks/useEnv';
 import { useSaveForm } from '@/app/hooks/useSaveForm';
 import Spinner from '@/app/components/ui/Spinner';
 import AlertMessage from '@/app/components/ui/AlertMessage';
@@ -14,12 +14,15 @@ import { useNotification } from '@/app/hooks/useNotification';
 import { useUser } from '@/app/hooks/useAuth';
 import useJob from '@/app/hooks/useJob';
 import { ScheduleType } from '@/app/types/appTypes';
-import { FaBoltLightning, FaFloppyDisk } from 'react-icons/fa6';
+import { FaBoltLightning } from 'react-icons/fa6';
+import HeaderForm from '@/app/components/forms/HeaderForm';
+import { useHeader } from '@/app/hooks/useHeader';
 
 export default function AddNew() {
   // custom hooks
   const { user, isLoading } = useUser();
-  const envForm = useEnvForm();
+  const headers = useHeader();
+  const envs = useEnv();
   const { notification, onChangeNotification } = useNotification(user?.email || '');
   const { job, onChangeType, onChangeValue, onChangeMethod } = useJob();
   const { saveForm, loading, errors } = useSaveForm();
@@ -29,7 +32,8 @@ export default function AddNew() {
     const payload = {
       ...job,
       ...notification,
-      env: envForm.env,
+      headers: headers.header,
+      env: envs.env,
     };
 
     saveForm(payload);
@@ -69,6 +73,7 @@ export default function AddNew() {
             <AlertMessage errors={errors.filter((err) => err)} />
           )}
         </div>
+
         <div className="col-md-12">
           <div className="card">
             <div className="card-body">
@@ -82,6 +87,15 @@ export default function AddNew() {
             </div>
           </div>
         </div>
+
+        <div className="col-md-12">
+          <div className="card">
+            <div className="card-body">
+              <HeaderForm {...headers} />
+            </div>
+          </div>
+        </div>
+
         <div className="col-md-12">
           <div className="card">
             <div className="card-body">
@@ -93,10 +107,11 @@ export default function AddNew() {
             </div>
           </div>
         </div>
+
         <div className="col-md-12">
           <div className="card">
             <div className="card-body">
-              <EnvForm {...envForm} />
+              <EnvForm {...envs} />
             </div>
           </div>
         </div>

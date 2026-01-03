@@ -25,7 +25,6 @@ export default function Dashboard() {
       setloading(true);
       const res = await getDashboardAction();
       setData(res as DashboardTypes);
-      console.log(res);
       setloading(false);
     })();
   }, [refresh]);

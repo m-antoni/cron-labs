@@ -20,6 +20,8 @@ export type AppFormProps = {
   notifyOnFailure: boolean;
   notifyOnRecovery: boolean;
   notificationEmail: string;
+  // Headers
+  headers?: Header[];
   // ENV
   env?: EnvItem[];
 };
@@ -51,6 +53,7 @@ export type JobFormTypes = {
   monthlyDay: number;
   monthlyTime: string;
   method?: HttpMethod;
+  header?: Header;
 };
 
 export type ExecutionLogSummary = {
@@ -111,3 +114,10 @@ export interface ExecutionLogResponse {
   success?: boolean;
   error?: string;
 }
+
+export type Header = {
+  id?: string;
+  appId?: string;
+  headerKey: string;
+  headerValue: string;
+};

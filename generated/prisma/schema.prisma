@@ -146,15 +146,15 @@ enum HttpMethod {
 }
 
 model Header {
-  id    String @id @default(cuid())
-  key   String @map("header_key")
-  value String @map("header_value")
+  id          String @id @default(cuid())
+  headerKey   String @map("header_key")
+  headerValue String @map("header_value")
 
   // Relation to App
   appId String @map("app_id")
   app   App    @relation(fields: [appId], references: [id], onDelete: Cascade)
 
-  @@unique([appId, key])
+  @@unique([appId, headerKey])
   @@map("headers")
 }
 

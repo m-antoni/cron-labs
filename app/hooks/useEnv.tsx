@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { generate32CharToken, isSingleEmpty } from '@/app/lib/helpers';
 import { EnvItem } from '@/app/types/appTypes';
 
-export function useEnvForm() {
+export function useEnv() {
   const [env, setEnv] = useState<EnvItem[]>([{ envKey: '', envValue: '' }]);
 
   // add input row
