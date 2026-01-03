@@ -114,8 +114,7 @@ export default function Dashboard() {
                           </tr>
                         </thead>
                         <tbody>
-                          {data &&
-                            data.executionLogs.length > 0 &&
+                          {data?.executionLogs?.length > 0 &&
                             data.executionLogs.map((item: any) => (
                               <tr key={item.id}>
                                 <td>
