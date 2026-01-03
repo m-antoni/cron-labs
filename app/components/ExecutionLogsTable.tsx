@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { FaCircle, FaClock } from 'react-icons/fa6';
 import { FaCheckCircle } from 'react-icons/fa';
 import { formatDuration, scheduleFormat } from '@/app/lib/helpers';
-import { calculateNextRun, formatDate, formatLastRun } from '@/app/lib/formatDate';
+import { calculateNextRun, formatDate } from '@/app/lib/formatDate';
 import { ExecutionLogResponse } from '@/app/types/appTypes';
 
 export default function ExecutionLogsTable({ data }: { data: ExecutionLogResponse }) {
@@ -35,7 +35,7 @@ export default function ExecutionLogsTable({ data }: { data: ExecutionLogRespons
                   {item.app.lastRunAt ? formatDate(item.app.lastRunAt) : 'n/a'}
                 </td>
                 <td>
-                  <FaClock className="mr-1" /> {calculateNextRun(item.createdAt, item.app as any)}
+                  <FaClock className="mr-1" /> {calculateNextRun(item.createdAt, item.app)}
                 </td>
                 <td>
                   <div className="badge bg-dark text-white">

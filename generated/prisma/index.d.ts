@@ -7340,6 +7340,7 @@ export namespace Prisma {
     notifyOnRecovery: boolean | null
     notificationEmail: string | null
     userId: string | null
+    timezone: string | null
     lastRunAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7361,6 +7362,7 @@ export namespace Prisma {
     notifyOnRecovery: boolean | null
     notificationEmail: string | null
     userId: string | null
+    timezone: string | null
     lastRunAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7382,6 +7384,7 @@ export namespace Prisma {
     notifyOnRecovery: number
     notificationEmail: number
     userId: number
+    timezone: number
     lastRunAt: number
     createdAt: number
     updatedAt: number
@@ -7415,6 +7418,7 @@ export namespace Prisma {
     notifyOnRecovery?: true
     notificationEmail?: true
     userId?: true
+    timezone?: true
     lastRunAt?: true
     createdAt?: true
     updatedAt?: true
@@ -7436,6 +7440,7 @@ export namespace Prisma {
     notifyOnRecovery?: true
     notificationEmail?: true
     userId?: true
+    timezone?: true
     lastRunAt?: true
     createdAt?: true
     updatedAt?: true
@@ -7457,6 +7462,7 @@ export namespace Prisma {
     notifyOnRecovery?: true
     notificationEmail?: true
     userId?: true
+    timezone?: true
     lastRunAt?: true
     createdAt?: true
     updatedAt?: true
@@ -7565,6 +7571,7 @@ export namespace Prisma {
     notifyOnRecovery: boolean
     notificationEmail: string
     userId: string
+    timezone: string
     lastRunAt: Date | null
     createdAt: Date
     updatedAt: Date
@@ -7605,6 +7612,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail?: boolean
     userId?: boolean
+    timezone?: boolean
     lastRunAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7631,6 +7639,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail?: boolean
     userId?: boolean
+    timezone?: boolean
     lastRunAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7653,6 +7662,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail?: boolean
     userId?: boolean
+    timezone?: boolean
     lastRunAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7675,12 +7685,13 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail?: boolean
     userId?: boolean
+    timezone?: boolean
     lastRunAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AppOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "appTitle" | "url" | "description" | "isEnabled" | "scheduleType" | "intervalMinutes" | "dailyTime" | "monthlyDay" | "monthlyTime" | "method" | "notifyOnFailure" | "notifyOnRecovery" | "notificationEmail" | "userId" | "lastRunAt" | "createdAt" | "updatedAt", ExtArgs["result"]["app"]>
+  export type AppOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "appTitle" | "url" | "description" | "isEnabled" | "scheduleType" | "intervalMinutes" | "dailyTime" | "monthlyDay" | "monthlyTime" | "method" | "notifyOnFailure" | "notifyOnRecovery" | "notificationEmail" | "userId" | "timezone" | "lastRunAt" | "createdAt" | "updatedAt", ExtArgs["result"]["app"]>
   export type AppInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     envVariables?: boolean | App$envVariablesArgs<ExtArgs>
@@ -7719,6 +7730,7 @@ export namespace Prisma {
       notifyOnRecovery: boolean
       notificationEmail: string
       userId: string
+      timezone: string
       lastRunAt: Date | null
       createdAt: Date
       updatedAt: Date
@@ -8164,6 +8176,7 @@ export namespace Prisma {
     readonly notifyOnRecovery: FieldRef<"App", 'Boolean'>
     readonly notificationEmail: FieldRef<"App", 'String'>
     readonly userId: FieldRef<"App", 'String'>
+    readonly timezone: FieldRef<"App", 'String'>
     readonly lastRunAt: FieldRef<"App", 'DateTime'>
     readonly createdAt: FieldRef<"App", 'DateTime'>
     readonly updatedAt: FieldRef<"App", 'DateTime'>
@@ -13050,6 +13063,7 @@ export namespace Prisma {
     notifyOnRecovery: 'notifyOnRecovery',
     notificationEmail: 'notificationEmail',
     userId: 'userId',
+    timezone: 'timezone',
     lastRunAt: 'lastRunAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -13571,6 +13585,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFilter<"App"> | boolean
     notificationEmail?: StringFilter<"App"> | string
     userId?: StringFilter<"App"> | string
+    timezone?: StringFilter<"App"> | string
     lastRunAt?: DateTimeNullableFilter<"App"> | Date | string | null
     createdAt?: DateTimeFilter<"App"> | Date | string
     updatedAt?: DateTimeFilter<"App"> | Date | string
@@ -13596,6 +13611,7 @@ export namespace Prisma {
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
     userId?: SortOrder
+    timezone?: SortOrder
     lastRunAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13624,6 +13640,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFilter<"App"> | boolean
     notificationEmail?: StringFilter<"App"> | string
     userId?: StringFilter<"App"> | string
+    timezone?: StringFilter<"App"> | string
     lastRunAt?: DateTimeNullableFilter<"App"> | Date | string | null
     createdAt?: DateTimeFilter<"App"> | Date | string
     updatedAt?: DateTimeFilter<"App"> | Date | string
@@ -13649,6 +13666,7 @@ export namespace Prisma {
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
     userId?: SortOrder
+    timezone?: SortOrder
     lastRunAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13678,6 +13696,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolWithAggregatesFilter<"App"> | boolean
     notificationEmail?: StringWithAggregatesFilter<"App"> | string
     userId?: StringWithAggregatesFilter<"App"> | string
+    timezone?: StringWithAggregatesFilter<"App"> | string
     lastRunAt?: DateTimeNullableWithAggregatesFilter<"App"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"App"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"App"> | Date | string
@@ -14283,6 +14302,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    timezone?: string
     lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14308,6 +14328,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail: string
     userId: string
+    timezone?: string
     lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14331,6 +14352,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14356,6 +14378,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14380,6 +14403,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail: string
     userId: string
+    timezone?: string
     lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14400,6 +14424,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14421,6 +14446,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15140,6 +15166,7 @@ export namespace Prisma {
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
     userId?: SortOrder
+    timezone?: SortOrder
     lastRunAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15166,6 +15193,7 @@ export namespace Prisma {
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
     userId?: SortOrder
+    timezone?: SortOrder
     lastRunAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15187,6 +15215,7 @@ export namespace Prisma {
     notifyOnRecovery?: SortOrder
     notificationEmail?: SortOrder
     userId?: SortOrder
+    timezone?: SortOrder
     lastRunAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -16136,6 +16165,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    timezone?: string
     lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16159,6 +16189,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    timezone?: string
     lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16300,6 +16331,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFilter<"App"> | boolean
     notificationEmail?: StringFilter<"App"> | string
     userId?: StringFilter<"App"> | string
+    timezone?: StringFilter<"App"> | string
     lastRunAt?: DateTimeNullableFilter<"App"> | Date | string | null
     createdAt?: DateTimeFilter<"App"> | Date | string
     updatedAt?: DateTimeFilter<"App"> | Date | string
@@ -16748,6 +16780,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    timezone?: string
     lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16772,6 +16805,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail: string
     userId: string
+    timezone?: string
     lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16810,6 +16844,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16834,6 +16869,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16856,6 +16892,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    timezone?: string
     lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16880,6 +16917,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail: string
     userId: string
+    timezone?: string
     lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16918,6 +16956,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16942,6 +16981,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16964,6 +17004,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    timezone?: string
     lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16988,6 +17029,7 @@ export namespace Prisma {
     notifyOnRecovery?: boolean
     notificationEmail: string
     userId: string
+    timezone?: string
     lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17026,6 +17068,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17050,6 +17093,7 @@ export namespace Prisma {
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17100,6 +17144,7 @@ export namespace Prisma {
     notifyOnFailure?: boolean
     notifyOnRecovery?: boolean
     notificationEmail: string
+    timezone?: string
     lastRunAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17204,6 +17249,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17227,6 +17273,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17250,6 +17297,7 @@ export namespace Prisma {
     notifyOnFailure?: BoolFieldUpdateOperationsInput | boolean
     notifyOnRecovery?: BoolFieldUpdateOperationsInput | boolean
     notificationEmail?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

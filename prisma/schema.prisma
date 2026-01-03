@@ -111,6 +111,7 @@ model App {
   executionLogs     ExecutionLog[]
   headers           Header[]
 
+  timezone          String       @default("Asia/Manila") @map("timezone")    
   lastRunAt         DateTime?    @map("last_run_at")
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt

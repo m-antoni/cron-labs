@@ -183,6 +183,7 @@ exports.Prisma.AppScalarFieldEnum = {
   notifyOnRecovery: 'notifyOnRecovery',
   notificationEmail: 'notificationEmail',
   userId: 'userId',
+  timezone: 'timezone',
   lastRunAt: 'lastRunAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

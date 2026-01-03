@@ -2,6 +2,13 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/app/lib/prisma';
 import nodemailer from 'nodemailer';
 import { formatDuration } from '@/app/lib/helpers';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+// Initialize dayjs plugins
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export async function GET(request: Request) {
   // -----------------------------
@@ -51,13 +58,22 @@ export async function GET(request: Request) {
       }
       cleanupDescription = `Manual: Deleted latest ${latestCount} logs`;
     } else {
-      // STRATEGY: Use Date-based retention
-      const cutoffDate = new Date();
-      cutoffDate.setDate(cutoffDate.getDate() - keepDays);
+      // -----------------------------------------------------------
+      // FEATURE ADDED: Timezone-Aware Retention Logic
+      // -----------------------------------------------------------
+      const tz = 'Asia/Manila';
+
+      // We use dayjs to calculate the cutoff relative to Manila time.
+      // .subtract(keepDays) moves back in time, and .startOf('day')
+      // ensures we don't delete logs from "today" in the local timezone.
+      const cutoffDate = dayjs().tz(tz).subtract(keepDays, 'day').startOf('day').toDate();
 
       deleteWhereClause = { createdAt: { lt: cutoffDate } };
+
       cleanupDescription =
-        keepDays === 0 ? 'Full Database clean-up' : `Retention: Kept last ${keepDays} days`;
+        keepDays === 0
+          ? 'Full Database clean-up'
+          : `Retention: Kept logs since ${dayjs(cutoffDate).tz(tz).format('MMM DD, YYYY')}`;
     }
 
     // -----------------------------
@@ -124,7 +140,7 @@ export async function GET(request: Request) {
       subject: `[CronLabs] Database Cleanup`,
       text: `Database cleanup completed.\n${emailPayload.body}`,
       html: `
-             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 3px; overflow: hidden;">
+     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 3px; overflow: hidden;">
           <div style="background-color: #2b3553; color: white; padding: 15px; text-align: center;">
             <h2 style="margin: 0; font-size: 18px;">CronLabs Database Cleanup</h2>
           </div>

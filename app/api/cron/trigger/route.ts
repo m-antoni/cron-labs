@@ -15,16 +15,6 @@ export async function GET(request: Request) {
 
   const now = new Date();
 
-  // Calculate total minutes since epoch to handle intervals consistently
-  const totalMinutes = Math.floor(now.getTime() / 60000);
-
-  // Use UTC values for comparison
-  const currentHour = now.getUTCHours();
-  const currentMin = now.getUTCMinutes();
-  const currentDay = now.getUTCDate();
-  const currentMonth = now.getUTCMonth();
-  const currentYear = now.getUTCFullYear();
-
   try {
     // Fetch only enabled apps and include their custom headers
     const appsToTrigger = await prisma.app.findMany({
@@ -32,46 +22,77 @@ export async function GET(request: Request) {
       include: { headers: true },
     });
 
-    // Determine which apps are due for execution
+    // Determine which apps or jobs are due for execution
     const activeTasks = appsToTrigger.filter((app) => {
-      // If force=true is passed, we ignore all schedule logic and run everything enabled
+      // If the 'force' parameter is passed via API, trigger the job immediately regardless of schedule
       if (force) return true;
 
-      const lastRun = app.lastRunAt ? new Date(app.lastRunAt) : new Date(0);
-      const secondsSinceLastRun = (now.getTime() - lastRun.getTime()) / 1000;
+      // Identify the target timezone for this specific job, defaulting to Manila if none exists
+      const jobTz = app.timezone || 'Asia/Manila';
 
-      // GLOBAL SAFETY: Skip if it ran less than 45 seconds ago to prevent double-firing
-      if (secondsSinceLastRun < 45) return false;
+      // Convert the global server time into a localized date string and back into a Date object
+      // This ensures we are checking the "Midnight" relative to the user's location, not the server's location
+      const localDate = new Date(new Date().toLocaleString('en-US', { timeZone: jobTz }));
 
-      const ranToday =
-        lastRun.getUTCDate() === currentDay &&
-        lastRun.getUTCMonth() === currentMonth &&
-        lastRun.getUTCFullYear() === currentYear;
+      // Extract hours, minutes, and the day of the month from the localized date
+      const currentHr = localDate.getHours();
+      const currentMin = localDate.getMinutes();
+      const currentDay = localDate.getDate();
 
-      // Minutes Schedule
+      // Check if the job has been run before
+      const lastRun = app.lastRunAt ? new Date(app.lastRunAt) : null;
+      let ranToday = false;
+
+      if (lastRun) {
+        // Convert the previous run time into the job's local timezone for a fair comparison
+        const lastRunLocal = new Date(lastRun.toLocaleString('en-US', { timeZone: jobTz }));
+
+        // Compare the last run date with the current localized date to see if they match
+        // This prevents a "Daily" job from running twice within the same calendar day in that timezone
+        ranToday =
+          lastRunLocal.getDate() === currentDay &&
+          lastRunLocal.getMonth() === localDate.getMonth() &&
+          lastRunLocal.getFullYear() === localDate.getFullYear();
+
+        // Safety buffer: If the job ran less than 45 seconds ago, block it
+        // This prevents multiple triggers if the cron hits the API several times in one minute
+        if ((new Date().getTime() - lastRun.getTime()) / 1000 < 45) return false;
+      }
+
+      // Logic for jobs scheduled to run every X minutes
       if (app.scheduleType === 'MINUTES' && app.intervalMinutes) {
-        if (app.intervalMinutes === 1) return true;
-        const isDueNow = totalMinutes % app.intervalMinutes === 0;
-        const wasDueLastMin = (totalMinutes - 1) % app.intervalMinutes === 0;
-        return isDueNow || wasDueLastMin;
+        // Use the absolute global time (minutes since 1970) to check if the interval is met
+        const totalMinutes = Math.floor(new Date().getTime() / 60000);
+        return totalMinutes % app.intervalMinutes === 0;
       }
 
-      // Daily Schedule
+      // Logic for jobs scheduled to run once every day
       if (app.scheduleType === 'DAILY' && app.dailyTime) {
+        // Break down the "HH:mm" string into numbers for comparison
         const [targetHr, targetMin] = app.dailyTime.split(':').map(Number);
+
+        // Check if the current localized time is at or past the user's scheduled time
         const isTimeReached =
-          currentHour > targetHr || (currentHour === targetHr && currentMin >= targetMin);
+          currentHr > targetHr || (currentHr === targetHr && currentMin >= targetMin);
+
+        // Run only if the time is reached and the job hasn't successfully completed earlier today
         return isTimeReached && !ranToday;
       }
 
-      // Monthly Schedule
-      if (app.scheduleType === 'MONTHLY' && app.monthlyDay === currentDay && app.monthlyTime) {
+      // Logic for jobs scheduled once a month on a specific day
+      if (app.scheduleType === 'MONTHLY' && app.monthlyDay && app.monthlyTime) {
         const [targetHr, targetMin] = app.monthlyTime.split(':').map(Number);
+
+        // Check if the localized time is at or past the target time
         const isTimeReached =
-          currentHour > targetHr || (currentHour === targetHr && currentMin >= targetMin);
-        return isTimeReached && !ranToday;
+          currentHr > targetHr || (currentHr === targetHr && currentMin >= targetMin);
+
+        // Only trigger if the current day matches the target day (e.g., the 15th)
+        // and the time is reached, and it hasn't run yet today
+        return currentDay === app.monthlyDay && isTimeReached && !ranToday;
       }
 
+      // If none of the conditions above are met, do not trigger the task
       return false;
     });
 

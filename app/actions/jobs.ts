@@ -28,6 +28,7 @@ export async function createJobAction(data: AppFormProps) {
         notificationEmail: data.notificationEmail,
         userId: session.user.id,
         method: data.method,
+        timezone: data.timezone,
         envVariables:
           data.env && data.env.length > 0
             ? {
@@ -151,6 +152,7 @@ export async function updateJobAction(data: AppFormProps) {
         notificationEmail: data.notificationEmail,
         method: data.method,
         lastRunAt: null,
+        timezone: data.timezone,
         envVariables: {
           deleteMany: {},
           create: envData,

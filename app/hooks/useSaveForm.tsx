@@ -9,11 +9,13 @@ import {
 import { useRouter } from 'next/navigation';
 import { AppFormProps } from '@/app/types/appTypes';
 import { createJobAction, updateJobAction } from '@/app/actions/jobs';
+import { useTimezone } from './useTimezone';
 
 export function useSaveForm() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<string[]>(['']);
   const router = useRouter();
+  const { timezone } = useTimezone();
 
   const saveForm = async (payload: AppFormProps) => {
     const errorMessages: string[] = [];
@@ -53,8 +55,12 @@ export function useSaveForm() {
     // ** SEND DATA TO NEON DATABASE
     setLoading(true);
 
+    // ** remove the empty  key value pairs
     payload.env = cleanArray(payload.env);
     payload.headers = cleanArray(payload.headers);
+
+    // ** This will set the dynamic timezone
+    payload.timezone = timezone;
 
     let result;
 

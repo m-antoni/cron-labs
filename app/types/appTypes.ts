@@ -24,6 +24,7 @@ export type AppFormProps = {
   headers?: Header[];
   // ENV
   env?: EnvItem[];
+  timezone?: string;
 };
 
 export type EnvItem = {
