@@ -32,7 +32,9 @@ export default function ExecutionLogsTable({ data }: { data: ExecutionLogRespons
                 <td>{scheduleFormat(item.app)}</td>
                 <td>
                   <FaCheckCircle className="mr-1" />
-                  {item.app.lastRunAt ? formatDate(item.app.lastRunAt) : 'n/a'}
+                  {item.app.lastRunAt
+                    ? formatDate(item.app.lastRunAt, 'MMM DD, YYYY hh:mm A', item.app.timezone)
+                    : 'n/a'}
                 </td>
                 <td>
                   <FaClock className="mr-1" /> {calculateNextRun(item.createdAt, item.app)}

@@ -93,6 +93,7 @@ export interface AppReference {
   notificationEmail: string;
   createdAt: Date;
   lastRunAt?: Date;
+  timezone: string;
 }
 
 export interface ExecutionLogItem {

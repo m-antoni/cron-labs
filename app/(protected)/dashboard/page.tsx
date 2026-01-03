@@ -2,7 +2,7 @@
 
 import { getDashboardAction } from '@/app/actions/logs';
 import Spinner from '@/app/components/ui/Spinner';
-import { calculateNextRun, formatLastRun } from '@/app/lib/formatDate';
+import { calculateNextRun, formatDate, formatLastRun } from '@/app/lib/formatDate';
 import { formatDuration, scheduleFormat } from '@/app/lib/helpers';
 import { DashboardTypes } from '@/app/types/appTypes';
 import Link from 'next/link';
@@ -114,7 +114,8 @@ export default function Dashboard() {
                           </tr>
                         </thead>
                         <tbody>
-                          {data.executionLogs.length > 0 &&
+                          {data &&
+                            data.executionLogs.length > 0 &&
                             data.executionLogs.map((item: any) => (
                               <tr key={item.id}>
                                 <td>
@@ -124,7 +125,14 @@ export default function Dashboard() {
                                 </td>
                                 <td>{scheduleFormat(item.app)}</td>
                                 <td>
-                                  <FaCheckCircle className="mr-1" /> {formatLastRun(item.createdAt)}
+                                  <FaCheckCircle className="mr-1" />{' '}
+                                  {item.app.lastRunAt
+                                    ? formatDate(
+                                        item.app.lastRunAt,
+                                        'MMM DD, YYYY hh:mm A',
+                                        item.app.timezone,
+                                      )
+                                    : 'n/a'}
                                 </td>
                                 <td>
                                   <FaClock className="mr-1" />{' '}
