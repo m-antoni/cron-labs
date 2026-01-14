@@ -21,7 +21,6 @@ import { ScheduleType } from '@/app/types/appTypes';
 import { FaBoltLightning, FaTrash } from 'react-icons/fa6';
 import { useHeader } from '@/app/hooks/useHeader';
 import HeaderForm from '@/app/components/forms/HeaderForm';
-import { env } from 'process';
 
 export default function ViewDetails() {
   const [_loading, _setLoading] = useState(false);
@@ -148,7 +147,7 @@ export default function ViewDetails() {
             </div>
           </div>
 
-          <div className="col-md-12">
+          {/* <div className="col-md-12">
             <div className="card">
               <div className="card-body">
                 <NotificationForm
@@ -158,7 +157,7 @@ export default function ViewDetails() {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="col-md-12">
             <div className="card">

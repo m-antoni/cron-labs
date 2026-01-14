@@ -96,6 +96,7 @@ export default function AddNew() {
           </div>
         </div>
 
+        {/* 
         <div className="col-md-12">
           <div className="card">
             <div className="card-body">
@@ -106,7 +107,7 @@ export default function AddNew() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="col-md-12">
           <div className="card">
