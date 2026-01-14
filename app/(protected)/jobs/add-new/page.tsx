@@ -60,9 +60,9 @@ export default function AddNew() {
                   >
                     {loading ? <Spinner text="Saving..." size={19} /> : `Save`}
                   </Button>
-                  <Link href="#" className="btn btn-secondary px-3 text-warning">
+                  {/* <Link href="#" className="btn btn-secondary px-3 text-warning">
                     <FaBoltLightning className="text-warning" />
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>

@@ -106,9 +106,9 @@ export default function ViewDetails() {
                 >
                   {loading ? <Spinner text="Saving..." size={19} /> : `Save`}
                 </Button>
-                <Link href="#" className="btn btn-secondary px-3 mr-2 text-warning">
+                {/* <Link href="#" className="btn btn-secondary px-3 mr-2 text-warning">
                   <FaBoltLightning className="text-warning" />
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
