@@ -3,7 +3,6 @@
 Cron Labs is a Next.js web application that enables users to create and manage cron jobs to hit specific API endpoints on a set schedule. It provides a centralized interface to automate periodic requests, ensuring your services stay active and perform tasks at precise intervals.
 
 ![App Screenshot](image01.png)
-![App Screenshot](image02.png)
 
 <br/>
 
