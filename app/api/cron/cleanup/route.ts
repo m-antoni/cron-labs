@@ -59,20 +59,22 @@ export async function GET(request: Request) {
       cleanupDescription = `Manual: Deleted latest ${latestCount} logs`;
     } else {
       // -----------------------------------------------------------
-      // FEATURE ADDED: Timezone-Aware Retention Logic
+      // FEATURE UPDATED: Conditional Retention Logic
       // -----------------------------------------------------------
       const tz = 'Asia/Manila';
 
-      // We use dayjs to calculate the cutoff relative to Manila time.
-      // .subtract(keepDays) moves back in time, and .startOf('day')
-      // ensures we don't delete logs from "today" in the local timezone.
-      const cutoffDate = dayjs().tz(tz).subtract(keepDays, 'day').startOf('day').toDate();
+      // If keepDays is 0, we want EVERYTHING (now).
+      // If keepDays > 0, we want to keep today's logs safe by using startOf('day').
+      const cutoffDate =
+        keepDays === 0
+          ? dayjs().toDate()
+          : dayjs().tz(tz).subtract(keepDays, 'day').startOf('day').toDate();
 
       deleteWhereClause = { createdAt: { lt: cutoffDate } };
 
       cleanupDescription =
         keepDays === 0
-          ? 'Full Database clean-up'
+          ? 'Full Database clean-up (All records deleted)'
           : `Retention: Kept logs since ${dayjs(cutoffDate).tz(tz).format('MMM DD, YYYY')}`;
     }
 
