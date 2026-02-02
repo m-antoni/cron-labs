@@ -1,6 +1,6 @@
 # Cron Labs
 
-Cron Labs is a Next.js web application that enables users to create and manage cron jobs to hit specific API endpoints on a set schedule. It provides a centralized interface to automate periodic requests, ensuring your services stay active and perform tasks at precise intervals.
+Cron Labs is a Next.js web application designed to automate and manage scheduled API requests. It provides a centralized dashboard to ensure your services remain active and execute tasks at precise, customizable intervals.
 
 ![App Screenshot](image01.png)
 
@@ -23,11 +23,11 @@ Cron Labs is a Next.js web application that enables users to create and manage c
 
 ## Features
 
-- **Custom Scheduling:** Create cron jobs to call API endpoints at custom intervals like every day or every 2, 15, or 30 minutes.
+- **Custom Scheduling:** Effortlessly create cron jobs to trigger API endpoints at any interval—whether it's every 2, 15, or 30 minutes, or once a day.
 - **Live Monitoring:** View all active cron jobs and their current status in one dashboard.
-- **Detailed Logging:** See the last run time and the next scheduled run for each job.  
-  _Note:_ Every day at 12 AM, the `execution_logs` table is cleaned up to keep only the logs from the last day.
-- **Next.js Uptime:** Uses cron-job.org to keep the Next.js serverless app active.
+- **Detailed Logging:** See the last run time and the next scheduled run for each job.
+- **Smart Log Management:** To maintain peak performance, the execution_logs table is automatically pruned every day at 12 AM, keeping your database lean with only the most recent logs.
+- **Next.js Uptime Optimization:** Specifically designed to work with `cron-job.org` to prevent serverless functions from idling, ensuring your Next.js app stays "warm" and responsive.
 
 ## Getting Started
 
