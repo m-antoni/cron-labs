@@ -14,19 +14,21 @@ export default function Navbar() {
 
   const userImage = user?.image ? user?.image : '/assets/img/anime3.png';
 
+  console.log(user);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-absolute navbar-transparent">
         <div className="container-fluid">
           <div className="navbar-wrapper">
-            <div className="navbar-toggle d-inline">
+            {/* <div className="navbar-toggle d-inline">
               <button type="button" className="navbar-toggler">
                 <span className="navbar-toggler-bar bar1" />
                 <span className="navbar-toggler-bar bar2" />
                 <span className="navbar-toggler-bar bar3" />
               </button>
-            </div>
-            <a className="navbar-brand" href="#">
+            </div> */}
+            <a className="navbar-brand" href="#" style={{ marginLeft: '-7px', fontWeight: '500' }}>
               {currentPage}
             </a>
           </div>
