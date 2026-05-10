@@ -14,8 +14,6 @@ export default function Navbar() {
 
   const userImage = user?.image ? user?.image : '/assets/img/anime3.png';
 
-  console.log(user);
-
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-absolute navbar-transparent">
