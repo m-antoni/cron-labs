@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
+import TrackingPixel from '@/components/TrackingPixel';
 
 export const metadata: Metadata = {
   title: 'Cron Labs',
@@ -28,6 +29,8 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+
+        <TrackingPixel site="m-antoni-cronlabs.vercel.app" />
 
         {/* Core JS Files */}
         <Script src="/assets/js/core/jquery.min.js" strategy="beforeInteractive" />
